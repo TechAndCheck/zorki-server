@@ -50,16 +50,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-  # Sorbet is a type-checker for Ruby. We prefer statically-defined types when possible
-  gem "sorbet"
   # This is required for Ruby 3 from Sorbet
   gem "sorted_set"
 
   # Tmuxinator lets us set up standard development environments easily
   gem "tmuxinator"
-
-  # We use Yard for all of our documentation
-  gem "yard", require: false
 end
 
 group :test do
@@ -79,12 +74,6 @@ gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
 # Figaro lets us configure and require environment variable at boot, instead of getting stuck with a
 # bad deployment
 gem "figaro"
-
-# The production runtime for sorbet
-gem "sorbet-runtime"
-
-# Rails specific features for Sorbet
-gem "sorbet-rails"
 
 # Add the ability to load `.env` files on launch
 gem "dotenv-rails"
