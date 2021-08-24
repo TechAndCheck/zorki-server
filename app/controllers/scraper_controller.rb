@@ -1,9 +1,19 @@
 class ScraperController < ApplicationController
   def scrape
-    url = "https://www.instagram.com/p/CSsiBchjl14/"
-    post = InstagramMediaSource.extract(url)
+    url = params["url"]
 
-    
+    if url.nil?
+      render json: { error: "Url not given" }, status: 400
+      return
+    end
+
+    begin
+      post = InstagramMediaSource.extract(url)
+    rescue MediaSource::HostError => e
+      render json: { error: "Url must be a proper Instagram url"}, status: 400
+      return
+    end
+
     render json: PostBlueprint.render(post)
 	end
 end

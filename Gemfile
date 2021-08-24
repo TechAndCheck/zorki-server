@@ -90,3 +90,7 @@ gem "dotenv-rails"
 
 # Make JSON-ifying stuff easier
 gem "blueprinter"
+
+# Used to store settings for auth keys
+gem "ledermann-rails-settings"
+
