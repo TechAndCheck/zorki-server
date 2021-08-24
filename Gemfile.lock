@@ -76,7 +76,9 @@ GEM
     apparition (0.6.0)
       capybara (~> 3.13, < 4)
       websocket-driver (>= 0.6.5)
+    ast (2.4.2)
     bindex (0.8.1)
+    blueprinter (0.25.3)
     bootsnap (1.7.7)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -130,6 +132,9 @@ GEM
     nokogiri (1.12.3-arm64-darwin)
       racc (~> 1.4)
     oj (3.13.2)
+    parallel (1.20.1)
+    parser (3.0.2.0)
+      ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -173,12 +178,45 @@ GEM
       method_source
       rake (>= 0.13)
       thor (~> 1.0)
+    rainbow (3.0.0)
     rake (13.0.6)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbtree (0.4.4)
     regexp_parser (2.1.1)
+    rexml (3.2.5)
+    rubocop (1.19.1)
+      parallel (~> 1.10)
+      parser (>= 3.0.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.9.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.11.0)
+      parser (>= 3.0.1.1)
+    rubocop-minitest (0.15.0)
+      rubocop (>= 0.90, < 2.0)
+    rubocop-packaging (0.5.1)
+      rubocop (>= 0.89, < 2.0)
+    rubocop-performance (1.11.5)
+      rubocop (>= 1.7.0, < 2.0)
+      rubocop-ast (>= 0.4.0)
+    rubocop-rails (2.11.3)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 1.7.0, < 2.0)
+    rubocop-rails_config (1.7.0)
+      railties (>= 5.0)
+      rubocop (>= 1.19)
+      rubocop-ast (>= 1.0.1)
+      rubocop-minitest (~> 0.15)
+      rubocop-packaging (~> 0.5)
+      rubocop-performance (~> 1.11)
+      rubocop-rails (~> 2.0)
+    ruby-progressbar (1.11.0)
     ruby_jard (0.3.1)
       byebug (>= 9.1, < 12.0)
       pry (~> 0.13.0)
@@ -225,6 +263,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (2.0.0)
     uniform_notifier (1.14.2)
     web-console (4.1.0)
       actionview (>= 6.0.0)
@@ -246,12 +285,14 @@ GEM
     xdg (2.2.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.26)
     zeitwerk (2.4.2)
 
 PLATFORMS
   arm64-darwin-20
 
 DEPENDENCIES
+  blueprinter
   bootsnap (>= 1.4.4)
   bullet
   byebug
@@ -264,6 +305,11 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
+  rubocop
+  rubocop-minitest
+  rubocop-performance
+  rubocop-rails
+  rubocop-rails_config
   ruby_jard
   sass-rails (>= 6)
   selenium-webdriver
@@ -276,6 +322,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
+  yard
   zorki (= 0.1.0)!
 
 RUBY VERSION
