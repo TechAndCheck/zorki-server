@@ -9,13 +9,18 @@ class PostBlueprint < Blueprinter::Base
   association :user, blueprint: UserBlueprint
 
   field :image_files do |post|
-    post.image_file_names.map do |file_name|
-      file = File.open(file_name).read
-      Base64.encode64(file)
+    to_return = nil
+    unless post.image_file_names.nil?
+      to_return = post.image_file_names.map do |file_name|
+        file = File.open(file_name).read
+        Base64.encode64(file)
+      end
     end
+
+    to_return
   end
 
-  field :video_files do |post|
+  field :video_file do |post|
     to_return = nil
     unless post.video_file_name.nil?
       file = File.open(post.video_file_name).read
