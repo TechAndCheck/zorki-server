@@ -1,4 +1,7 @@
 class ScraperController < ApplicationController
+
+  before_action :verify_auth_key
+
   def scrape
     url = params["url"]
 

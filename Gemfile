@@ -92,5 +92,5 @@ gem "dotenv-rails"
 gem "blueprinter"
 
 # Used to store settings for auth keys
-gem "ledermann-rails-settings"
+gem "rails-settings-cached"
 

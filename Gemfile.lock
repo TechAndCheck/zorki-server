@@ -115,8 +115,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
-    ledermann-rails-settings (2.5.0)
-      activerecord (>= 4.2)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -174,6 +172,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
+    rails-settings-cached (2.7.1)
+      rails (>= 5.0.0)
     railties (6.1.4.1)
       actionpack (= 6.1.4.1)
       activesupport (= 6.1.4.1)
@@ -302,12 +302,12 @@ DEPENDENCIES
   dotenv-rails
   figaro
   jbuilder (~> 2.7)
-  ledermann-rails-settings
   listen (~> 3.3)
   pry-byebug
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
+  rails-settings-cached
   rubocop
   rubocop-minitest
   rubocop-performance

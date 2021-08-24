@@ -10,17 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_204828) do
+ActiveRecord::Schema.define(version: 2021_08_24_224437) do
 
   create_table "settings", force: :cascade do |t|
     t.string "var", null: false
     t.text "value"
-    t.string "target_type", null: false
-    t.integer "target_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
-    t.index ["target_type", "target_id"], name: "index_settings_on_target"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
 end
