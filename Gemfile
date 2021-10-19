@@ -54,8 +54,7 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem "rack-mini-profiler", "~> 2.0"
   gem "listen", "~> 3.3"
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "spring"
+  # Spring is removed here because it causes serious issues with the scrapers
 
   # This is required for Ruby 3 from Sorbet
   gem "sorted_set"
