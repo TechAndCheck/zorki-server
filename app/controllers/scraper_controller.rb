@@ -18,5 +18,5 @@ class ScraperController < ApplicationController
     end
 
     render json: PostBlueprint.render(post)
-	end
+  end
 end
