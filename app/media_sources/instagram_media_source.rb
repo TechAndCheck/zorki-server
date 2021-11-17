@@ -23,6 +23,7 @@ class InstagramMediaSource < MediaSource
   rescue StandardError => error
     error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{url}"
     self.send_message_to_slack(error_message)
+    raise
   end
 
   # Initialize the object and capture the screenshot automatically.
