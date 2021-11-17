@@ -323,6 +323,7 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   tmuxinator
   turbolinks (~> 5)
+  typhoeus
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers

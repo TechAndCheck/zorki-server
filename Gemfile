@@ -93,3 +93,5 @@ gem "blueprinter"
 # Used to store settings for auth keys
 gem "rails-settings-cached"
 
+# For creating web requests
+gem "typhoeus"

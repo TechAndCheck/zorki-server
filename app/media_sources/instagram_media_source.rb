@@ -1,4 +1,6 @@
 class InstagramMediaSource < MediaSource
+  include Slack
+
   attr_reader(:url)
 
   # Limit all urls to the host below
@@ -18,6 +20,9 @@ class InstagramMediaSource < MediaSource
   def self.extract(url, save_screenshot = false)
     object = self.new(url)
     object.retrieve_instagram_post
+  rescue StandardError => error
+    error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{url}"
+    self.send_message_to_slack(error_message)
   end
 
   # Initialize the object and capture the screenshot automatically.
