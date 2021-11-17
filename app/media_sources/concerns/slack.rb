@@ -18,5 +18,3 @@ module Slack
     end
   end
 end
-
-# curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
