@@ -5,6 +5,7 @@ class ScraperController < ApplicationController
   def scrape
     url = params["url"]
 
+    # jard
     if url.nil?
       render json: { error: "Url not given" }, status: 400
       return
@@ -13,7 +14,7 @@ class ScraperController < ApplicationController
     begin
       post = InstagramMediaSource.extract(url)
     rescue MediaSource::HostError => e
-      render json: { error: "Url must be a proper Instagram url"}, status: 400
+      render json: { error: "Url must be a proper Instagram url" }, status: 400
       return
     end
 
