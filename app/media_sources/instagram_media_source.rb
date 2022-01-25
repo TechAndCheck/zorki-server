@@ -21,7 +21,7 @@ class InstagramMediaSource < MediaSource
     object = self.new(url)
     object.retrieve_instagram_post
   rescue StandardError => error
-    error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{url}"
+    error_message = "*#{ApplicationController.name_for_differentiated_type} Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{url}"
     self.send_message_to_slack(error_message)
     raise
   end
