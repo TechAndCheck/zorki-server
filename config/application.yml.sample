@@ -6,12 +6,28 @@
 # Steps for setup
 # 1. Copy this file into the same `/config` folder
 # 2. Rename the file to `application.yml`
-# 3. Create an Instagram user/password and add them to the appropriate variables below
-# 4. Run `$ rails secret` from the command line and put in the `secret_key_base` variable below]
-# 5. If you want to set up Slack notification for errors ***TODO***
-# 6. AGAIN: DO NOT COMMIT THIS NEW FILE
+# 3. Set `DIFFERENTIATE_AS` to the type of scraper this should become (see options below)
+# 4. Follow set up instructions for the specific service (see below)
+# 5. Run `$ rails secret` from the command line and put in the `secret_key_base` variable below]
+# 6. If you want to set up Slack notification for errors following the instructions for "Incoming Webook" at https://api.slack.com/apps
+#	 and uncomment and set `SLACK_ERROR_WEBHOOK_URL` below.
+# 7. AGAIN: DO NOT COMMIT THIS NEW FILE
 
-INSTAGRAM_USER_NAME: john_doe
-INSTAGRAM_PASSWORD: "password_goes_here"
+# Options available: `instagram`, `facebook`
+DIFFERENTIATE_AS: XXXXXXX
+
+# Instagram setup:
+# 1. Uncomment the lines below starting with `INSTAGRAM_USER_NAME` AND `INSTAGRAM_PASSWORD`
+# 2. Create an Instagram user/password and add them to the appropriate variables below 
+# INSTAGRAM_USER_NAME: john_doe
+# INSTAGRAM_PASSWORD: "password_goes_here"
+
+# Facebook setup:
+# 1. Uncomment the lines below starting with `FACEBOOK_USER_NAME` AND `FACEBOOK_PASSWORD`
+# 2. Create an Facebook user/password and add them to the appropriate variables below 
+# FACEBOOK_USER_NAME: john_doe
+# FACEBOOK_PASSWORD: "password_goes_here"
+
 secret_key_base: XXXXXXX
-SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"
+
+# SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"

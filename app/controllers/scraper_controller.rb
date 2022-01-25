@@ -4,7 +4,6 @@ class ScraperController < ApplicationController
   def scrape
     url = params["url"]
 
-    # jard
     if url.nil?
       render json: { error: "Url not given" }, status: 400
       return
