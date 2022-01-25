@@ -12,7 +12,7 @@ class ScraperController < ApplicationController
     begin
       post = InstagramMediaSource.extract(url)
     rescue MediaSource::HostError
-      render json: { error: "Url must be a proper Instagram url" }, status: 400
+      render json: { error: "Url must be a proper #{self.name_for_differentiated_type} url" }, status: 400
       return
     end
 
