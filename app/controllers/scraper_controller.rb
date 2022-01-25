@@ -1,5 +1,4 @@
 class ScraperController < ApplicationController
-
   before_action :verify_auth_key
 
   def scrape
@@ -13,7 +12,7 @@ class ScraperController < ApplicationController
 
     begin
       post = InstagramMediaSource.extract(url)
-    rescue MediaSource::HostError => e
+    rescue MediaSource::HostError
       render json: { error: "Url must be a proper Instagram url" }, status: 400
       return
     end
