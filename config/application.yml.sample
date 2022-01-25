@@ -1,0 +1,17 @@
+# This is a sample environment variables file that gets loaded automatically via the Figaro gem in self-hosted situations
+# If you are running this is a hosted environment (Heroku etc) then these will have to be set some other way.
+#
+# WARNING DO NOT COMMIT THIS FILE AFTER RENAMING IT.
+#
+# Steps for setup
+# 1. Copy this file into the same `/config` folder
+# 2. Rename the file to `application.yml`
+# 3. Create an Instagram user/password and add them to the appropriate variables below
+# 4. Run `$ rails secret` from the command line and put in the `secret_key_base` variable below]
+# 5. If you want to set up Slack notification for errors ***TODO***
+# 6. AGAIN: DO NOT COMMIT THIS NEW FILE
+
+INSTAGRAM_USER_NAME: john_doe
+INSTAGRAM_PASSWORD: "password_goes_here"
+secret_key_base: XXXXXXX
+SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"
