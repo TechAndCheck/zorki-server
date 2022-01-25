@@ -10,7 +10,7 @@ class UserBlueprint < Blueprinter::Base
           :profile_link,
           :profile_image,
           :profile_image_url
-  
+
   field :profile_image do |user|
     to_return = nil
     unless user.profile_image.nil?

@@ -88,7 +88,7 @@ case differentiated_as
 when "instagram"
   gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
 when "facebook"
-  gem "forki", "0.1.0", git: "https://github.com/oneroyalace/forki" 
+  gem "forki", "0.1.0", git: "https://github.com/oneroyalace/forki"
 else
   raise "Invalid differentiation type: #{differentiated_as}"
 end
