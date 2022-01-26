@@ -18,6 +18,7 @@ class FacebookMediaSource < MediaSource
   #   Default: false
   # @returns [String or nil] the path of the screenshot if the screenshot was saved
   def self.extract(url, save_screenshot = false)
+    self.validate_facebook_post_url(url)
     object = self.new(url)
     object.retrieve_facebook_post
   end
@@ -52,32 +53,8 @@ class FacebookMediaSource < MediaSource
   # @params url [String] a url to grab data for
   # @return [Forki::Post]
   def retrieve_facebook_post
-    response = Typhoeus.get(
-      Figaro.env.FORKI_SERVER_URL,
-      followlocation: true,
-      params: { auth_key: Figaro.env.FORKI_AUTH_KEY, url: @url }
-    )
-
-    raise ExternalServerError, "Error: #{response.code} returned from external Forki server" unless response.code == 200
-
-    JSON.parse(response.body)
-  end
-
-private
-
-  # Grab the ID from the end of an Instagram URL
-  #
-  # @note this assumes a valid url or else it'll return weird stuff
-  # @!scope class
-  # @!visibility private
-  # @params url [String] a url to extract an id from
-  # @return [String] the id from the url or [Nil]
-  def self.extract_instagram_id_from_url(url)
-    uri = URI(url)
-    splits = T.must(uri.path).split("/")
-    raise FacebookMediaSource::InvalidFacebookPostUrlError if splits.empty?
-
-    splits[2]
+    # Unlike Zorki, Forki expects a full URL
+    Forki::Post.lookup(url)
   end
 end
 

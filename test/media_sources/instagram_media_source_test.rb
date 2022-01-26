@@ -4,7 +4,9 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   def setup; end
 
   test "can send error via slack notification" do
-    InstagramMediaSource.send_message_to_slack("Test message of some sort")
+    assert_nothing_raised do
+      InstagramMediaSource.send_message_to_slack("Test message for Instagram Media Source")
+    end
   end
 
   test "can send error is there is an error while scraping" do
@@ -14,6 +16,9 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "can extract post without an error being posted to Slack" do
-    InstagramMediaSource.extract("https://www.instagram.com/p/CS17kK3n5-J/")
+    assert_nothing_raised do
+      post = InstagramMediaSource.extract("https://www.instagram.com/p/CS17kK3n5-J/")
+      assert_not_nil(post)
+    end
   end
 end

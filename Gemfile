@@ -101,3 +101,5 @@ gem "stimulus-rails"
 gem "sprockets-rails", require: "sprockets/railtie"
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem "debug", ">= 1.0.0"
