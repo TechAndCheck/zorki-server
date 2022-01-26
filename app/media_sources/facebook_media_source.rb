@@ -1,13 +1,13 @@
-class InstagramMediaSource < MediaSource
-  include Slack
-
+# typed: true
+class FacebookMediaSource < MediaSource
+  include Forki
   attr_reader(:url)
 
   # Limit all urls to the host below
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.instagram.com", "instagram.com"]
+    ["www.facebook.com"]
   end
 
   # Capture a screenshot of the given url
@@ -19,11 +19,20 @@ class InstagramMediaSource < MediaSource
   # @returns [String or nil] the path of the screenshot if the screenshot was saved
   def self.extract(url, save_screenshot = false)
     object = self.new(url)
-    object.retrieve_instagram_post
-  rescue StandardError => error
-    error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{url}"
-    self.send_message_to_slack(error_message)
-    raise
+    object.retrieve_facebook_post
+  end
+
+  # Validate that the url is a direct link to a post, poorly
+  #
+  # @note this assumes a valid url or else it'll always (usually, maybe, whatever) fail
+  #
+  # @!scope class
+  # @!visibility private
+  # @params url [String] a url to check if it's a valid Facebook post url
+  # @return [Boolean] if the string validates or not
+  def self.validate_facebook_post_url(url)
+    return true if /facebook.com\//.match?(url)
+    raise InvalidFacebookPostUrlError, "Facebook url #{url} does not have the standard url format"
   end
 
   # Initialize the object and capture the screenshot automatically.
@@ -33,36 +42,28 @@ class InstagramMediaSource < MediaSource
   def initialize(url)
     # Verify that the url has the proper host for this source. (@valid_host is set at the top of
     # this class)
-    InstagramMediaSource.check_url(url)
-    InstagramMediaSource.validate_instagram_post_url(url)
-
+    FacebookMediaSource.check_url(url)
     @url = url
   end
 
-  # Scrape the page using the Zorki gem and get an object
+  # Scrape the page using the Forki gem and get an object
   #
   # @!visibility private
   # @params url [String] a url to grab data for
-  # @return [Zorki::Post]
-  def retrieve_instagram_post
-    id = InstagramMediaSource.extract_instagram_id_from_url(@url)
-    Zorki::Post.lookup(id)
+  # @return [Forki::Post]
+  def retrieve_facebook_post
+    response = Typhoeus.get(
+      Figaro.env.FORKI_SERVER_URL,
+      followlocation: true,
+      params: { auth_key: Figaro.env.FORKI_AUTH_KEY, url: @url }
+    )
+
+    raise ExternalServerError, "Error: #{response.code} returned from external Forki server" unless response.code == 200
+
+    JSON.parse(response.body)
   end
 
 private
-
-  # Validate that the url is a direct link to a post, poorly
-  #
-  # @note this assumes a valid url or else it'll always (usually, maybe, whatever) fail
-  #
-  # @!scope class
-  # @!visibility private
-  # @params url [String] a url to check if it's a valid Instagram post url
-  # @return [Boolean] if the string validates or not
-  def self.validate_instagram_post_url(url)
-    return true if /instagram.com\/((p)|(reel))\/[\w]+/.match?(url)
-    raise InvalidInstagramPostUrlError, "Instagram url #{url} does not have the standard url format"
-  end
 
   # Grab the ID from the end of an Instagram URL
   #
@@ -73,12 +74,13 @@ private
   # @return [String] the id from the url or [Nil]
   def self.extract_instagram_id_from_url(url)
     uri = URI(url)
-    splits = uri.path.split("/")
-    raise InstagramMediaSource::InvalidInstagramPostUrlError if splits.empty?
+    splits = T.must(uri.path).split("/")
+    raise FacebookMediaSource::InvalidFacebookPostUrlError if splits.empty?
 
     splits[2]
   end
 end
 
 # A class to indicate that a post url passed in is invalid
-class InstagramMediaSource::InvalidInstagramPostUrlError < StandardError; end
+class FacebookMediaSource::InvalidFacebookPostUrlError < StandardError; end
+class FacebookMediaSource::ExternalServerError < StandardError; end

@@ -9,8 +9,14 @@ class ScraperController < ApplicationController
       return
     end
 
+    post = nil
     begin
-      post = InstagramMediaSource.extract(url)
+      case Figaro.env.DIFFERENTIATE_AS
+      when "instagram"
+        post = InstagramMediaSource.extract(url)
+      when "facebook"
+        post = FacebookMediaSource.extract(url)
+      end
     rescue MediaSource::HostError
       render json: { error: "Url must be a proper #{ApplicationController.name_for_differentiated_type} url" }, status: 400
       return

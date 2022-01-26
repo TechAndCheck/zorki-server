@@ -72,26 +72,8 @@ gem "webdrivers"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-# This is a hack to read in environment variables before Figaro is loaded and booted up, first it checks if
-# it's in an environment variable (such as it'd be on Heroku or something) and if not, parses the application.yml file
-#
-# Why is this being done? Because otherwise the settings for Capybara (used in the gems for the scraping) get overloaded
-# by the last of the gems to be loaded. So facebook.com is the home page no matter what if Forki is loaded last. We just
-# want one.
-differentiated_as = ENV["DIFFERENTIATED_AS"] if ENV.has_key?("DIFFERENTIATED_AS")
-if differentiated_as.nil?
-  require "YAML"
-  differentiated_as = YAML.load(File.read("config/application.yml"))["DIFFERENTIATE_AS"]
-end
-
-case differentiated_as
-when "instagram"
-  gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
-when "facebook"
-  gem "forki", "0.1.0", git: "https://github.com/oneroyalace/forki"
-else
-  raise "Invalid differentiation type: #{differentiated_as}"
-end
+gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
+gem "forki", "0.1.0", git: "https://github.com/oneroyalace/forki"
 
 # Figaro lets us configure and require environment variable at boot, instead of getting stuck with a
 # bad deployment

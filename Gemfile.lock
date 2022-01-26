@@ -9,6 +9,17 @@ GIT
       selenium-webdriver
       typhoeus
 
+GIT
+  remote: https://github.com/oneroyalace/forki
+  revision: 7c058146f4557774b4fe0a4e2ef89e824d6633f5
+  specs:
+    forki (0.1.0)
+      apparition
+      capybara
+      oj
+      selenium-webdriver
+      typhoeus
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -336,6 +347,7 @@ DEPENDENCIES
   cssbundling-rails
   dotenv-rails
   figaro
+  forki (= 0.1.0)!
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
