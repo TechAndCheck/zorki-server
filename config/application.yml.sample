@@ -10,7 +10,9 @@
 # 4. Follow set up instructions for the specific service (see below)
 # 5. Run `$ rails secret` from the command line and put in the `secret_key_base` variable below]
 # 6. If you want to set up Slack notification for errors following the instructions for "Incoming Webook" at https://api.slack.com/apps
-#	 and uncomment and set `SLACK_ERROR_WEBHOOK_URL` below.
+#	   and uncomment and set `SLACK_ERROR_WEBHOOK_URL` below.
+# 7. Add `ZENODOTUS_URL` to point to your Zenodotus instance for notifications when a scrape
+#    is done
 # 7. AGAIN: DO NOT COMMIT THIS NEW FILE
 
 # Options available: `instagram`, `facebook`
@@ -18,16 +20,17 @@ DIFFERENTIATE_AS: XXXXXXX
 
 # Instagram setup:
 # 1. Uncomment the lines below starting with `INSTAGRAM_USER_NAME` AND `INSTAGRAM_PASSWORD`
-# 2. Create an Instagram user/password and add them to the appropriate variables below 
+# 2. Create an Instagram user/password and add them to the appropriate variables below
 # INSTAGRAM_USER_NAME: john_doe
 # INSTAGRAM_PASSWORD: "password_goes_here"
 
 # Facebook setup:
 # 1. Uncomment the lines below starting with `FACEBOOK_USER_NAME` AND `FACEBOOK_PASSWORD`
-# 2. Create an Facebook user/password and add them to the appropriate variables below 
+# 2. Create an Facebook user/password and add them to the appropriate variables below
 # FACEBOOK_USER_NAME: john_doe
 # FACEBOOK_PASSWORD: "password_goes_here"
 
 secret_key_base: XXXXXXX
 
+# ZENODOTUS_URL: "XXXXXXXXXXXXX"
 # SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"
