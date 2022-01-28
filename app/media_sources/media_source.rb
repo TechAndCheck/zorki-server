@@ -1,6 +1,37 @@
 class MediaSource
   include Slack
 
+  # Enqueue a job to scrape a URL depending on the site this is set for.
+  #
+  # @!scope class
+  # @param url [String] the url to be scraped
+  # @returns [ScrapeJob] the job fired off when this is run
+  def self.scrape(url, callback_id = nil)
+    # We want to fail early if the URL is wrong
+    case Figaro.env.DIFFERENTIATE_AS
+    when "instagram"
+      InstagramMediaSource.check_url(url)
+    when "facebook"
+      FacebookMediaSource.check_url(url)
+    end
+
+    ScrapeJob.perform_later(url, callback_id)
+  end
+
+  # Scrape a URL depending on the site this is set for.
+  #
+  # @!scope class
+  # @param url [String] the url to be scraped
+  # @returns [Object] the scraped object returned from the respective gem.
+  def self.scrape!(url)
+    case Figaro.env.DIFFERENTIATE_AS
+    when "instagram"
+      InstagramMediaSource.extract(url)
+    when "facebook"
+      FacebookMediaSource.extract(url)
+    end
+  end
+
   # Check if +url+ has a host name the same as indicated by the +@@valid_host+ variable in a
   #   subclass.
   #
