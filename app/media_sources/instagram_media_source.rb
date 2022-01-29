@@ -1,6 +1,4 @@
 class InstagramMediaSource < MediaSource
-  include Slack
-
   attr_reader(:url)
 
   # Limit all urls to the host below

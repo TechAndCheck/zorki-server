@@ -1,4 +1,6 @@
 class MediaSource
+  include Slack
+
   # Check if +url+ has a host name the same as indicated by the +@@valid_host+ variable in a
   #   subclass.
   #

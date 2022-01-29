@@ -73,6 +73,7 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
 gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
+gem "forki", "0.1.0", git: "https://github.com/oneroyalace/forki"
 
 # Figaro lets us configure and require environment variable at boot, instead of getting stuck with a
 # bad deployment
@@ -100,3 +101,5 @@ gem "stimulus-rails"
 gem "sprockets-rails", require: "sprockets/railtie"
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem "debug", ">= 1.0.0"

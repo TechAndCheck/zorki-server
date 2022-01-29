@@ -1,20 +1,24 @@
 class ScraperController < ApplicationController
-
   before_action :verify_auth_key
 
   def scrape
     url = params["url"]
 
-    # jard
     if url.nil?
       render json: { error: "Url not given" }, status: 400
       return
     end
 
+    post = nil
     begin
-      post = InstagramMediaSource.extract(url)
-    rescue MediaSource::HostError => e
-      render json: { error: "Url must be a proper Instagram url" }, status: 400
+      case Figaro.env.DIFFERENTIATE_AS
+      when "instagram"
+        post = InstagramMediaSource.extract(url)
+      when "facebook"
+        post = FacebookMediaSource.extract(url)
+      end
+    rescue MediaSource::HostError
+      render json: { error: "Url must be a proper #{ApplicationController.name_for_differentiated_type} url" }, status: 400
       return
     end
 

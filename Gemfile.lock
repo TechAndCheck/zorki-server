@@ -1,8 +1,19 @@
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 34f2cd1e9df666734d1570e1229273fd3473ed37
+  revision: 2e9cacc2a93f98556c204f2b255a3fc358db0703
   specs:
     zorki (0.1.0)
+      apparition
+      capybara
+      oj
+      selenium-webdriver
+      typhoeus
+
+GIT
+  remote: https://github.com/oneroyalace/forki
+  revision: 7c058146f4557774b4fe0a4e2ef89e824d6633f5
+  specs:
+    forki (0.1.0)
       apparition
       capybara
       oj
@@ -107,6 +118,9 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.0.0)
       railties (>= 6.0.0)
+    debug (1.4.0)
+      irb (>= 1.3.6)
+      reline (>= 0.2.7)
     digest (3.1.0)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -126,7 +140,10 @@ GEM
     importmap-rails (1.0.2)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    io-console (0.5.11)
     io-wait (0.2.1)
+    irb (1.4.1)
+      reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -175,7 +192,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.13.0)
     public_suffix (4.0.6)
-    puma (5.5.2)
+    puma (5.6.0)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -218,6 +235,8 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.4)
     regexp_parser (2.2.0)
+    reline (0.3.1)
+      io-console (~> 0.5)
     rexml (3.2.5)
     rubocop (1.25.0)
       parallel (~> 1.10)
@@ -334,8 +353,10 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   cssbundling-rails
+  debug (>= 1.0.0)
   dotenv-rails
   figaro
+  forki (= 0.1.0)!
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)

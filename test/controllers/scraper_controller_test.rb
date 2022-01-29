@@ -6,7 +6,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "scraping without an auth key returns a 401" do
-    get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { }
+    get "/scrape.json", headers: { "Content-type" => "application/json" }, params: {}
     assert_response 401
   end
 
