@@ -16,6 +16,8 @@ class MediaSource
     end
 
     ScrapeJob.perform_later(url, callback_id)
+    # ScrapeJob.perform_now(url, callback_id)
+
   end
 
   # Scrape a URL depending on the site this is set for.
