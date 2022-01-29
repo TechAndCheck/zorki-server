@@ -25,7 +25,7 @@ DIFFERENTIATE_AS: XXXXXXX
 # Facebook setup:
 # 1. Uncomment the lines below starting with `FACEBOOK_USER_NAME` AND `FACEBOOK_PASSWORD`
 # 2. Create an Facebook user/password and add them to the appropriate variables below 
-# FACEBOOK_USER_NAME: john_doe
+# FACEBOOK_EMAIL: john_doe
 # FACEBOOK_PASSWORD: "password_goes_here"
 
 secret_key_base: XXXXXXX
