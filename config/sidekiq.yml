@@ -1,0 +1,2 @@
+# We only want Sidekiq to do one at a time because of the way Selenium doesn't handle multithreading
+:concurrency: 1

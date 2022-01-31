@@ -7,6 +7,8 @@ This is useful specifically because when scraping the IP of hosting servers may 
 1. Make sure you have Rails 3.1.0 installed (may work on older version, haven't checked)
 1. Grab this repo
 1. `$ bundle install` to get all the gems in
+1. Install Redis and make sure it's running using `$ redis-server` if running locally.
+1. Turn on Sidekiq (which is install with the gems) by running `$ sidekiq` in the project directory.
 1. Create `config/application.yml` and create `INSTAGRAM_USER_NAME`, `INSTAGRAM_PASSWORD`.
 1. Run `$ rails secret` and then add a variable `secret_key_base` to `config/application.yml`
 1. `$ rails db:migrate` to setup the database (this uses SQLite so there's no need for Postgres or MySQL or anything)

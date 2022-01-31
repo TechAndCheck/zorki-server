@@ -98,8 +98,14 @@ gem "importmap-rails"
 # Use Stimulus for Rails 7
 gem "stimulus-rails"
 
+# Sprockets helps do the CSS stuff
 gem "sprockets-rails", require: "sprockets/railtie"
 
+# Tailwind CSS integration
 gem "tailwindcss-rails", "~> 2.0"
 
+# New Rails 3.1 debug
 gem "debug", ">= 1.0.0"
+
+# Handles the queuing for jobs
+gem "sidekiq"

@@ -31,7 +31,21 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "scraping a video works" do
-    get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key }
-    assert_response 200
+    assert_enqueued_jobs(1) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json }
+      assert_response 200
+      assert JSON.parse(@response.body).has_key?("success")
+    end
+  end
+
+  test "submitting multiple jobs works" do
+    assert_enqueued_jobs(3) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json }
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json }
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json }
+
+      assert_response 200
+      assert JSON.parse(@response.body).has_key?("success")
+    end
   end
 end
