@@ -13,6 +13,12 @@ else
   raise "Invalid Differentiation Type: \"#{Figaro.env.DIFFERENTIATE_AS}\" must be of a valid type. Look at `/config/initializers/figaro.rb` for options."
 end
 
+# We default to requiring ZENODOTUS_URL as a callback unless we explicitly set it otherwise.
+# Note: ZENODOTUS_URL can still be set, which will become the fallback if there's not a callback url passed in
+unless Figaro.env.ALLOW_CUSTOM_CALLBACK.blank? == false && Figaro.env.ALLOW_CUSTOM_CALLBACK == "true"
+  Figaro.require_keys("ZENODOTUS_URL")
+end
+
 # Other optional environment variables:
 #
 # SLACK_ERROR_WEBHOOK_URL
