@@ -17,9 +17,9 @@ class FacebookMediaSource < MediaSource
   # @params save_screenshot [Boolean] whether to save the screenshot image (mostly for testing).
   #   Default: false
   # @returns [String or nil] the path of the screenshot if the screenshot was saved
-  def self.extract(url, save_screenshot = false)
-    self.validate_facebook_post_url(url)
-    object = self.new(url)
+  def self.extract(scrape, save_screenshot = false)
+    self.validate_facebook_post_url(scrape.url)
+    object = self.new(scrape.url)
     object.retrieve_facebook_post
   end
 

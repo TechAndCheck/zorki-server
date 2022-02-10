@@ -11,13 +11,13 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
 
   test "can send error is there is an error while scraping" do
     assert_raise(MediaSource::HostError) do
-      InstagramMediaSource.extract("https://www.example.com")
+      InstagramMediaSource.extract(Scrape.create({ url: "https://www.example.com" }))
     end
   end
 
   test "can extract post without an error being posted to Slack" do
     assert_nothing_raised do
-      post = InstagramMediaSource.extract("https://www.instagram.com/p/CS17kK3n5-J/")
+      post = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CS17kK3n5-J/" }))
       assert_not_nil(post)
     end
   end

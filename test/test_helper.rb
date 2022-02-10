@@ -10,4 +10,15 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Change an environmental variable for just the block, this is important because ENV variables are
+  # constant for the *entire* test run, so we need to reset it at the end otherwise it persists
+  #
+  # Note: I'm just going to assume this isn't thread-safe
+  def modify_environment_variable(variable_name, temp_variable_value, &block)
+    original_variable_value = ENV[variable_name]
+    ENV[variable_name] = temp_variable_value
+    yield
+    ENV[variable_name] = original_variable_value
+  end
 end
