@@ -6,7 +6,7 @@ class MediaSource
   # @!scope class
   # @param url [String] the url to be scraped
   # @returns [ScrapeJob] the job fired off when this is run
-  def self.scrape(url, callback_id = nil, callback_url = Figaro.env.ZENODOTUS_URL)
+  def self.scrape(url, callback_id = nil, callback_url = Figaro.env.ZENODOTUS_URL, force: false)
     # We want to fail early if the URL is wrong
     case Figaro.env.DIFFERENTIATE_AS
     when "instagram"
@@ -15,8 +15,11 @@ class MediaSource
       FacebookMediaSource.check_url(url)
     end
 
-    ScrapeJob.perform_later(url, callback_id, callback_url)
-    # ScrapeJob.perform_now(url, callback_id)
+    if Figaro.env.ALLOW_FORCE == "true" && force == "true"
+      self.scrape!(url, callback_id, callback_url)
+    else
+      ScrapeJob.perform_later(url, callback_id, callback_url)
+    end
   end
 
   # Scrape a URL depending on the site this is set for.

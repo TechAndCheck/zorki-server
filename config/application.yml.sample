@@ -39,3 +39,7 @@ ALLOW_CUSTOM_CALLBACK: false
 
 # ZENODOTUS_URL: "XXXXXXXXXXXXX"
 # SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"
+
+# This is for testing purposes which allows another system to force a scrape to happen now, skipping the queue.
+# Defaults to false if not set
+# ALLOW_FORCE: "false"

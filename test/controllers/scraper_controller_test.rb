@@ -95,4 +95,12 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
       assert JSON.parse(@response.body).has_key?("success")
     end
   end
+
+  test "forcing a scrape works and renders a result" do
+    assert_enqueued_jobs(0) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(@response.body).has_key?("success")
+    end
+  end
 end

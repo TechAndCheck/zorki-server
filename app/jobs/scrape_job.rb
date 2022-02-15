@@ -8,6 +8,7 @@ class ScrapeJob < ApplicationJob
 
     results = MediaSource.scrape!(url, callback_id, callback_url)
 
+    print(results)
     Typhoeus.post("#{callback_url}/scrape/callback.json",
         headers: { "Content-Type": "application/json" },
         body: { callback_id: callback_id, scrape_result: PostBlueprint.render(results) }
