@@ -16,9 +16,9 @@ class MediaSource
     end
 
     if Figaro.env.ALLOW_FORCE == "true" && force == "true"
-      self.scrape!(url, callback_id, callback_url)
+      return self.scrape!(url, callback_id, callback_url)
     else
-      ScrapeJob.perform_later(url, callback_id, callback_url)
+      return ScrapeJob.perform_later(url, callback_id, callback_url)
     end
   end
 
@@ -34,12 +34,15 @@ class MediaSource
       callback_id: callback_id,
     })
 
+    object = nil
     case Figaro.env.DIFFERENTIATE_AS
     when "instagram"
-      InstagramMediaSource.extract(scrape)
+      object = InstagramMediaSource.extract(scrape)
     when "facebook"
-      FacebookMediaSource.extract(scrape)
+      object = FacebookMediaSource.extract(scrape)
     end
+
+    object
   end
 
   # Check if +url+ has a host name the same as indicated by the +@@valid_host+ variable in a

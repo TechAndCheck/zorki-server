@@ -16,14 +16,14 @@ class ScraperController < ApplicationController
     render json: { error: "Url not given" }, status: 400 and return if url.nil?
 
     begin
-      MediaSource.scrape(url, callback_id, callback_url, force: force)
+      results = MediaSource.scrape(url, callback_id, callback_url, force: force)
     rescue MediaSource::HostError
       render json: { error: "Url must be a proper #{ApplicationController.name_for_differentiated_type} url" }, status: 400
       return
     end
 
-    if params["force"] == true && Figaro.env.ALLOW_FORCE == "true"
-      render PostBlueprint.render(results) and return
+    if params["force"] == "true" && Figaro.env.ALLOW_FORCE == "true"
+      render json: PostBlueprint.render(results) and return
     end
 
     render json: { success: true }
