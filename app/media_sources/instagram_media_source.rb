@@ -1,6 +1,13 @@
 class InstagramMediaSource < MediaSource
   attr_reader(:url)
 
+  # A string to indicate what type of scraper this model is for
+  #
+  # @return [String] the canonical name for the type this scraper handles
+  def self.model_type
+    "instagram"
+  end
+
   # Limit all urls to the host below
   #
   # @return [String] or [Array] of [String] of valid host names
@@ -45,6 +52,12 @@ class InstagramMediaSource < MediaSource
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
     Zorki::Post.lookup(id)
+  end
+
+  def self.can_handle_url?(url)
+    InstagramMediaSource.send(:validate_instagram_post_url, url)
+  rescue InstagramMediaSource::InvalidInstagramPostUrlError
+    false
   end
 
 private

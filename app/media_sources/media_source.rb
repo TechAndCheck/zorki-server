@@ -8,12 +8,8 @@ class MediaSource
   # @returns [ScrapeJob] the job fired off when this is run
   def self.scrape(url, callback_id = nil, callback_url = Figaro.env.ZENODOTUS_URL, force: false)
     # We want to fail early if the URL is wrong
-    case Figaro.env.DIFFERENTIATE_AS
-    when "instagram"
-      InstagramMediaSource.check_url(url)
-    when "facebook"
-      FacebookMediaSource.check_url(url)
-    end
+    model = self.model_for_url(url)
+    raise MediaSource::HostError.new(url) if model.nil?
 
     if Figaro.env.ALLOW_FORCE == "true" && force == "true"
       return self.scrape!(url, callback_id, callback_url)
@@ -34,13 +30,15 @@ class MediaSource
       callback_id: callback_id,
     })
 
-    object = nil
-    case Figaro.env.DIFFERENTIATE_AS
-    when "instagram"
-      object = InstagramMediaSource.extract(scrape)
-    when "facebook"
-      object = FacebookMediaSource.extract(scrape)
-    end
+    model = self.model_for_url(url)
+    object = model.extract(scrape)
+    # object = nil
+    # case Figaro.env.DIFFERENTIATE_AS
+    # when "instagram"
+    #   object = InstagramMediaSource.extract(scrape)
+    # when "facebook"
+    #   object = FacebookMediaSource.extract(scrape)
+    # end
 
     object
   end
@@ -55,19 +53,33 @@ class MediaSource
   def self.check_url(url)
     return true if self.valid_host_name.include?(URI(url).host)
 
-    raise MediaSource::HostError.new(url, self)
+    raise MediaSource::HostError.new(url)
   end
 
   # A error to indicate the host of a given url does not pass validation
   class HostError < StandardError
     attr_reader :url
-    attr_reader :class
 
-    def initialize(url, clazz)
+    def initialize(url)
       @url = url
-      @class = clazz
 
-      super("Invalid URL passed to #{@class.name}, must have host #{@class.valid_host_name}, given #{URI(url).host}")
+      super("No valid scraper found for the url #{url}")
     end
+  end
+
+  def self.model_for_url(url)
+    # Load all models so we can inspect them
+    Zeitwerk::Loader.eager_load_all
+
+    # Get all models conforming to ApplicationRecord, and then check if they implement the magic
+    # function.
+    models = MediaSource.descendants.select do |model|
+      if model.respond_to? :can_handle_url?
+        model.can_handle_url?(url)
+      end
+    end
+
+    # We'll always choose the first one
+    models.first
   end
 end

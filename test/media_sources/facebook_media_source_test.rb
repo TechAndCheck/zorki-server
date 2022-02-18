@@ -10,7 +10,7 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "can send error is there is an error while scraping" do
-    assert_raise(FacebookMediaSource::InvalidFacebookPostUrlError) do
+    assert_raise(MediaSource::HostError) do
       FacebookMediaSource.extract(Scrape.create({ url: "https://www.example.com" }))
     end
   end
