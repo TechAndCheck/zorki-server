@@ -1,4 +1,4 @@
-class PostBlueprint < Blueprinter::Base
+class InstagramBlueprint < Blueprinter::Base
   identifier :id
 
   fields  :id,
@@ -7,6 +7,10 @@ class PostBlueprint < Blueprinter::Base
           :number_of_likes
 
   association :user, blueprint: UserBlueprint
+
+  field :object_type do |post|
+    "instagram"
+  end
 
   field :image_files do |post|
     to_return = nil
