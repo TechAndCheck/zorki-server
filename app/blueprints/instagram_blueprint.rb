@@ -1,4 +1,4 @@
-class InstagramBlueprint < Blueprinter::Base
+class InstagramPostBlueprint < Blueprinter::Base
   identifier :id
 
   fields  :id,
