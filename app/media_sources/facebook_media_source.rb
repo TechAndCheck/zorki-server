@@ -61,7 +61,7 @@ class FacebookMediaSource < MediaSource
   # @return [Forki::Post]
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
-    Forki::Post.lookup(url)
+    post = Forki::Post.lookup(url)
   end
 
   def self.can_handle_url?(url)
