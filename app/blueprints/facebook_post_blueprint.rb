@@ -3,7 +3,6 @@ class FacebookPostBlueprint < Blueprinter::Base
 
   fields  :url,
           :text,
-          :has_video,
           :created_at,
           :num_comments,
           :num_views,
