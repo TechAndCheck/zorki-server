@@ -2,16 +2,11 @@
 # system we're deploying. The options (as of now) are as follows:
 # `instagram`
 # `facebook`
-Figaro.require_keys("DIFFERENTIATE_AS", "secret_key_base")
+Figaro.require_keys("secret_key_base")
 
-case Figaro.env.DIFFERENTIATE_AS
-when "instagram"
-  Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
-when "facebook"
-  Figaro.require_keys("FACEBOOK_USER_NAME", "FACEBOOK_PASSWORD")
-else
-  raise "Invalid Differentiation Type: \"#{Figaro.env.DIFFERENTIATE_AS}\" must be of a valid type. Look at `/config/initializers/figaro.rb` for options."
-end
+
+Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
+Figaro.require_keys("FACEBOOK_EMAIL", "FACEBOOK_PASSWORD")
 
 # We default to requiring ZENODOTUS_URL as a callback unless we explicitly set it otherwise.
 # Note: ZENODOTUS_URL can still be set, which will become the fallback if there's not a callback url passed in

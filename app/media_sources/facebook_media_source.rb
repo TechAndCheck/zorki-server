@@ -3,6 +3,13 @@ class FacebookMediaSource < MediaSource
   include Forki
   attr_reader(:url)
 
+  # A string to indicate what type of scraper this model is for
+  #
+  # @return [String] the canonical name for the type this scraper handles
+  def self.model_type
+    "facebook"
+  end
+
   # Limit all urls to the host below
   #
   # @return [String] or [Array] of [String] of valid host names
@@ -55,6 +62,12 @@ class FacebookMediaSource < MediaSource
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
     Forki::Post.lookup(url)
+  end
+
+  def self.can_handle_url?(url)
+    FacebookMediaSource.send(:validate_facebook_post_url, url)
+  rescue FacebookMediaSource::InvalidFacebookPostUrlError
+    false
   end
 end
 
