@@ -16,6 +16,5 @@ clas FacebookUserBlueprint < Blueprinter::Base
       file = File.open(user.profile_image_file).read
       Base64.encode64(file)
     end
-    # to_return
   end
 ends
