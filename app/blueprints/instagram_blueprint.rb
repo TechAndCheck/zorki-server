@@ -6,7 +6,7 @@ class InstagramBlueprint < Blueprinter::Base
           :date,
           :number_of_likes
 
-  association :user, blueprint: UserBlueprint
+  association :user, blueprint: InstagramUserBlueprint
 
   field :object_type do |post|
     "instagram"
