@@ -1,40 +1,17 @@
 class PostBlueprint < Blueprinter::Base
   identifier :id
+  fields :id
 
-  fields  :id,
-          :text,
-          :date,
-          :number_of_likes
-
-  association :user, blueprint: UserBlueprint
-
-  field :image_files do |post|
+  field :post do |post|
     to_return = nil
-    unless post.image_file_names.nil?
-      to_return = post.image_file_names.map do |file_name|
-        file = File.open(file_name).read
-        Base64.encode64(file)
-      end
-    end
 
-    to_return
-  end
-
-  field :video_file do |post|
-    to_return = nil
-    unless post.video_file_name.nil?
-      file = File.open(post.video_file_name).read
-      to_return = Base64.encode64(file)
-    end
-
-    to_return
-  end
-
-  field :video_preview_image do |post|
-    to_return = nil
-    unless post.video_preview_image.nil?
-      file = File.open(post.video_preview_image).read
-      to_return = Base64.encode64(file)
+    case post.class.to_s # This is converted to a string because apparently comparing classes breaks
+    when "Forki::Post"
+      to_return = FacebookPostBlueprint.render_as_hash(post)
+    when "Zorki::Post"
+      to_return = InstagramPostBlueprint.render_as_hash(post)
+    else
+      raise "Unsupported class for a post passed into PostBlueprint"
     end
 
     to_return
