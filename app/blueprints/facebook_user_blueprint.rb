@@ -17,4 +17,4 @@ class FacebookUserBlueprint < Blueprinter::Base
       Base64.encode64(file)
     end
   end
-ends
+end

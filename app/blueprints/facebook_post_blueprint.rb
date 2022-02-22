@@ -1,5 +1,5 @@
 class FacebookPostBlueprint < Blueprinter::Base
-  identifier :url
+  identifier :id
 
   fields  :url,
           :text,
@@ -10,7 +10,7 @@ class FacebookPostBlueprint < Blueprinter::Base
           :reactions,
           :id
 
-  association :user, blueprint: UserBlueprint
+  association :user, blueprint: FacebookUserBlueprint
 
   field :image_file do |post|
     unless post.image_file.nil?
@@ -33,4 +33,3 @@ class FacebookPostBlueprint < Blueprinter::Base
     end
   end
 end
-

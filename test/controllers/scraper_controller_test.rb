@@ -105,7 +105,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "scraping an instagram video with force works" do
-    assert_enqueued_jobs(1) do
+    assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
       assert JSON.parse(@response.body).first.has_key?("id")
@@ -115,11 +115,16 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   test "scraping a facebook image with force works" do
     get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065", auth_key: @auth_key, force: "true" }
     assert_response 200
-    assert JSON.parse(@response.body).first.has_key?("id")
+    parsed = JSON.parse(@response.body).first
+
+    assert parsed.has_key?("id")
+    assert parsed.has_key?("post")
+    assert_not_nil(parsed["post"])
+    assert parsed["post"].has_key?("user")
   end
 
   test "scraping a facebook video with force works" do
-    assert_enqueued_jobs(1) do
+    assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
       assert JSON.parse(@response.body).first.has_key?("id")
