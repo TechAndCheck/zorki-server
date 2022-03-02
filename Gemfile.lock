@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 2e9cacc2a93f98556c204f2b255a3fc358db0703
+  revision: 5d4578a18d512baf8b990a9391e89aeaa08217cb
   specs:
     zorki (0.1.0)
       apparition
@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/oneroyalace/forki
-  revision: 2615a228b84d9b94270dcaca99db50b68d3f2752
+  revision: 5e4f3f4462b8962ad373222a8b27e5a21f2aa346
   specs:
     forki (0.1.0)
       apparition
