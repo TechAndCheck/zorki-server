@@ -1,5 +1,5 @@
 class FacebookUserBlueprint < Blueprinter::Base
-  identifier :profile_link
+  identifier :id
 
   fields  :profile_link,
           :name,

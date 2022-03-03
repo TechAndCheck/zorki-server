@@ -1,21 +1,19 @@
 class UserBlueprint < Blueprinter::Base
-  identifier :username
+  identifier :name
+  fields :name
 
-  fields  :name,
-          :number_of_posts,
-          :number_of_followers,
-          :number_of_following,
-          :verified,
-          :profile,
-          :profile_link,
-          :profile_image,
-          :profile_image_url
-
-  field :profile_image do |user|
+  field :user do |user|
     to_return = nil
-    unless user.profile_image.nil?
-      file = File.open(user.profile_image).read
-      to_return = Base64.encode64(file)
+
+    case user.class.to_s # This is converted to a string because apparently comparing classes breaks
+    when "Forki::User"
+      byebug
+      to_return = FacebookUserBlueprint.render_as_hash(user)
+    when "Zorki::User"
+      byebug
+      to_return = InstagramUserBlueprint.render_as_hash(user)
+    else
+      raise "Unsupported class for a user passed into UseBlueprint"
     end
 
     to_return
