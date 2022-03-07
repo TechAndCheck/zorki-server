@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 2e9cacc2a93f98556c204f2b255a3fc358db0703
+  revision: 5d4578a18d512baf8b990a9391e89aeaa08217cb
   specs:
     zorki (0.1.0)
       apparition
@@ -197,7 +197,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-mini-profiler (2.3.3)
+    rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -262,9 +262,9 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rails_config (1.8.2)
+    rubocop-rails_config (1.9.0)
       railties (>= 5.0)
-      rubocop (>= 1.19)
+      rubocop (>= 1.25.1)
       rubocop-ast (>= 1.0.1)
       rubocop-minitest (~> 0.15)
       rubocop-packaging (~> 0.5)
