@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/oneroyalace/forki
-  revision: 5e4f3f4462b8962ad373222a8b27e5a21f2aa346
+  revision: 262126e1bf582f2b375d62f0ad654453f1cee5c4
   specs:
     forki (0.1.0)
       apparition
@@ -369,7 +369,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
-  rails (~> 7.0.1)
+  rails (~> 7.0.2.2)
   rails-settings-cached
   rubocop
   rubocop-minitest
@@ -394,7 +394,7 @@ DEPENDENCIES
   zorki (= 0.1.0)!
 
 RUBY VERSION
-   ruby 3.1.0p0
+   ruby 3.1.1p18
 
 BUNDLED WITH
    2.2.22
