@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/ClassLength
+
 require "test_helper"
 
 class ScraperControllerTest < ActionDispatch::IntegrationTest

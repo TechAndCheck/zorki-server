@@ -22,7 +22,7 @@ class ScraperController < ApplicationController
       render json: { error: "Url must be a proper #{ApplicationController.name_for_differentiated_type} url" }, status: 400
       return
     rescue Net::ReadTimeout => error
-      print({ error: "Net::ReadTimeout encountered whle scraping", url: url, count: retry_count+=1 }.to_json)
+      print({ error: "Net::ReadTimeout encountered whle scraping", url: url, count: retry_count += 1 }.to_json)
       raise error if retry_count > 4
       retry
     end

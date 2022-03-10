@@ -7,10 +7,8 @@ class UserBlueprint < Blueprinter::Base
 
     case user.class.to_s # This is converted to a string because apparently comparing classes breaks
     when "Forki::User"
-      byebug
       to_return = FacebookUserBlueprint.render_as_hash(user)
     when "Zorki::User"
-      byebug
       to_return = InstagramUserBlueprint.render_as_hash(user)
     else
       raise "Unsupported class for a user passed into UseBlueprint"
