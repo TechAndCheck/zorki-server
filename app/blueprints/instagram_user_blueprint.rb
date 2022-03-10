@@ -2,6 +2,7 @@ class InstagramUserBlueprint < Blueprinter::Base
   identifier :username
 
   fields  :name,
+          :username,
           :number_of_posts,
           :number_of_followers,
           :number_of_following,
