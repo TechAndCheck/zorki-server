@@ -12,11 +12,12 @@ class ScrapeJob < ApplicationJob
     print "\nFinished scraping #{url}\n"
 
     print "\n********************\n"
-    print "Sending callback to #{callback_url}"
+    print "Sending callback to #{callback_url}\n"
     print "params: #{params.keys}"
     print "\n********************\n"
+
     Typhoeus.post("#{callback_url}/archive/scrape_result_callback",
         headers: { "Content-Type": "application/json" },
-        body: params)
+        body: params.to_json)
   end
 end
