@@ -10,23 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_18_224600) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_18_224600) do
   create_table "scrapes", force: :cascade do |t|
     t.string "url", null: false
     t.string "callback_url", null: false
     t.string "callback_id"
     t.string "status", default: "not_started", null: false
     t.string "scrape_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "settings", force: :cascade do |t|
     t.string "var", null: false
     t.text "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["var"], name: "index_settings_on_var", unique: true
   end
 

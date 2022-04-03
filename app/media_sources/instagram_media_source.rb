@@ -86,7 +86,6 @@ private
     uri = URI(url)
     splits = uri.path.split("/")
     raise InstagramMediaSource::InvalidInstagramPostUrlError if splits.empty?
-
     splits[2]
   end
 end

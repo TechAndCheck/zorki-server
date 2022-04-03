@@ -10,6 +10,8 @@ class UserBlueprint < Blueprinter::Base
       to_return = FacebookUserBlueprint.render_as_hash(user)
     when "Zorki::User"
       to_return = InstagramUserBlueprint.render_as_hash(user)
+    when "YoutubeArchiver::Channel"
+      to_return = YoutubeChannelBlueprint.render_as_hash(user)
     else
       raise "Unsupported class for a user passed into UseBlueprint"
     end
