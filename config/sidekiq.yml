@@ -1,2 +1,14 @@
 # We only want Sidekiq to do one at a time because of the way Selenium doesn't handle multithreading
 :concurrency: 1
+development:
+  :queues:
+    - [hypatia_development_urgent, 2]
+    - hypatia_development_default
+test:
+  :queues:
+    - [hypatia_test_urgent, 2]
+    - hypatia_test_default
+production:
+  :queues:
+    - [hypatia_production_urgent, 2]
+    - hypatia_production_default
