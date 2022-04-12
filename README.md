@@ -1,6 +1,6 @@
 # README
 
-This is a basic server for allowing [zorki](https://www.githbub.com/cguess/zorki) and [forki](https://github.com/oneroyalace/forki) to run standalone on a server somewhere.
+This is a basic server for allowing [zorki](https://www.github.com/cguess/zorki) and [forki](https://github.com/oneroyalace/forki) to run standalone on a server somewhere.
 This is useful specifically because when scraping the IP of hosting servers may be blocked, and this can be hosted on a Raspberry Pi in your house or something.
 
 ## Setup:
