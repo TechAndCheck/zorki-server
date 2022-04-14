@@ -103,21 +103,21 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   test "scraping an instagram image with force works" do
     get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS7npabI8IN/?utm_source=ig_web_copy_link", auth_key: @auth_key, force: "true" }
     assert_response 200
-    assert JSON.parse(@response.body).first.has_key?("id")
+    assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
   end
 
   test "scraping an instagram video with force works" do
     assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
-      assert JSON.parse(@response.body).first.has_key?("id")
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end
   end
 
   test "scraping a facebook image with force works" do
     get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065", auth_key: @auth_key, force: "true" }
     assert_response 200
-    parsed = JSON.parse(@response.body).first
+    parsed = JSON.parse(JSON.parse(@response.body)["scrape_result"]).first
 
     assert parsed.has_key?("id")
     assert parsed.has_key?("post")
@@ -129,7 +129,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
-      assert JSON.parse(@response.body).first.has_key?("id")
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end
   end
 
@@ -148,7 +148,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
-      assert JSON.parse(@response.body).first.has_key?("id")
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end
   end
 end

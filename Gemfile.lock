@@ -11,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/oneroyalace/forki
-  revision: b91018c20ee4df4149a4fc31773fcc65f2efc464
+  revision: fa73b94e2c6e7cfc33ada207ac175978a05b0ad1
   specs:
     forki (0.1.0)
       apparition
@@ -176,15 +176,15 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.3-arm64-darwin)
+    nokogiri (1.13.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.3-x86_64-darwin)
+    nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.3-x86_64-linux)
+    nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     oj (3.13.11)
     parallel (1.22.1)
-    parser (3.1.1.0)
+    parser (3.1.2.0)
       ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -192,7 +192,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    public_suffix (4.0.6)
+    public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -249,9 +249,9 @@ GEM
       rubocop-ast (>= 1.16.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.16.0)
+    rubocop-ast (1.17.0)
       parser (>= 3.1.1.0)
-    rubocop-minitest (0.19.0)
+    rubocop-minitest (0.19.1)
       rubocop (>= 0.90, < 2.0)
     rubocop-packaging (0.5.1)
       rubocop (>= 0.89, < 2.0)
@@ -262,7 +262,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rails_config (1.9.1)
+    rubocop-rails_config (1.9.2)
       railties (>= 5.0)
       rubocop (>= 1.25.1)
       rubocop-ast (>= 1.0.1)
