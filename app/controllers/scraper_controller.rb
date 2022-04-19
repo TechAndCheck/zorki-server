@@ -28,7 +28,8 @@ class ScraperController < ApplicationController
     end
 
     if params["force"] == "true" && Figaro.env.ALLOW_FORCE == "true"
-      render json: PostBlueprint.render(results) and return
+      params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
+      render json: params.to_json and return
     end
 
     render json: { success: true }
