@@ -52,7 +52,6 @@ class MediaSource
   #   Raises an error if it's invalid.
   def self.check_url(url)
     return true if self.valid_host_name.include?(URI(url).host)
-
     raise MediaSource::HostError.new(url)
   end
 
