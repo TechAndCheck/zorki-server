@@ -1,16 +1,11 @@
 GIT
-  remote: https://github.com/cguess/zorki
-  revision: 11ea14ce367d56ca7cdaa489068004f345f5542d
+  remote: https://github.com/TechAndCheck/YoutubeArchiver
+  revision: 3b770fc612f79824898173daf76efd86711ac9ea
   specs:
-    zorki (0.1.0)
-      apparition
-      capybara
-      oj
-      selenium-webdriver
-      typhoeus
+    youtubearchiver (0.1.0)
 
 GIT
-  remote: https://github.com/oneroyalace/forki
+  remote: https://github.com/TechAndCheck/forki
   revision: fa73b94e2c6e7cfc33ada207ac175978a05b0ad1
   specs:
     forki (0.1.0)
@@ -20,10 +15,16 @@ GIT
       selenium-webdriver
       typhoeus
 
-PATH
-  remote: ../YoutubeArchiver
+GIT
+  remote: https://github.com/cguess/zorki
+  revision: 11ea14ce367d56ca7cdaa489068004f345f5542d
   specs:
-    youtubearchiver (0.1.0)
+    zorki (0.1.0)
+      apparition
+      capybara
+      oj
+      selenium-webdriver
+      typhoeus
 
 GEM
   remote: https://rubygems.org/
