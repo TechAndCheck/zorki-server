@@ -138,7 +138,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.youtube.com/watch?v=MUaNz9M8fs8", auth_key: @auth_key, as: :json, force: "true" }
       assert_response 200
-      assert JSON.parse(@response.body).first.has_key?("id")
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end
   end
 
