@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/TechAndCheck/YoutubeArchiver
-  revision: 3b770fc612f79824898173daf76efd86711ac9ea
+  revision: a14de40901509d6a34a728b6e5f6b17985da3210
   specs:
     youtubearchiver (0.1.0)
 
