@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/TechAndCheck/YoutubeArchiver
+  revision: e1a594e9a6dcc7cfed3acdaabf55c92e9c3a6ab2
+  specs:
+    youtubearchiver (0.1.0)
+
+GIT
   remote: https://github.com/TechAndCheck/forki
   revision: e2dba12676267846751802d933c07d6a6f352742
   specs:
@@ -19,11 +25,6 @@ GIT
       oj
       selenium-webdriver
       typhoeus
-
-PATH
-  remote: /Users/christopher/Repositories/Reporters_Lab/YoutubeArchiver
-  specs:
-    youtubearchiver (0.1.0)
 
 GEM
   remote: https://rubygems.org/
