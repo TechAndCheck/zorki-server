@@ -29,4 +29,3 @@ class YoutubeVideoBlueprint < Blueprinter::Base
     end
   end
 end
-

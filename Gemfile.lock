@@ -1,12 +1,6 @@
 GIT
-  remote: https://github.com/TechAndCheck/YoutubeArchiver
-  revision: 3b770fc612f79824898173daf76efd86711ac9ea
-  specs:
-    youtubearchiver (0.1.0)
-
-GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: fa73b94e2c6e7cfc33ada207ac175978a05b0ad1
+  revision: e2dba12676267846751802d933c07d6a6f352742
   specs:
     forki (0.1.0)
       apparition
@@ -17,7 +11,7 @@ GIT
 
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 3db6e1dd57a9509fb1cab81d5e6915911b07da6a
+  revision: a903263d0381798058328b1f86879aacb8fc1eaa
   specs:
     zorki (0.1.0)
       apparition
@@ -25,6 +19,11 @@ GIT
       oj
       selenium-webdriver
       typhoeus
+
+PATH
+  remote: /Users/christopher/Repositories/Reporters_Lab/YoutubeArchiver
+  specs:
+    youtubearchiver (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -109,7 +108,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
-    capybara (3.36.0)
+    capybara (3.37.1)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -243,20 +242,20 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.6.0)
-    regexp_parser (2.3.0)
+    regexp_parser (2.4.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
-    rubocop (1.27.0)
+    rubocop (1.29.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
-      rubocop-ast (>= 1.16.0, < 2.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.17.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.17.0)
+    rubocop-ast (1.18.0)
       parser (>= 3.1.1.0)
     rubocop-minitest (0.19.1)
       rubocop (>= 0.90, < 2.0)
@@ -269,9 +268,9 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rails_config (1.9.2)
+    rubocop-rails_config (1.10.0)
       railties (>= 5.0)
-      rubocop (>= 1.25.1)
+      rubocop (>= 1.29.0)
       rubocop-ast (>= 1.0.1)
       rubocop-minitest (~> 0.15)
       rubocop-packaging (~> 0.5)
