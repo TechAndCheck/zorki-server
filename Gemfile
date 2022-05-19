@@ -77,7 +77,7 @@ gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 
 # Run shell commands (yt-dlp)
-gem  "terrapin"
+gem "terrapin"
 
 # Figaro lets us configure and require environment variable at boot, instead of getting stuck with a
 # bad deployment
