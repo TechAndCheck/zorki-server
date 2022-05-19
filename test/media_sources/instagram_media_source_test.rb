@@ -17,7 +17,13 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
 
   test "can extract post without an error being posted to Slack" do
     assert_nothing_raised do
-      post = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+      # begin
+        post = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+
+      # rescue StandardError => e
+      #   debugger
+      # end
+
       assert_not_nil(post)
     end
   end

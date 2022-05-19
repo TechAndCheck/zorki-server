@@ -4,22 +4,20 @@ GIT
   specs:
     youtubearchiver (0.1.0)
 
-GIT
-  remote: https://github.com/TechAndCheck/forki
-  revision: fa73b94e2c6e7cfc33ada207ac175978a05b0ad1
+PATH
+  remote: ../../zorki
   specs:
-    forki (0.1.0)
+    zorki (0.1.0)
       apparition
       capybara
       oj
       selenium-webdriver
       typhoeus
 
-GIT
-  remote: https://github.com/cguess/zorki
-  revision: 3db6e1dd57a9509fb1cab81d5e6915911b07da6a
+PATH
+  remote: ../forki
   specs:
-    zorki (0.1.0)
+    forki (0.1.0)
       apparition
       capybara
       oj
@@ -405,7 +403,7 @@ DEPENDENCIES
   webdrivers
   yard
   youtubearchiver!
-  zorki (= 0.1.0)!
+  zorki!
 
 RUBY VERSION
    ruby 3.1.1p18
