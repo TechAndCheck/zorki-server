@@ -72,9 +72,7 @@ gem "webdrivers"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-# gem "zorki", path: "~/Repositories/zorki"
 gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
-# gem "forki", "0.1.0", path: "~/Repositories/Reporters_Lab/forki"
 gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 
