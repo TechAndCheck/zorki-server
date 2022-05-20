@@ -4,20 +4,22 @@ GIT
   specs:
     youtubearchiver (0.1.0)
 
-PATH
-  remote: ../../zorki
+GIT
+  remote: https://github.com/TechAndCheck/forki
+  revision: ee9d7c7ab29d181cfd8b637456f049ac71362621
   specs:
-    zorki (0.1.0)
+    forki (0.1.0)
       apparition
       capybara
       oj
       selenium-webdriver
       typhoeus
 
-PATH
-  remote: ../forki
+GIT
+  remote: https://github.com/cguess/zorki
+  revision: ed52f5cce436285a5f827e25bc5ce1f8dd8e0858
   specs:
-    forki (0.1.0)
+    zorki (0.1.0)
       apparition
       capybara
       oj
@@ -107,7 +109,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
-    capybara (3.36.0)
+    capybara (3.37.1)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -181,11 +183,11 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.4-arm64-darwin)
+    nokogiri (1.13.6-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.4-x86_64-darwin)
+    nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.4-x86_64-linux)
+    nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
     oj (3.13.11)
     parallel (1.22.1)
@@ -241,7 +243,7 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.6.0)
-    regexp_parser (2.3.0)
+    regexp_parser (2.4.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
@@ -403,7 +405,7 @@ DEPENDENCIES
   webdrivers
   yard
   youtubearchiver!
-  zorki!
+  zorki (= 0.1.0)!
 
 RUBY VERSION
    ruby 3.1.1p18
