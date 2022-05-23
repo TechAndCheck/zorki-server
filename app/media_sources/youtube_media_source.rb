@@ -58,7 +58,7 @@ class YoutubeMediaSource < MediaSource
     # regex adapted from https://gist.github.com/rodrigoborgesdeoliveira/987683cfbfcc8d800192da1e73adc486
     youtube_id_regex = /(?:http:|https:)*?\/\/(?:www\.|)(?:youtube\.com|m\.youtube\.com|youtu\.|youtube-nocookie\.com).*(?:v=|v%3D|v\/|(?:a|p)\/(?:a|u)\/\d.*\/|watch\?|vi(?:=|\/)|\/embed\/|oembed\?|be\/|e\/|shorts\/)([^&?%#\/\n]*)/m
     raise YoutubeMediaSource::InvalidYoutubeVideoUrlError unless youtube_id_regex =~ url
-    $1 
+    $1
 end
 
 
@@ -82,4 +82,3 @@ end
 # A class to indicate that a post url passed in is invalid
 class YoutubeMediaSource::InvalidYoutubeVideoUrlError < StandardError; end
 class YoutubeMediaSource::ExternalServerError < StandardError; end
-

@@ -22,4 +22,3 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     end
   end
 end
-
