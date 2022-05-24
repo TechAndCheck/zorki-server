@@ -21,4 +21,10 @@ class ActiveSupport::TestCase
     yield
     ENV[variable_name] = original_variable_value
   end
+
+  if `uname`.strip == "Darwin"
+    Minitest.after_run {
+      `osascript -e 'display notification "All Hypatia tests have finished up!" with title "Test Completed"'`
+    }
+  end
 end

@@ -8,6 +8,7 @@ class MediaSource
   # @returns [ScrapeJob] the job fired off when this is run
   def self.scrape(url, callback_id = nil, callback_url = Figaro.env.ZENODOTUS_URL, force: false)
     # We want to fail early if the URL is wrong
+    # debugger
     model = self.model_for_url(url)
     raise MediaSource::HostError.new(url) if model.nil?
 
