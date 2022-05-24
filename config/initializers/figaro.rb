@@ -2,7 +2,7 @@
 # system we're deploying. The options (as of now) are as follows:
 # `instagram`
 # `facebook`
-Figaro.require_keys("secret_key_base")
+Figaro.require_keys("SECRET_KEY_BASE")
 
 
 Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
