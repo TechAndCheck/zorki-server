@@ -61,11 +61,30 @@ class FacebookMediaSource < MediaSource
   # @return [Forki::Post]
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
-    # begin
-      Forki::Post.lookup(url)
-    # rescue NoMethodError => e
-    #   debugger
-    # end
+    posts = Forki::Post.lookup(url)
+    self.class.create_aws_key_functions_for_posts(posts)
+
+    return posts if Figaro.env.AWS_REGION.blank?
+
+    posts.map do |post|
+      Rails.logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
+      Rails.logger.debug "\n********************\n"
+
+      # Let's see if it's a video or images, and upload them
+      if post.image_file.blank? == false
+        Rails.logger.debug "\nUploading image #{post.image_file}\n"
+        object = AwsObjectUploadFileWrapper.new(post.image_file)
+        object.upload_file
+        post.instance_variable_set("@aws_image_keys", object.object.key)
+      elsif post.video_file.blank? == false
+        Rails.logger.debug "\nUploading video #{post.video_file}\n"
+        object = AwsObjectUploadFileWrapper.new(post.video_file)
+        object.upload_file
+        post.instance_variable_set("@aws_video_key", object.object.key)
+      end
+
+      post
+    end
   end
 
   def self.can_handle_url?(url)

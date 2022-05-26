@@ -21,4 +21,30 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(post)
     end
   end
+
+  test "extracted post has images and videos uploaded to S3" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_image_keys) }
+
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_video_key) }
+  end
+
+  test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
+    modify_environment_variable("AWS_REGION", nil) do
+      posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_image_keys) }
+
+      posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_video_key) }
+    end
+  end
 end

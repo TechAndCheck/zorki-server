@@ -13,14 +13,14 @@ class FacebookPostBlueprint < Blueprinter::Base
   association :user, blueprint: FacebookUserBlueprint
 
   field :image_file do |post|
-    unless post.image_file.nil?
+    unless post.image_file.nil? && post.aws_image_keys.blank?
       file = File.open(post.image_file).read
       Base64.encode64(file)
     end
   end
 
   field :video_file do |post|
-    unless post.video_file.nil?
+    unless post.video_file.nil? && post.aws_video_key.blank?
       file = File.open(post.video_file).read
       Base64.encode64(file)
     end
@@ -31,5 +31,13 @@ class FacebookPostBlueprint < Blueprinter::Base
       file = File.open(post.video_preview_image_file).read
       Base64.encode64(file)
     end
+  end
+
+  field :aws_video_key do |post|
+    post.aws_video_key
+  end
+
+  field :aws_image_keys do |post|
+    post.aws_image_keys
   end
 end

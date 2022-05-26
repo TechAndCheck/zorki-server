@@ -115,3 +115,6 @@ gem "debug", ">= 1.0.0"
 
 # Handles the queuing for jobs
 gem "sidekiq"
+
+# AWS for uploading to S3
+gem "aws-sdk-s3"

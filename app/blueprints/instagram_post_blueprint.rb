@@ -14,7 +14,7 @@ class InstagramPostBlueprint < Blueprinter::Base
 
   field :image_files do |post|
     to_return = nil
-    unless post.image_file_names.nil?
+    unless post.image_file_names.nil? && post.aws_image_keys.blank?
       to_return = post.image_file_names.map do |file_name|
         file = File.open(file_name).read
         Base64.encode64(file)
@@ -26,7 +26,7 @@ class InstagramPostBlueprint < Blueprinter::Base
 
   field :video_file do |post|
     to_return = nil
-    unless post.video_file_name.nil?
+    unless post.video_file_name.nil? && post.aws_video_key.blank?
       file = File.open(post.video_file_name).read
       to_return = Base64.encode64(file)
     end
@@ -42,5 +42,13 @@ class InstagramPostBlueprint < Blueprinter::Base
     end
 
     to_return
+  end
+
+  field :aws_video_key do |post|
+    post.aws_video_key()
+  end
+
+  field :aws_image_keys do |post|
+    post.aws_image_keys()
   end
 end

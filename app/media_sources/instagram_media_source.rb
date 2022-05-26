@@ -51,7 +51,33 @@ class InstagramMediaSource < MediaSource
   # @return [Zorki::Post]
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
-    Zorki::Post.lookup(id)
+    posts = Zorki::Post.lookup(id)
+    self.class.create_aws_key_functions_for_posts(posts)
+
+    return posts if Figaro.env.AWS_REGION.blank?
+
+    posts.map do |post|
+      Rails.logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
+      Rails.logger.debug "\n********************\n"
+
+      # Let's see if it's a video or images, and upload them
+      if post.image_file_names.blank? == false
+        aws_image_keys = post.image_file_names.map do |image_file_name|
+          Rails.logger.debug "\nUploading image #{image_file_name}\n"
+          object = AwsObjectUploadFileWrapper.new(image_file_name)
+          object.upload_file
+          object.object.key
+        end
+        post.instance_variable_set("@aws_image_keys", aws_image_keys)
+      elsif post.video_file_name.blank? == false
+        Rails.logger.debug "\nUploading video #{post.video_file_name}\n"
+        object = AwsObjectUploadFileWrapper.new(post.video_file_name)
+        object.upload_file
+        post.instance_variable_set("@aws_video_key", object.object.key)
+      end
+
+      post
+    end
   end
 
   def self.can_handle_url?(url)

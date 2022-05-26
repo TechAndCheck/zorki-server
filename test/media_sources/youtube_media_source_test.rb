@@ -21,4 +21,20 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(video)
     end
   end
+
+  test "extracted video uploaded to S3" do
+    posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_video_key) }
+  end
+
+  test "extracted video is not uploaded to S3 if AWS_REGION isn't set" do
+    modify_environment_variable("AWS_REGION", nil) do
+      posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_video_key) }
+    end
+  end
 end

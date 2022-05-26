@@ -21,4 +21,30 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(post)
     end
   end
+
+  test "extracted post has images and videos uploaded to S3" do
+    posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_image_keys) }
+
+    posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_video_key) }
+  end
+
+  test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
+    modify_environment_variable("AWS_REGION", nil) do
+      posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_image_keys) }
+
+      posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_video_key) }
+    end
+  end
 end
