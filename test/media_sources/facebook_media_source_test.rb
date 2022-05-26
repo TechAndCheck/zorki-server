@@ -32,6 +32,11 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_video_key) }
+    posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
+
+    json_posts = JSON.parse(PostBlueprint.render(posts))
+    json_posts.each { |post| assert_nil post["post"]["video_file"] }
+    json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
   end
 
   test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
@@ -45,6 +50,11 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(posts)
 
       posts.each { |post| assert_nil(post.aws_video_key) }
+      posts.each { |post| assert_nil(post.aws_video_preview_key) }
+
+      json_posts = JSON.parse(PostBlueprint.render(posts))
+      json_posts.each { |post| assert_nil post["post"]["video_file_key"] }
+      json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
     end
   end
 end

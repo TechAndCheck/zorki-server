@@ -76,15 +76,22 @@ class YoutubeMediaSource < MediaSource
     return posts if Figaro.env.AWS_REGION.blank?
 
     posts.map do |post|
-      Rails.logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
-      Rails.logger.debug "\n********************\n"
+      @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
 
       # Let's see if it's a video or images, and upload them
       if post.video_file.blank? == false
-        Rails.logger.debug "\nUploading video #{post.video_file}\n"
+        @@logger.debug "Uploading video #{post.video_file}"
         object = AwsObjectUploadFileWrapper.new(post.video_file)
         object.upload_file
         post.instance_variable_set("@aws_video_key", object.object.key)
+      end
+
+      # Let's see if it's a video or images, and upload them
+      if post.video_preview_image_file.blank? == false
+        @@logger.debug "Uploading video preview #{post.video_preview_image_file}"
+        object = AwsObjectUploadFileWrapper.new(post.video_preview_image_file)
+        object.upload_file
+        post.instance_variable_set("@aws_video_preview_key", object.object.key)
       end
 
       post

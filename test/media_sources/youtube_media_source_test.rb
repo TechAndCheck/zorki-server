@@ -27,6 +27,7 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_video_key) }
+    posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
   end
 
   test "extracted video is not uploaded to S3 if AWS_REGION isn't set" do
@@ -35,6 +36,33 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(posts)
 
       posts.each { |post| assert_nil(post.aws_video_key) }
+      posts.each { |post| assert_nil(post.aws_video_preview_key) }
+    end
+  end
+
+  test "extracted video uploaded to S3 does not have Base64 in JSON version" do
+    posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
+    assert_not_nil(posts)
+
+    posts.each { |post| assert_not_nil(post.aws_video_key) }
+    posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
+
+    json_posts = JSON.parse(PostBlueprint.render(posts))
+    json_posts.each { |post| assert_nil post["post"]["video_file"] }
+    json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
+  end
+
+  test "extracted video is not uploaded to S3 if AWS_REGION isn't set and does have Base64 in JSON version" do
+    modify_environment_variable("AWS_REGION", nil) do
+      posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
+      assert_not_nil(posts)
+
+      posts.each { |post| assert_nil(post.aws_video_key) }
+      posts.each { |post| assert_nil(post.aws_video_preview_key) }
+
+      json_posts = JSON.parse(PostBlueprint.render(posts))
+      json_posts.each { |post| assert_nil post["post"]["video_file_key"] }
+      json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
     end
   end
 end

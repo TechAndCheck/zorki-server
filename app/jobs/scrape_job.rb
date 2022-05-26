@@ -20,34 +20,6 @@ class ScrapeJob < ApplicationJob
 
     print "\nFinished scraping #{url}\n"
     print "\n********************\n"
-
-    unless Figaro.env.AWS_REGION.blank?
-      logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
-      logger.debugger "\n********************\n"
-      results = results.map do |result|
-        # Let's see if it's a video or images, and upload them
-        if result.image_file_names.blank? == false
-          aws_image_keys = result.image_file_names.map do |image_file_name|
-            logger.debug "\nUploading #{image_file_name}\n"
-            object = AwsObjectUploadFileWrapper.new(image_file_name)
-            object.upload_file
-            object.object.key
-          end
-          result.instance_variable_set("@aws_image_keys", aws_image_keys)
-        elsif result.video_file_name.blank? == false
-          object = AwsObjectUploadFileWrapper.new(result.video_file_name)
-          object.upload_file
-          result.instance_variable_set("@aws_video_key", object.object.key)
-        end
-
-        result
-      end
-      logger.debugger "\n********************\n"
-
-
-      # TODO: Deal with video preview images too
-    end
-
     print "Sending callback to #{callback_url}\n"
     print "\n********************\n"
 

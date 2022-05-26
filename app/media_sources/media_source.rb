@@ -1,6 +1,11 @@
 class MediaSource
   include Slack
 
+  @@logger = Logger.new(STDOUT)
+  @@logger.level = Logger::DEBUG
+  @@logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+
+
   # Enqueue a job to scrape a URL depending on the site this is set for.
   #
   # @!scope class
@@ -45,6 +50,7 @@ class MediaSource
       # These will allow us to save the AWS keys for later
       post.instance_variable_set("@aws_image_keys", nil)
       post.instance_variable_set("@aws_video_key", nil)
+      post.instance_variable_set("@aws_video_preview_key", nil)
 
       post.define_singleton_method(:aws_image_keys) do
         instance_variable_get("@aws_image_keys")
@@ -52,6 +58,10 @@ class MediaSource
 
       post.define_singleton_method(:aws_video_key) do
         instance_variable_get("@aws_video_key")
+      end
+
+      post.define_singleton_method(:aws_video_preview_key) do
+        instance_variable_get("@aws_video_preview_key")
       end
 
       post

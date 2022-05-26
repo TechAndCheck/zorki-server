@@ -9,8 +9,6 @@ class YoutubeVideoBlueprint < Blueprinter::Base
           :num_likes,
           :num_comments,
           :live,
-          :video_preview_image_file,
-          :video_file,
           :made_for_kids
 
   association :channel, blueprint: YoutubeChannelBlueprint
@@ -23,9 +21,27 @@ class YoutubeVideoBlueprint < Blueprinter::Base
   end
 
   field :video_file do |video|
-    unless video.video_file.nil?
+    if video.video_file.nil? == false && video.aws_video_key.blank?
       file = File.open(video.video_file).read
       Base64.encode64(file)
     end
+  end
+
+  field :video_preview_image do |video|
+    to_return = nil
+    if video.video_preview_image_file.nil? == false && video.aws_video_preview_key.blank?
+      file = File.open(video.video_preview_image_file).read
+      to_return = Base64.encode64(file)
+    end
+
+    to_return
+  end
+
+  field :aws_video_key do |video|
+    video.aws_video_key()
+  end
+
+  field :aws_video_preview_key do |video|
+    video.aws_video_preview_key
   end
 end
