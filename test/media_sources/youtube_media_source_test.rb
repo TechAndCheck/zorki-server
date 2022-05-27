@@ -23,6 +23,8 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted video uploaded to S3" do
+    skip unless ENV["AWS_REGION"].present?
+
     posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
     assert_not_nil(posts)
 
@@ -41,6 +43,8 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted video uploaded to S3 does not have Base64 in JSON version" do
+    skip unless ENV["AWS_REGION"].present?
+
     posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
     assert_not_nil(posts)
 

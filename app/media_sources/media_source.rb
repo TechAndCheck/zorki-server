@@ -106,4 +106,8 @@ class MediaSource
     # We'll always choose the first one
     models.first
   end
+
+  def s3_transfer_enabled?
+    Figaro.env.AWS_REGION.present?
+  end
 end

@@ -23,6 +23,8 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted post has images and videos uploaded to S3" do
+    skip unless ENV["AWS_REGION"].present?
+
     posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
     assert_not_nil(posts)
 

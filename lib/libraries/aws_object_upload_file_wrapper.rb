@@ -25,16 +25,3 @@ class AwsObjectUploadFileWrapper
     false
   end
 end
-
-# def run_demo
-#   bucket_name = "doc-example-bucket"
-#   object_key = "my-uploaded-file"
-#   file_path = "object_upload_file.rb"
-
-#   wrapper = ObjectUploadFileWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
-#   return unless wrapper.upload_file(file_path)
-
-#   puts "File #{file_path} successfully uploaded to #{bucket_name}:#{object_key}."
-# end
-
-# run_demo if $PROGRAM_NAME == __FILE__

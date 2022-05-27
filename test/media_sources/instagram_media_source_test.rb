@@ -23,6 +23,8 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted post has images and videos uploaded to S3" do
+    skip unless ENV["AWS_REGION"].present?
+
     posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
     assert_not_nil(posts)
 
