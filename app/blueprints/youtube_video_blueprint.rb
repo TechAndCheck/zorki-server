@@ -42,6 +42,6 @@ class YoutubeVideoBlueprint < Blueprinter::Base
   end
 
   field :aws_video_preview_key do |video|
-    video.aws_video_preview_key
+    video.aws_video_preview_key()
   end
 end

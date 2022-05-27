@@ -34,7 +34,7 @@ class FacebookPostBlueprint < Blueprinter::Base
   end
 
   field :aws_video_key do |post|
-    post.aws_video_key
+    post.aws_video_key()
   end
 
   field :aws_video_preview_key do |post|
@@ -43,6 +43,6 @@ class FacebookPostBlueprint < Blueprinter::Base
 
 
   field :aws_image_keys do |post|
-    post.aws_image_keys
+    post.aws_image_keys()
   end
 end
