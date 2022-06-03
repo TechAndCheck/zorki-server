@@ -15,9 +15,8 @@ GIT
       selenium-webdriver
       typhoeus
 
-GIT
-  remote: https://github.com/cguess/zorki
-  revision: 6d0baff780f127160193fb10d3bb0c798a97755a
+PATH
+  remote: /Users/christopher/Repositories/zorki
   specs:
     zorki (0.1.0)
       apparition
