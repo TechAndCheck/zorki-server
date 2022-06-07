@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 4e22d266d2cf6c6998ff75b4803591ddbc0a3d13
+  revision: 1a3831f78717415e6d0b7ea82e55bd31577fdb0d
   specs:
     zorki (0.1.0)
       apparition
