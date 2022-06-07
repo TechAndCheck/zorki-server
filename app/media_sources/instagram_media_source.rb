@@ -51,7 +51,16 @@ class InstagramMediaSource < MediaSource
   # @return [Zorki::Post]
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
-    Zorki::Post.lookup(id)
+
+    # Zorki is a little flaky now, so this is a retry
+    retry_count = 0
+
+    begin
+      Zorki::Post.lookup(id)
+    rescue Selenium::WebDriver::Error::WebDriverError => e
+      retry_count += 1
+      raise e if retry_count > 5
+    end
   end
 
   def self.can_handle_url?(url)
