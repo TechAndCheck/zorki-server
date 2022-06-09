@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: ee9d7c7ab29d181cfd8b637456f049ac71362621
+  revision: 8148a5a6b6e537928a22b86af066929a6af609e2
   specs:
     forki (0.1.0)
       apparition
@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 089fe2713f8e7b5fe8fca9b78d6551056b1a3fbc
+  revision: 6f035f474995b5b595450720daa334b99c61ee81
   specs:
     zorki (0.1.0)
       apparition
