@@ -9,6 +9,8 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  i_suck_and_my_tests_are_order_dependent!()
+
   # Add more helper methods to be used by all tests here...
 
   # Change an environmental variable for just the block, this is important because ENV variables are
