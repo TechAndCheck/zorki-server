@@ -1,4 +1,5 @@
 # typed: true
+
 class FacebookMediaSource < MediaSource
   include Forki
   attr_reader(:url)
@@ -61,11 +62,34 @@ class FacebookMediaSource < MediaSource
   # @return [Forki::Post]
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
-    # begin
-      Forki::Post.lookup(url)
-    # rescue NoMethodError => e
-    #   debugger
-    # end
+    posts = Forki::Post.lookup(url)
+    self.class.create_aws_key_functions_for_posts(posts)
+
+    return posts unless s3_transfer_enabled?
+
+    posts.map do |post|
+      @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
+
+      # Let's see if it's a video or images, and upload them
+      if post.image_file.present?
+        @@logger.debug "Uploading image #{post.image_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.image_file)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_image_keys", aws_upload_wrapper.object.key)
+      elsif post.video_file.present?
+        @@logger.debug "Uploading video #{post.video_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_key", aws_upload_wrapper.object.key)
+
+        @@logger.debug "Uploading video preview #{post.video_preview_image_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_preview_image_file)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_preview_key", aws_upload_wrapper.object.key)
+      end
+
+      post
+    end
   end
 
   def self.can_handle_url?(url)

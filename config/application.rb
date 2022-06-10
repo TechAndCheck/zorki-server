@@ -21,5 +21,8 @@ module Hypatia
 
     config.active_job.queue_adapter = :sidekiq
     config.action_cable.disable_request_forgery_protection = true
+
+    # This is to make sure the AWS uploader (and anything later) is available
+    config.eager_load_paths << Rails.root.join("lib/libraries")
   end
 end

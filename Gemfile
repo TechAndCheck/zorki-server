@@ -75,7 +75,7 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
 # gem "zorki", "0.1.0", path: "/Users/christopher/Repositories/zorki"
 gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki"
-# gem "forki", "0.1.0", git: "/Users/christopher/Repositories/Reporters_Lab/forki"
+# gem "forki", "0.1.0", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 
 # Run shell commands (yt-dlp)
@@ -115,3 +115,6 @@ gem "debug", ">= 1.0.0"
 
 # Handles the queuing for jobs
 gem "sidekiq"
+
+# AWS for uploading to S3
+gem "aws-sdk-s3"

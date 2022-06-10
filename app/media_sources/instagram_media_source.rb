@@ -51,15 +51,36 @@ class InstagramMediaSource < MediaSource
   # @return [Zorki::Post]
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
+    posts = Zorki::Post.lookup(id)
+    self.class.create_aws_key_functions_for_posts(posts)
 
-    # Zorki is a little flaky now, so this is a retry
-    retry_count = 0
+    return posts unless s3_transfer_enabled?
 
-    begin
-      Zorki::Post.lookup(id)
-    rescue Selenium::WebDriver::Error::WebDriverError => e
-      retry_count += 1
-      raise e if retry_count > 5
+    posts.map do |post|
+      @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
+
+      # Let's see if it's a video or images, and upload them
+      if post.image_file_names.present?
+        aws_image_keys = post.image_file_names.map do |image_file_name|
+          @@logger.debug "Uploading image #{image_file_name}"
+          aws_upload_wrapper = AwsObjectUploadFileWrapper.new(image_file_name)
+          aws_upload_wrapper.upload_file
+          aws_upload_wrapper.object.key
+        end
+        post.instance_variable_set("@aws_image_keys", aws_image_keys)
+      elsif post.video_file_name.present?
+        @@logger.debug "Uploading video #{post.video_file_name}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file_name)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_key", aws_upload_wrapper.object.key)
+
+        @@logger.debug "Uploading video preview #{post.video_preview_image}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_preview_image)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_preview_key", aws_upload_wrapper.object.key)
+      end
+
+      post
     end
   end
 
