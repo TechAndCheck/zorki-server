@@ -49,3 +49,6 @@ yarn-debug.log*
 /.nova
 
 dump.rdb
+
+selenium-server-*
+

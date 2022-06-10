@@ -7,7 +7,7 @@ class AwsObjectUploadFileWrapper
   # @param object [Aws::S3::Object] An existing Amazon S3 object.
   def initialize(file_path)
     bucket_name = Figaro.env.AWS_S3_BUCKET_NAME
-    object_key = "#{Figaro.env.AWS_S3_PATH}#{File.basename(file_path)}"
+    object_key = File.join(Figaro.env.AWS_S3_PATH, File.basename(file_path))
     @file_path = file_path
 
     @object = Aws::S3::Object.new(bucket_name, object_key)

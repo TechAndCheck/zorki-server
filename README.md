@@ -12,11 +12,16 @@ The scrapers are kept separate from Zenodotus, because the IP addresses of tradi
 1. Create `config/application.yml` and create `INSTAGRAM_USER_NAME`, `INSTAGRAM_PASSWORD`.
 1. Run `$ rails secret` and then add a variable `secret_key_base` to `config/application.yml`
 1. `$ rails db:migrate` to setup the database (this uses SQLite so there's no need for Postgres or MySQL or anything)
+1. Setup Selenium standalone server
+	1. Download the "Selenium Server (Grid)" JAR package at https://www.selenium.dev/downloads/
+	1. Save it to the folder of this package
+	1. Test that it works by running `java -jar ./selenium-server-4.2.1.jar standalone` (note the actual version you downloaded)
 1. Generate an API key for security purposes in the Rails console
 	1. `$ rails c`
 	1. `Setting.generate_auth_key`
 	1. Note this key in a password manager or something, you'll need it later. It's currently stored in the database (this should be hashed at some point, but meh for now)
 	1. `exit`
+1. Start up the Selenium server `java -jar ./selenium-server-4.2.1.jar standalone` in a separate CLI pane
 1. Start up the server `$ rails s`
 
 If your auth key gets compromised just reload it using the same steps above.

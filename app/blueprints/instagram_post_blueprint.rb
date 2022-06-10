@@ -14,7 +14,7 @@ class InstagramPostBlueprint < Blueprinter::Base
 
   field :image_files do |post|
     to_return = nil
-    unless post.image_file_names.nil? && post.aws_image_keys.blank?
+    if post.image_file_names.nil? == false && post.aws_image_keys.blank?
       to_return = post.image_file_names.map do |file_name|
         file = File.open(file_name).read
         Base64.encode64(file)
