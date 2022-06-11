@@ -7,7 +7,7 @@ class AwsObjectUploadFileWrapper
   # @param object [Aws::S3::Object] An existing Amazon S3 object.
   def initialize(file_path)
     bucket_name = Figaro.env.AWS_S3_BUCKET_NAME
-    object_key = File.join(Figaro.env.AWS_S3_PATH, File.basename(file_path))
+    object_key = object_key_for_file_path(file_path)
     @file_path = file_path
 
     @object = Aws::S3::Object.new(bucket_name, object_key)
@@ -23,5 +23,13 @@ class AwsObjectUploadFileWrapper
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't upload file #{@file_path} to #{@object.key}. Here's why: #{e.message}"
     false
+  end
+
+private
+
+  def object_key_for_file_path(file_path)
+    object_key = File.basename(file_path) if Figaro.env.AWS_S3_PATH.blank?
+    object_key = File.join(Figaro.env.AWS_S3_PATH, File.basename(file_path)) if object_key.nil?
+    object_key
   end
 end
