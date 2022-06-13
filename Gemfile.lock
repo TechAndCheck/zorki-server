@@ -6,7 +6,8 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: f839c93576a6fb6e185a46301c53f3017d9032fc
+  revision: d79fb1e989694be87f266050abd82d80599b4453
+  branch: selenium-fixes
   specs:
     forki (0.1.0)
       apparition
