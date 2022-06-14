@@ -59,7 +59,7 @@ class YoutubeMediaSource < MediaSource
     youtube_id_regex = /(?:http:|https:)*?\/\/(?:www\.|)(?:youtube\.com|m\.youtube\.com|youtu\.|youtube-nocookie\.com).*(?:v=|v%3D|v\/|(?:a|p)\/(?:a|u)\/\d.*\/|watch\?|vi(?:=|\/)|\/embed\/|oembed\?|be\/|e\/|shorts\/)([^&?%#\/\n]*)/m
     raise YoutubeMediaSource::InvalidYoutubeVideoUrlError unless youtube_id_regex =~ url
     $1
-end
+  end
 
 
   # Scrape the page using the YoutubeArchiver gem and get an object
@@ -69,7 +69,33 @@ end
   # @return [YoutubeArchiver::Video]
   def retrieve_youtube_video
     id = YoutubeMediaSource.extract_youtube_id_from_url(@url)
-    YoutubeArchiver::Video.lookup(id)
+    posts = YoutubeArchiver::Video.lookup(id)
+
+    self.class.create_aws_key_functions_for_posts(posts)
+
+    return posts unless s3_transfer_enabled?
+
+    posts.map do |post|
+      @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
+
+      # Let's see if it's a video or images, and upload them
+      if post.video_file.present?
+        @@logger.debug "Uploading video #{post.video_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_key", aws_upload_wrapper.object.key)
+      end
+
+      # Let's see if it's a video or images, and upload them
+      if post.video_preview_image_file.present?
+        @@logger.debug "Uploading video preview #{post.video_preview_image_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_preview_image_file)
+        aws_upload_wrapper.upload_file
+        post.instance_variable_set("@aws_video_preview_key", aws_upload_wrapper.object.key)
+      end
+
+      post
+    end
   end
 
   def self.can_handle_url?(url)

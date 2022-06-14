@@ -133,7 +133,6 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-
   test "scraping a youtube video with force works" do
     assert_enqueued_jobs(0) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.youtube.com/watch?v=MUaNz9M8fs8", auth_key: @auth_key, as: :json, force: "true" }
