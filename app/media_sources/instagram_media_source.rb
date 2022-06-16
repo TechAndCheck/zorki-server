@@ -52,6 +52,7 @@ class InstagramMediaSource < MediaSource
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
     posts = Zorki::Post.lookup(id)
+
     self.class.create_aws_key_functions_for_posts(posts)
 
     return posts unless s3_transfer_enabled?
@@ -82,6 +83,8 @@ class InstagramMediaSource < MediaSource
 
       post
     end
+  rescue Zorki::ContentUnavailableError
+    []
   end
 
   def self.can_handle_url?(url)

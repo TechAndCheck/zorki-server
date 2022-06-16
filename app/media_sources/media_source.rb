@@ -5,7 +5,6 @@ class MediaSource
   @@logger.level = Logger::DEBUG
   @@logger.datetime_format = "%Y-%m-%d %H:%M:%S"
 
-
   # Enqueue a job to scrape a URL depending on the site this is set for.
   #
   # @!scope class
@@ -30,6 +29,7 @@ class MediaSource
   # @param url [String] the url to be scraped
   # @returns [Object] the scraped object returned from the respective gem.
   def self.scrape!(url, callback_id, callback_url)
+    # Since we can only scrape one at a time we utilize a mutex.
     scrape = Scrape.create!({
       url: url,
       callback_url: callback_url,
@@ -37,8 +37,8 @@ class MediaSource
     })
 
     model = self.model_for_url(url)
-    object = model.extract(scrape)
 
+    object = model.extract(scrape)
     object
   end
 

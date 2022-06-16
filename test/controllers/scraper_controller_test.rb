@@ -159,4 +159,20 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
       assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end
   end
+
+  test "scraping posts that don't exist returns empty arrays" do
+    assert_enqueued_jobs(0) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/lskjfslfjs/", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).empty?
+
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/photo.php?fbid=2411715479126952&set=a.1531782187120290&type=3&theater", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).empty?
+
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.youtube.com/watch?v=sfljoxvjow", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).empty?
+    end
+  end
 end

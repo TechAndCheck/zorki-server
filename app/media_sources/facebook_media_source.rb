@@ -63,6 +63,7 @@ class FacebookMediaSource < MediaSource
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
     posts = Forki::Post.lookup(url)
+
     self.class.create_aws_key_functions_for_posts(posts)
 
     return posts unless s3_transfer_enabled?
@@ -90,6 +91,8 @@ class FacebookMediaSource < MediaSource
 
       post
     end
+  rescue Forki::ContentUnavailableError
+    []
   end
 
   def self.can_handle_url?(url)

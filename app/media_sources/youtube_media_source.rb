@@ -1,4 +1,5 @@
 # typed: true
+
 class YoutubeMediaSource < MediaSource
   include YoutubeArchiver
   attr_reader(:url)

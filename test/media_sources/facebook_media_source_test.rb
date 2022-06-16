@@ -59,4 +59,9 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
     end
   end
+
+  test "properly handles photo not found" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo.php?fbid=2411715479126952&set=a.1531782187120290&type=3&theater" }))
+    assert_equal [], posts
+  end
 end

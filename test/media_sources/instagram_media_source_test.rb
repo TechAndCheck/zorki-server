@@ -59,4 +59,9 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
     end
   end
+
+  test "properly handles photo not found" do
+    posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/lskjfslfjs/" }))
+    assert_equal [], posts
+  end
 end

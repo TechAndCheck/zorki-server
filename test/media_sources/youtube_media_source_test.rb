@@ -69,4 +69,9 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
     end
   end
+
+  test "properly handles video not found" do
+    video = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=abcde12345" }))
+    assert_equal [], video
+  end
 end
