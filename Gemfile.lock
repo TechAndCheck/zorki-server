@@ -5,6 +5,17 @@ GIT
     youtubearchiver (0.1.0)
 
 GIT
+  remote: https://github.com/TechAndCheck/forki
+  revision: b9c527a84722fd6cfa237cf0031dadc6439a5ead
+  specs:
+    forki (0.1.0)
+      apparition
+      capybara
+      oj
+      selenium-webdriver
+      typhoeus
+
+GIT
   remote: https://github.com/cguess/zorki
   revision: 69eb23f1621c96f0fdd5ca1c4160a555d94c072b
   specs:
@@ -13,16 +24,6 @@ GIT
       capybara
       oj
       selenium-devtools
-      selenium-webdriver
-      typhoeus
-
-PATH
-  remote: /Users/christopher/Repositories/Reporters_Lab/forki
-  specs:
-    forki (0.1.0)
-      apparition
-      capybara
-      oj
       selenium-webdriver
       typhoeus
 
