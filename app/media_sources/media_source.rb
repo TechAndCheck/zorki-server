@@ -1,4 +1,6 @@
+require "capybara/dsl"
 class MediaSource
+  include Capybara::DSL
   include Slack
 
   @@logger = Logger.new(STDOUT)
@@ -42,6 +44,15 @@ class MediaSource
     object
   end
 
+  # Takes a screenshot of the page at +url+ and returns the filepath to the image
+  # @param url [String]
+  # @return [String] filepath to the screenshot
+  def self.take_screenshot(url = @url)
+    session = Capybara::Session.new(:chrome)
+    session.visit(url)
+    session.find_by_id("description") # Capybara will block until page content loads
+    session.save_screenshot("/tmp/#{SecureRandom.uuid}.png")
+  end
 
   def self.create_aws_key_functions_for_posts(posts)
     posts.map do |post|
