@@ -1,5 +1,7 @@
+require "capybara/dsl"
 # typed: true
 class YoutubeMediaSource < MediaSource
+  include Capybara::DSL
   include YoutubeArchiver
   attr_reader(:url)
 
@@ -70,6 +72,11 @@ class YoutubeMediaSource < MediaSource
   def retrieve_youtube_video
     id = YoutubeMediaSource.extract_youtube_id_from_url(@url)
     posts = YoutubeArchiver::Video.lookup(id)
+
+    # Save a screenshot of the YouTube video
+    posts.each do |post|
+      post.screenshot_file = self.class.take_screenshot(@url)
+    end
 
     self.class.create_aws_key_functions_for_posts(posts)
 
