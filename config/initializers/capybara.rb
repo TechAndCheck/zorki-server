@@ -13,7 +13,7 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, url: "http://localhost:4444/wd/hub", capabilities: options, http_client: client)
 end
 
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 7
 Capybara.threadsafe = true
 Capybara.reuse_server = true
 Capybara.default_driver = :chrome
