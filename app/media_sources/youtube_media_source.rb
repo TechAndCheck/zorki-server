@@ -75,7 +75,7 @@ class YoutubeMediaSource < MediaSource
 
     # Save a screenshot of the YouTube video
     posts.each do |post|
-      post.screenshot_file = self.class.take_screenshot(@url)
+      post.screenshot_file = self.class.take_screenshot(url: @url, indicator_element_id: "description")
     end
 
     self.class.create_aws_key_functions_for_posts(posts)
