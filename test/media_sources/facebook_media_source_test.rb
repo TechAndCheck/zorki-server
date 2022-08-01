@@ -22,6 +22,11 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "extracted video has screenshot" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+    posts.each { |post| assert_not_nil(post.screenshot_file) }
+  end
+
   test "extracted post has images and videos uploaded to S3" do
     skip unless ENV["AWS_REGION"].present?
 
@@ -38,6 +43,7 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(posts))
+    json_posts.each { |post| assert_nil post["post"]["image_files"] }
     json_posts.each { |post| assert_nil post["post"]["video_file"] }
     json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
     json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
@@ -53,15 +59,16 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/" }))
       assert_not_nil(posts)
 
+      posts.each { |post| assert_nil(post.aws_image_keys) }
       posts.each { |post| assert_nil(post.aws_video_key) }
       posts.each { |post| assert_nil(post.aws_video_preview_key) }
       posts.each { |post| assert_nil(post.aws_screenshot_key) }
 
-
       json_posts = JSON.parse(PostBlueprint.render(posts))
-      json_posts.each { |post| assert_nil post["post"]["video_file_key"] }
-      json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
-      json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_image_keys"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_video_key"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_video_preview_key"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_screenshot_key"] }
     end
   end
 end

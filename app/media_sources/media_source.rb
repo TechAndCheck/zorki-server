@@ -7,6 +7,25 @@ class MediaSource
   @@logger.level = Logger::DEBUG
   @@logger.datetime_format = "%Y-%m-%d %H:%M:%S"
 
+  # For screenshotting we're using Firefox instead of Chrome. This is because Chrome
+  # cannot take full page screenshots.
+  options = Selenium::WebDriver::Firefox::Options.new
+  options.add_argument("--window-size=1400,1400")
+  options.add_argument("--no-sandbox")
+  options.add_argument("--disable-dev-shm-usage")
+  options.add_argument("--user-data-dir=/tmp/tarun")
+
+  # Here we assume we're using the same locally running scraping server that the gems would
+  # be set to. This should be configurable if we ever get bigger
+  Capybara.register_driver :firefox_hypatia do |app|
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.read_timeout = 60  # Don't wait 60 seconds to return Net::ReadTimeoutError. We'll retry through Hypatia after 10 seconds
+    Capybara::Selenium::Driver.new(app, browser: :firefox, url: "http://localhost:4444/wd/hub", capabilities: options, http_client: client)
+  end
+
+  Capybara.threadsafe = true
+  Capybara.default_max_wait_time = 60
+  Capybara.reuse_server = true
 
   # Enqueue a job to scrape a URL depending on the site this is set for.
   #
@@ -50,7 +69,7 @@ class MediaSource
   # @param indicator_element_id [String] The id of of an element Capybara should wait on to load before screenshotting
   # @return [String] filepath to the screenshot
   def self.take_screenshot(url: @url, indicator_element_id: "")
-    session = Capybara::Session.new(:chrome)
+    session = Capybara::Session.new(:firefox_hypatia)
     session.visit(url)
     begin
       session.find_by_id(indicator_element_id) # Block until page content loadsrescue
@@ -69,6 +88,7 @@ class MediaSource
       post.instance_variable_set("@aws_image_keys", nil)
       post.instance_variable_set("@aws_video_key", nil)
       post.instance_variable_set("@aws_video_preview_key", nil)
+      post.instance_variable_set("@aws_screenshot_key", nil)
 
       post.define_singleton_method(:aws_image_keys) do
         instance_variable_get("@aws_image_keys")
@@ -80,6 +100,10 @@ class MediaSource
 
       post.define_singleton_method(:aws_video_preview_key) do
         instance_variable_get("@aws_video_preview_key")
+      end
+
+      post.define_singleton_method(:aws_screenshot_key) do
+        instance_variable_get("@aws_screenshot_key")
       end
 
       post

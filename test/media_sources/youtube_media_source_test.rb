@@ -22,6 +22,11 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "extracted video has screenshot" do
+    posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
+    posts.each { |post| assert_not_nil(post.screenshot_file) }
+  end
+
   test "extracted video uploaded to S3" do
     skip unless ENV["AWS_REGION"].present?
 
@@ -55,6 +60,7 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(posts))
+    json_posts.each { |post| assert_nil post["post"]["image_files"] }
     json_posts.each { |post| assert_nil post["post"]["video_file"] }
     json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
     json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
@@ -65,14 +71,16 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
       posts = YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=Df7UtQTFUMQ" }))
       assert_not_nil(posts)
 
+      posts.each { |post| assert_nil(post.aws_image_keys) }
       posts.each { |post| assert_nil(post.aws_video_key) }
       posts.each { |post| assert_nil(post.aws_video_preview_key) }
       posts.each { |post| assert_nil(post.aws_screenshot_key) }
 
       json_posts = JSON.parse(PostBlueprint.render(posts))
-      json_posts.each { |post| assert_nil post["post"]["video_file_key"] }
-      json_posts.each { |post| assert_nil post["post"]["video_file_preview_key"] }
-      json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_image_keys"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_video_key"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_video_preview_key"] }
+      json_posts.each { |post| assert_nil post["post"]["aws_screenshot_key"] }
     end
   end
 end

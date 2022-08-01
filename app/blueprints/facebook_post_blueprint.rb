@@ -52,4 +52,9 @@ class FacebookPostBlueprint < Blueprinter::Base
   field :aws_image_keys do |post|
     post.aws_image_keys()
   end
+
+
+  field :aws_screenshot_key do |post|
+    post.aws_screenshot_key()
+  end
 end
