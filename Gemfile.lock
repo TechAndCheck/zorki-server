@@ -18,7 +18,8 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 24d87688d1750686ae22fd4f848cce39c0fe098b
+  revision: 7a18ddf66efd1b957cda340ffefbf79dc1ce9d32
+  branch: archive-gifs
   specs:
     birdsong (0.1.0)
       oauth (~> 0.5.6)

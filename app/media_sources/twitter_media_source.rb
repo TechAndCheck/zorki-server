@@ -68,17 +68,27 @@ class TwitterMediaSource < MediaSource
         aws_upload_wrapper.upload_file
         aws_upload_wrapper.object.key
       end
-      tweet.instance_variable_set("@aws_image_keys", aws_image_keys)
-    elsif tweet.video_file_name.present?
-      @@logger.debug "Uploading video #{tweet.video_file_name}"
-      aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.video_file_name)
-      aws_upload_wrapper.upload_file
-      tweet.instance_variable_set("@aws_video_key", aws_upload_wrapper.object.key)
 
-      @@logger.debug "Uploading video preview #{tweet.video_preview_image}"
-      aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.video_preview_image)
-      aws_upload_wrapper.upload_file
-      tweet.instance_variable_set("@aws_video_preview_key", aws_upload_wrapper.object.key)
+      tweet.instance_variable_set("@aws_image_keys", aws_image_keys)
+    elsif tweet.video_file_names.present?
+      video_file_keys = []
+      video_file_preview_keys = []
+      tweet.video_file_names.each do |video_file_name|
+        video_file_name = video_file_name.first # To fix some structure stuff
+        @@logger.debug "Uploading video #{video_file_name[:url]}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(video_file_name[:url])
+        aws_upload_wrapper.upload_file
+        video_file_keys << aws_upload_wrapper.object.key
+
+
+        @@logger.debug "Uploading video preview #{video_file_name[:preview_url]}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(video_file_name[:preview_url])
+        aws_upload_wrapper.upload_file
+        video_file_preview_keys << aws_upload_wrapper.object.key
+      end
+
+      tweet.instance_variable_set("@aws_video_key", video_file_keys)
+      tweet.instance_variable_set("@aws_video_preview_key", video_file_preview_keys)
     end
 
     [tweet]

@@ -77,7 +77,7 @@ gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
 gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki", branch: "selenium-fixes"
 # gem "forki", "0.1.0", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
-gem "birdsong", "0.1.0", git: "https://github.com/cguess/birdsong"
+gem "birdsong", "0.1.0", git: "https://github.com/cguess/birdsong", branch: "archive-gifs"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"

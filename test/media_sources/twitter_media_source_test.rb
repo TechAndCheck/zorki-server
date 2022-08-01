@@ -75,4 +75,49 @@ class TwietterSourceTest < ActiveSupport::TestCase
       assert_nil tweet["post"]["image_file_key"]
     end
   end
+
+  test "extracted video uploaded to S3" do
+    skip unless ENV["AWS_REGION"].present?
+
+    tweets = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
+    assert_not_nil(tweets)
+
+    tweets.each { |tweet| assert_not_nil(tweet.aws_video_key) }
+    tweets.each { |tweet| assert_not_nil(tweet.aws_video_preview_key) }
+  end
+
+  test "extracted video is not uploaded to S3 if AWS_REGION isn't set" do
+    modify_environment_variable("AWS_REGION", nil) do
+      tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
+      assert_not_nil(tweet)
+
+      assert_nil(tweet.aws_video_key)
+      assert_nil(tweet.aws_video_preview_key)
+    end
+  end
+
+  test "extracted video uploaded to S3 does not have Base64 in JSON version" do
+    skip unless ENV["AWS_REGION"].present?
+
+    tweets = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
+    assert_not_nil(tweets)
+
+    tweets.each { |tweet| assert_not_nil(tweet.aws_video_key) }
+    tweets.each { |tweet| assert_not_nil(tweet.aws_video_preview_key) }
+
+    json_posts = JSON.parse(PostBlueprint.render(tweets))
+    json_posts.each { |tweet| assert_nil tweet["post"]["video_file"] }
+  end
+
+  test "extracted video is not uploaded to S3 if AWS_REGION isn't set and does have Base64 in JSON version" do
+    modify_environment_variable("AWS_REGION", nil) do
+      tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
+      assert_not_nil(tweet)
+
+      assert_nil(tweet.aws_video_key)
+
+      tweet = JSON.parse(PostBlueprint.render(tweet))
+      assert_nil tweet["post"]["video_file_key"]
+    end
+  end
 end

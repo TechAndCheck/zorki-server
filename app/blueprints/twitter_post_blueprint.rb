@@ -26,23 +26,23 @@ class TwitterPostBlueprint < Blueprinter::Base
 
   field :video_file do |tweet|
     to_return = nil
-    if tweet.video_file_names.first.nil? == false && tweet.aws_video_key.blank?
-      file = File.open(tweet.video_file_names.first).read
+    if tweet.video_file_names.empty? == false && tweet.aws_video_key.blank?
+      file = File.open(tweet.video_file_names.first.first[:url]).read
       to_return = Base64.encode64(file)
     end
 
     to_return
   end
 
-  # field :video_preview_image do |tweet|
-  #   to_return = nil
-  #   if tweet.video_preview_image.nil? == false && tweet.aws_video_preview_key.blank?
-  #     file = File.open(tweet.video_preview_image).read
-  #     to_return = Base64.encode64(file)
-  #   end
+  field :video_preview_image do |tweet|
+    to_return = nil
+    if tweet.video_file_names.empty? == false && tweet.aws_video_preview_key.blank?
+      file = File.open(tweet.video_file_names.first.first[:preview_url]).read
+      to_return = Base64.encode64(file)
+    end
 
-  #   to_return
-  # end
+    to_return
+  end
 
   field :aws_video_key do |tweet|
     tweet.aws_video_key()
