@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 3142851048cb1df37d467df97eaf5481089c1c10
+  revision: a571f2dfba031b4532aed85c81f6e7d7eb53ddf0
   specs:
     forki (0.1.0)
       apparition
@@ -313,9 +313,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.103.1)
+    selenium-devtools (0.104.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.3.0)
+    selenium-webdriver (4.4.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
