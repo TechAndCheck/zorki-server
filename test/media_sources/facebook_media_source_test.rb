@@ -2,6 +2,8 @@ require "test_helper"
 
 class FacebookMediaSourceTest < ActiveSupport::TestCase
   def setup; end
+  @@facebook_image_post_array = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+  @@facebook_video_post_array = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/Meta/videos/264436895517475" }))
 
   test "can send error via slack notification" do
     assert_nothing_raised do
@@ -23,19 +25,18 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted video has screenshot" do
-    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
-    posts.each { |post| assert_not_nil(post.screenshot_file) }
+    assert_not_nil @@facebook_video_post_array.first.screenshot_file
   end
 
   test "extracted post has images and videos uploaded to S3" do
     skip unless ENV["AWS_REGION"].present?
 
-    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+    posts = @@facebook_image_post_array
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_image_keys) }
 
-    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/" }))
+    posts = @@facebook_video_post_array
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_video_key) }
@@ -55,8 +56,11 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       assert_not_nil(posts)
 
       posts.each { |post| assert_nil(post.aws_image_keys) }
+      posts.each { |post| assert_nil(post.aws_video_key) }
+      posts.each { |post| assert_nil(post.aws_video_preview_key) }
+      posts.each { |post| assert_nil(post.aws_screenshot_key) }
 
-      posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/" }))
+      posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/Meta/videos/264436895517475" }))
       assert_not_nil(posts)
 
       posts.each { |post| assert_nil(post.aws_image_keys) }
