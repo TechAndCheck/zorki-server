@@ -13,13 +13,6 @@ class YoutubeVideoBlueprint < Blueprinter::Base
 
   association :channel, blueprint: YoutubeChannelBlueprint
 
-  field :video_preview_image_file do |video|
-    unless video.video_preview_image_file.nil?
-      file = File.open(video.video_preview_image_file).read
-      Base64.encode64(file)
-    end
-  end
-
   field :video_file do |video|
     if video.video_file.nil? == false && video.aws_video_key.blank?
       file = File.open(video.video_file).read
@@ -52,7 +45,7 @@ class YoutubeVideoBlueprint < Blueprinter::Base
     video.aws_video_preview_key()
   end
 
-  field :aws_video_preview_key do |video|
+  field :aws_screenshot_key do |video|
     video.aws_screenshot_key()
   end
 end
