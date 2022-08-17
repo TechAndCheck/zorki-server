@@ -1,12 +1,12 @@
 GIT
   remote: https://github.com/TechAndCheck/YoutubeArchiver
-  revision: 1c223952f72b162d165d59139df75b391dfef5e4
+  revision: 7b07d571c38600ee29d46533d38a70e85eb59d5c
   specs:
     youtubearchiver (0.1.0)
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: a571f2dfba031b4532aed85c81f6e7d7eb53ddf0
+  revision: ec95a505fd5f96386e023cde2823fd5f2f8dc65b
   specs:
     forki (0.1.0)
       apparition
@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/cguess/zorki
-  revision: 15a5846f8770c0af05da389bba24ecf48f5594ba
+  revision: a53f7cf00e92cb8f8e49de32ab659708ce53ce9f
   specs:
     zorki (0.1.0)
       apparition
@@ -102,8 +102,8 @@ GEM
       websocket-driver (>= 0.6.5)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.613.0)
-    aws-sdk-core (3.131.5)
+    aws-partitions (1.619.0)
+    aws-sdk-core (3.132.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -122,7 +122,7 @@ GEM
     bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    bullet (7.0.2)
+    bullet (7.0.3)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
@@ -143,7 +143,7 @@ GEM
     crass (1.0.6)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
-    debug (1.6.1)
+    debug (1.6.2)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     digest (3.1.0)
@@ -151,7 +151,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    erubi (1.10.0)
+    erubi (1.11.0)
     erubis (2.7.0)
     ethon (0.15.0)
       ffi (>= 1.15.0)
@@ -185,7 +185,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.16.2)
+    minitest (5.16.3)
     msgpack (1.5.4)
     net-imap (0.2.3)
       digest
@@ -208,16 +208,16 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
-    oj (3.13.19)
+    oj (3.13.20)
     parallel (1.22.1)
-    parser (3.1.2.0)
+    parser (3.1.2.1)
       ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.9.0)
+    pry-byebug (3.10.1)
       byebug (~> 11.0)
-      pry (~> 0.13.0)
+      pry (>= 0.13, < 0.15)
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -266,22 +266,22 @@ GEM
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
-    rubocop (1.32.0)
+    rubocop (1.35.0)
       json (~> 2.3)
       parallel (~> 1.10)
-      parser (>= 3.1.0.0)
+      parser (>= 3.1.2.1)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.19.1, < 2.0)
+      rubocop-ast (>= 1.20.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.19.1)
+    rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
     rubocop-minitest (0.21.0)
       rubocop (>= 0.90, < 2.0)
-    rubocop-packaging (0.5.1)
-      rubocop (>= 0.89, < 2.0)
+    rubocop-packaging (0.5.2)
+      rubocop (>= 1.33, < 2.0)
     rubocop-performance (1.14.3)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -289,7 +289,7 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
-    rubocop-rails_config (1.10.3)
+    rubocop-rails_config (1.10.5)
       railties (>= 5.0)
       rubocop (>= 1.29.0)
       rubocop-ast (>= 1.0.1)
@@ -321,10 +321,10 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     set (1.0.2)
-    sidekiq (6.5.1)
+    sidekiq (6.5.4)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.2.0)
+      redis (>= 4.5.0)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
@@ -339,11 +339,11 @@ GEM
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
     strscan (3.0.4)
-    tailwindcss-rails (2.0.10-arm64-darwin)
+    tailwindcss-rails (2.0.12-arm64-darwin)
       railties (>= 6.0.0)
-    tailwindcss-rails (2.0.10-x86_64-darwin)
+    tailwindcss-rails (2.0.12-x86_64-darwin)
       railties (>= 6.0.0)
-    tailwindcss-rails (2.0.10-x86_64-linux)
+    tailwindcss-rails (2.0.12-x86_64-linux)
       railties (>= 6.0.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
