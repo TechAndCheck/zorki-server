@@ -38,7 +38,7 @@ class YoutubeVideoBlueprint < Blueprinter::Base
   end
 
   field :screenshot_file do |post|
-    if post.aws_video_preview_key.blank?
+    if post.aws_screenshot_key.blank?
       file = File.open(post.screenshot_file).read
       Base64.encode64(file)
     end
