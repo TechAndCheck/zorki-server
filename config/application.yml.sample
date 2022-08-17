@@ -3,43 +3,52 @@
 #
 # WARNING DO NOT COMMIT THIS FILE AFTER RENAMING IT.
 #
-# Steps for setup
+##########################
+# Steps for rails app setup
+##########################
 # 1. Copy this file into the same `/config` folder
 # 2. Rename the file to `application.yml`
-# 3. Set `DIFFERENTIATE_AS` to the type of scraper this should become (see options below)
-# 4. Follow set up instructions for the specific service (see below)
-# 5. Run `$ rails secret` from the command line and put in the `secret_key_base` variable below]
-# 6. If you want to set up Slack notification for errors following the instructions for "Incoming Webook" at https://api.slack.com/apps
-#	   and uncomment and set `SLACK_ERROR_WEBHOOK_URL` below.
-# 7. If you're setting up an instance designed for testing or developing Zenodotus, set `ALLOW_CUSTOM_CALLBACK` to "true"
-# 8. Add `ZENODOTUS_URL` to point to your Zenodotus instance for notifications when a scrape
+# 3. Run `$ rails secret` from the command line and put in the `SECRET_KEY_BASE` variable below]
+SECRET_KEY_BASE: "XXXXX"
+# 4. Follow the instructions for "Incoming Webook" at https://api.slack.com/apps
+#	   and set `SLACK_ERROR_WEBHOOK_URL` below.
+SLACK_ERROR_WEBHOOK_URL: "XXXXX"
+# 5. If you're setting up an instance designed for testing or developing Zenodotus, set `ALLOW_CUSTOM_CALLBACK` to "true" (quotes included)
+ALLOW_CUSTOM_CALLBACK: "true"
+# 6. Add `ZENODOTUS_URL` to point to your Zenodotus instance for notifications when a scrape
+ZENODOTUS_URL: "http://localhost:3000/"  # change as needed
 #    is done if this is for production
-# 9. AGAIN: DO NOT COMMIT THIS NEW FILE
+# 7. For a local dev setup, set ALLOW_FORCE to "true" so Hypatia can process scrape requests without queueing them (required for tests)
+ALLOW_FORCE: "true"
+# 8. Set USE_S3_DEV_TEST to  "true" to enable the S3 file transfer flow. 
+USE_S3_DEV_TEST: "true"
+# 9. Set the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY varibles. Retrieve values from 1Password
+AWS_ACCESS_KEY_ID: "XXXXX"
+AWS_SECRET_ACCESS_KEY: "XXXXX"
+# 10. Set AWS_S3_BUCKET_NAME to "zenodotus-testing"
+AWS_S3_BUCKET_NAME: "zenodotus-testing"
+# 11. Set AWS_REGION to "us-east-1"
+AWS_REGION: "us-east-1"
+# 12. AGAIN: DO NOT COMMIT THIS NEW FILE
 
-# Options available: `instagram`, `facebook`
-DIFFERENTIATE_AS: XXXXXXX
-
+##########################
+# Steps for scraper gem setup
+##########################
 # Instagram setup:
-# 1. Uncomment the lines below starting with `INSTAGRAM_USER_NAME` AND `INSTAGRAM_PASSWORD`
-# 2. Create an Instagram user/password and add them to the appropriate variables below
-# INSTAGRAM_USER_NAME: john_doe
-# INSTAGRAM_PASSWORD: "password_goes_here"
-
+# 1. Create an Instagram user/password and add them to the appropriate variables below
+INSTAGRAM_USER_NAME: "XXXXX"
+INSTAGRAM_PASSWORD: "XXXXX"
+#
 # Facebook setup:
-# 1. Uncomment the lines below starting with `FACEBOOK_USER_NAME` AND `FACEBOOK_PASSWORD`
-# 2. Create an Facebook user/password and add them to the appropriate variables below 
-# FACEBOOK_EMAIL: john_doe
-# FACEBOOK_PASSWORD: "password_goes_here"
-
-secret_key_base: XXXXXXX
+# 1. Create an Facebook user/password and add them to the appropriate variables below 
+FACEBOOK_EMAIL: "XXXXX"
+FACEBOOK_PASSWORD: "XXXXX"
+#
+# YouTube setup:
+# 1. Acquire a YouTube API Key (see https://github.com/TechAndCheck/YoutubeArchiver#acquiring-a-youtube-api-key)
+# 2. Add the key to the variable below
+YOUTUBE_API_KEY: "XXXXX"
 
 # We default to requiring ZENODOTUS_URL as a callback unless we explicitly set it otherwise.
 # Note: ZENODOTUS_URL can still be set, which will become the fallback if there's not a callback url passed in
 ALLOW_CUSTOM_CALLBACK: false
-
-# ZENODOTUS_URL: "XXXXXXXXXXXXX"
-# SLACK_ERROR_WEBHOOK_URL: "https://hooks.slack.com/services/XXXXX/XXXXXX/XXXXXXXXX"
-
-# This is for testing purposes which allows another system to force a scrape to happen now, skipping the queue.
-# Defaults to false if not set
-# ALLOW_FORCE: "false"
