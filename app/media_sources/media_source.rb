@@ -55,7 +55,8 @@ class MediaSource
       session.find_by_id(indicator_element_id) # Block until page content loadsrescue
     rescue Capybara::ElementNotFound
     end
-    screenshot_path = session.save_screenshot("/tmp/#{SecureRandom.uuid}.png")
+    media_source_name = self.to_s.delete_suffix("MediaSource").downcase
+    screenshot_path = session.save_screenshot("/tmp/#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
     session.quit
     screenshot_path
   end
