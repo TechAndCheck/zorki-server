@@ -141,6 +141,37 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "scraping a twitter image works" do
+    get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://twitter.com/POTUS/status/1562462774969581570?s=20&t=-Dfve5GSFD7EsJDFTJU7GA", auth_key: @auth_key }
+    assert_response 200
+    assert JSON.parse(@response.body).has_key?("success")
+  end
+
+  test "scraping an twitter video works" do
+    assert_enqueued_jobs(1) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://twitter.com/bunsenbernerbmd/status/1562110165708550144?s=20&t=-Dfve5GSFD7EsJDFTJU7GA", auth_key: @auth_key, as: :json }
+      assert_response 200
+      assert JSON.parse(@response.body).has_key?("success")
+    end
+  end
+
+  test "scraping a twitter image with force works" do
+    assert_enqueued_jobs(0) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://twitter.com/POTUS/status/1562462774969581570?s=20&t=-Dfve5GSFD7EsJDFTJU7GA", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
+    end
+  end
+
+  test "scraping a twitter video with force works" do
+    assert_enqueued_jobs(0) do
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://twitter.com/bunsenbernerbmd/status/1562110165708550144?s=20&t=-Dfve5GSFD7EsJDFTJU7GA", auth_key: @auth_key, as: :json, force: "true" }
+      assert_response 200
+      assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
+    end
+  end
+
+
   test "submitting multiple jobs works" do
     assert_enqueued_jobs(3) do
       get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.instagram.com/p/CS17kK3n5-J/", auth_key: @auth_key, as: :json }

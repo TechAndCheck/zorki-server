@@ -59,7 +59,6 @@ class TwitterMediaSource < MediaSource
     return tweet unless s3_transfer_enabled?
 
     @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
-
     # Let's see if it's a video or images, and upload them
     if tweet.image_file_names.present?
       aws_image_keys = tweet.image_file_names.map do |image_file_name|
