@@ -62,7 +62,7 @@ class MediaSource
   end
 
   def self.create_aws_key_functions_for_posts(posts)
-    posts.map do |post|
+    posts.each do |post|
       # First, we add two functions to whatever class the result is.
       # These are implementation details, so we don't want to add them to Zorki or Forki
       # These will allow us to save the AWS keys for later
@@ -87,7 +87,22 @@ class MediaSource
         instance_variable_get("@aws_screenshot_key")
       end
 
+      self.create_aws_key_functions_for_users(post.user)
+
       post
+    end
+  end
+
+  # Add AWS key instance variable getters to a User object
+  # Modifies the initial object.
+  #
+  # @param url A user objects constructed by one of the scraper gems
+  # @return nil
+  def self.create_aws_key_functions_for_users(user)
+    user.instance_variable_set("@aws_profile_image_key", nil)
+
+    user.define_singleton_method(:aws_profile_image_key) do
+      instance_variable_get("@aws_profile_image_key")
     end
   end
 

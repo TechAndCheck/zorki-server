@@ -86,6 +86,14 @@ class YoutubeMediaSource < MediaSource
     posts.map do |post|
       @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
 
+      # Upload channel profile picture to s3
+      if post.channel.channel_image_file.present?
+        @@logger.debug "Uploading channel image #{post.channel.channel_image_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.channel.channel_image_file)
+        aws_upload_wrapper.upload_file
+        post.channel.instance_variable_set("@aws_profile_image_key", aws_upload_wrapper.object.key)
+      end
+
       if post.screenshot_file.present?
         @@logger.debug "Uploading post screenshot #{post.screenshot_file}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.screenshot_file)

@@ -70,6 +70,14 @@ class FacebookMediaSource < MediaSource
     posts.map do |post|
       @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
 
+      # Upload user profile picture to s3
+      if post.user.profile_image_file.present?
+        @@logger.debug "Uploading user profile picture #{post.user.profile_image_file}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.user.profile_image_file)
+        aws_upload_wrapper.upload_file
+        post.user.instance_variable_set("@aws_profile_image_key", aws_upload_wrapper.object.key)
+      end
+
       # Upload post screenshot to s3
       if post.screenshot_file.present?
         @@logger.debug "Uploading post screenshot #{post.screenshot_file}"
