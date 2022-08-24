@@ -16,6 +16,8 @@ The scrapers are kept separate from Zenodotus, because the IP addresses of tradi
 	1. Download the "Selenium Server (Grid)" JAR package at https://www.selenium.dev/downloads/
 	1. Save it to the folder of this package
 	1. Test that it works by running `java -jar ./selenium-server-4.2.1.jar standalone` (note the actual version you downloaded)
+1. Download Firefox's geckodriver and Chrome's chromedriver and save both in a PATH-listed folder. Give the user and system execute privileges for both drivers. 
+1. Ensure that Google Chrome and Mozilla Firefox are installed
 1. Generate an API key for security purposes in the Rails console
 	1. `$ rails c`
 	1. `Setting.generate_auth_key`

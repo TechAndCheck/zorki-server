@@ -1,10 +1,11 @@
+require "capybara/dsl"
 class MediaSource
+  include Capybara::DSL
   include Slack
 
   @@logger = Logger.new(STDOUT)
   @@logger.level = Logger::DEBUG
   @@logger.datetime_format = "%Y-%m-%d %H:%M:%S"
-
 
   # Enqueue a job to scrape a URL depending on the site this is set for.
   #
@@ -42,6 +43,23 @@ class MediaSource
     object
   end
 
+  # Takes a screenshot of the page at +url+ and returns the filepath to the image
+  # Waits to take screenshot until the element denoted by +indicator_element_id+ has loaded
+  # @param url [String]
+  # @param indicator_element_id [String] The id of of an element Capybara should wait on to load before screenshotting
+  # @return [String] filepath to the screenshot
+  def self.take_screenshot(url: @url, indicator_element_id: "")
+    session = Capybara::Session.new(:firefox_hypatia)
+    session.visit(url)
+    begin
+      session.find_by_id(indicator_element_id) # Block until page content loadsrescue
+    rescue Capybara::ElementNotFound
+    end
+    media_source_name = self.to_s.delete_suffix("MediaSource").downcase
+    screenshot_path = session.save_screenshot("/tmp/#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
+    session.quit
+    screenshot_path
+  end
 
   def self.create_aws_key_functions_for_posts(posts)
     posts.map do |post|
@@ -51,6 +69,7 @@ class MediaSource
       post.instance_variable_set("@aws_image_keys", nil)
       post.instance_variable_set("@aws_video_key", nil)
       post.instance_variable_set("@aws_video_preview_key", nil)
+      post.instance_variable_set("@aws_screenshot_key", nil)
 
       post.define_singleton_method(:aws_image_keys) do
         instance_variable_get("@aws_image_keys")
@@ -62,6 +81,10 @@ class MediaSource
 
       post.define_singleton_method(:aws_video_preview_key) do
         instance_variable_get("@aws_video_preview_key")
+      end
+
+      post.define_singleton_method(:aws_screenshot_key) do
+        instance_variable_get("@aws_screenshot_key")
       end
 
       post
