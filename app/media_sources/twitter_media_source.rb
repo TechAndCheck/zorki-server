@@ -27,7 +27,7 @@ class TwitterMediaSource < MediaSource
     object = self.new(scrape.url)
     object.retrieve_tweet
   rescue StandardError => error
-    error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{scrape.url}"
+    error_message = "*Birdsong Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{scrape.url}"
     self.send_message_to_slack(error_message)
     raise
   end
@@ -54,9 +54,23 @@ class TwitterMediaSource < MediaSource
     id = TwitterMediaSource.extract_tweet_id_from_url(@url)
     tweet = Birdsong::Tweet.lookup(id).first
 
+    # So, because we're not changing Birdsong up we set this here
+    tweet.instance_variable_set("@screenshot_file", self.class.take_screenshot(url: @url))
+    tweet.define_singleton_method(:screenshot_file) do
+      instance_variable_get("@screenshot_file")
+    end
+
     self.class.create_aws_key_functions_for_posts([tweet])
 
     return tweet unless s3_transfer_enabled?
+
+    # Upload tweet screenshot to s3
+    if tweet.screenshot_file.present?
+      @@logger.debug "Uploading tweet screenshot #{tweet.screenshot_file}"
+      aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.screenshot_file)
+      aws_upload_wrapper.upload_file
+      tweet.instance_variable_set("@aws_screenshot_key", aws_upload_wrapper.object.key)
+    end
 
     @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
     # Let's see if it's a video or images, and upload them
