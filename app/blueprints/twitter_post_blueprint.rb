@@ -44,6 +44,13 @@ class TwitterPostBlueprint < Blueprinter::Base
     to_return
   end
 
+  field :screenshot_file do |tweet|
+    if tweet.aws_screenshot_key.blank?
+      file = File.open(post.screenshot_file).read
+      Base64.encode64(file)
+    end
+  end
+
   field :aws_video_key do |tweet|
     tweet.aws_video_key()
   end
@@ -54,5 +61,9 @@ class TwitterPostBlueprint < Blueprinter::Base
 
   field :aws_image_keys do |tweet|
     tweet.aws_image_keys()
+  end
+
+  field :aws_screenshot_key do |tweet|
+    tweet.aws_screenshot_key()
   end
 end
