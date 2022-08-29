@@ -62,7 +62,7 @@ class TwitterMediaSource < MediaSource
 
     self.class.create_aws_key_functions_for_posts([tweet])
 
-    return tweet unless s3_transfer_enabled?
+    return [tweet] unless s3_transfer_enabled?
 
     # Upload tweet screenshot to s3
     if tweet.screenshot_file.present?
