@@ -57,7 +57,7 @@ class TwietterSourceTest < ActiveSupport::TestCase
       tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/Space4Europe/status/1552221138037755904" }))
       assert_not_nil(tweet)
 
-      assert_nil(tweet.aws_image_keys)
+      assert_nil(tweet.first.aws_image_keys)
     end
   end
 
@@ -78,9 +78,9 @@ class TwietterSourceTest < ActiveSupport::TestCase
       tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/Space4Europe/status/1552221138037755904" }))
       assert_not_nil(tweet)
 
-      assert_nil(tweet.aws_image_keys)
+      assert_nil(tweet.first.aws_image_keys)
 
-      tweet = JSON.parse(PostBlueprint.render(tweet))
+      tweet = JSON.parse(PostBlueprint.render(tweet.first))
       assert_nil tweet["post"]["image_file_key"]
     end
   end
@@ -100,8 +100,8 @@ class TwietterSourceTest < ActiveSupport::TestCase
       tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
       assert_not_nil(tweet)
 
-      assert_nil(tweet.aws_video_key)
-      assert_nil(tweet.aws_video_preview_key)
+      assert_nil(tweet.first.aws_video_key)
+      assert_nil(tweet.first.aws_video_preview_key)
     end
   end
 
@@ -123,9 +123,9 @@ class TwietterSourceTest < ActiveSupport::TestCase
       tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/packers/status/1552345663232417801" }))
       assert_not_nil(tweet)
 
-      assert_nil(tweet.aws_video_key)
+      assert_nil(tweet.first.aws_video_key)
 
-      tweet = JSON.parse(PostBlueprint.render(tweet))
+      tweet = JSON.parse(PostBlueprint.render(tweet.first))
       assert_nil tweet["post"]["video_file_key"]
     end
   end
