@@ -1,5 +1,6 @@
 require "capybara/dsl"
 # typed: true
+
 class YoutubeMediaSource < MediaSource
   include Capybara::DSL
   include YoutubeArchiver

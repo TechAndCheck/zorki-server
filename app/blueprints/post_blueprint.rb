@@ -12,6 +12,8 @@ class PostBlueprint < Blueprinter::Base
       to_return = InstagramPostBlueprint.render_as_hash(post)
     when "YoutubeArchiver::Video"
       to_return = YoutubeVideoBlueprint.render_as_hash(post)
+    when "Birdsong::Tweet"
+      to_return = TwitterPostBlueprint.render_as_hash(post)
     else
       raise "Unsupported class for a post passed into PostBlueprint"
     end

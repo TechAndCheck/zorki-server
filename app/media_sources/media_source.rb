@@ -53,11 +53,13 @@ class MediaSource
     session.visit(url)
     begin
       session.find_by_id(indicator_element_id) # Block until page content loadsrescue
-    rescue Capybara::ElementNotFound
-    end
+    rescue Capybara::ElementNotFound; end
+
     media_source_name = self.to_s.delete_suffix("MediaSource").downcase
-    screenshot_path = session.save_screenshot("/tmp/#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
+    save_path = File.join(Rails.root, "tmp", "#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
+    screenshot_path = session.save_screenshot(save_path)
     session.quit
+
     screenshot_path
   end
 
