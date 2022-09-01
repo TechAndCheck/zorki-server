@@ -49,7 +49,7 @@ class MediaSource
   # @param indicator_element_id [String] The id of of an element Capybara should wait on to load before screenshotting
   # @return [String] filepath to the screenshot
   def self.take_screenshot(url: @url, indicator_element_id: "")
-    session = Capybara::Session.new(:firefox_hypatia)
+    session = Capybara::Session.new(:hypatia)
     session.visit(url)
     begin
       session.find_by_id(indicator_element_id) # Block until page content loadsrescue
