@@ -200,6 +200,7 @@ GEM
       digest
       net-protocol
       strscan
+    net-ping (2.0.8)
     net-pop (0.1.1)
       digest
       net-protocol
@@ -414,6 +415,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  net-ping
   pry-byebug
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
