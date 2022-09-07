@@ -324,7 +324,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.104.0)
+    selenium-devtools (0.105.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.4.0)
       childprocess (>= 0.5, < 5.0)
