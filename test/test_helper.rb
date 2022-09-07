@@ -27,13 +27,7 @@ class ActiveSupport::TestCase
   if `uname`.strip == "Darwin"
     Minitest.after_run {
       # This means it's running on our custom CI server
-      # if Net::Ping::HTTP.new("https://localhost:2345").ping?
-        Typhoeus.post("http://10.211.55.2:2345/tests_completed",
-        headers: { "Content-Type": "application/json" },
-        body: { vm_id: "testing123", status_code: 200, status_message: "WOOOOOOOO" }.to_json)
-      # end
       `osascript -e 'display notification "All Hypatia tests have finished up!" with title "Test Completed"'`
     }
   end
-
 end
