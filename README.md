@@ -3,7 +3,7 @@
 This is a basic server that hosts and coordinates Tech & Check's media scraper gems ([zorki](https://www.github.com/cguess/zorki), [forki](https://github.com/oneroyalace/forki), and [YoutubeArchiver](https://github.com/TechAndCheck/YoutubeArchiver) 
 The scrapers are kept separate from Zenodotus, because the IP addresses of traditional hosting servers (where Zenodotus resides), may be blocked by the media sources we're trying to scrape. The Hypatia server can be hosted on a Raspberry Pi in your house or something.
 
-### Setup:
+## Setup:
 1. Make sure you have Rails 3.1.0 installed (may work on older version, haven't checked)
 1. Grab this repo
 1. `$ bundle install` to get all the gems in
