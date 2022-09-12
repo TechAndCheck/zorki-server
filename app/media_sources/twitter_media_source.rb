@@ -55,7 +55,7 @@ class TwitterMediaSource < MediaSource
     tweet = Birdsong::Tweet.lookup(id).first
 
     # So, because we're not changing Birdsong up we set this here
-    tweet.instance_variable_set("@screenshot_file", self.class.take_screenshot(url: @url))
+    tweet.instance_variable_set("@screenshot_file", self.class.take_screenshot(url: @url, wait_time: 20))
     tweet.define_singleton_method(:screenshot_file) do
       instance_variable_get("@screenshot_file")
     end
