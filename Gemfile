@@ -62,6 +62,10 @@ group :development do
   gem "yard", require: false
 end
 
+group :test do
+  gem "net-ping"
+end
+
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
 gem "selenium-webdriver"

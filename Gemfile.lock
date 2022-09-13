@@ -200,6 +200,7 @@ GEM
       digest
       net-protocol
       strscan
+    net-ping (2.0.8)
     net-pop (0.1.1)
       digest
       net-protocol
@@ -323,7 +324,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.104.0)
+    selenium-devtools (0.105.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.4.0)
       childprocess (>= 0.5, < 5.0)
@@ -414,6 +415,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  net-ping
   pry-byebug
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
