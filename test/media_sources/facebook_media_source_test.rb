@@ -49,7 +49,7 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     json_posts.each { |post| assert_nil post["post"]["video_file"] }
     json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
     json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
-    json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
+    json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 
   test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
