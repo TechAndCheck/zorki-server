@@ -44,12 +44,14 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     @@instagram_video_posts.each { |post| assert_not_nil(post.aws_video_key) }
     @@instagram_video_posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
     @@instagram_video_posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
+    @@instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(@@instagram_video_posts))
     json_posts.each { |post| assert_nil post["post"]["image_files"] }
     json_posts.each { |post| assert_nil post["post"]["video_file"] }
     json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
     json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
+    json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 
   test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
@@ -66,12 +68,14 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
       posts.each { |post| assert_nil(post.aws_video_key) }
       posts.each { |post| assert_nil(post.aws_video_preview_key) }
       posts.each { |post| assert_nil(post.aws_screenshot_key) }
+      posts.each { |post| assert_nil(post.user.aws_profile_image_key) }
 
       json_posts = JSON.parse(PostBlueprint.render(posts))
       json_posts.each { |post| assert_nil post["post"]["aws_image_keys"] }
       json_posts.each { |post| assert_nil post["post"]["aws_video_key"] }
       json_posts.each { |post| assert_nil post["post"]["aws_video_preview_key"] }
       json_posts.each { |post| assert_nil post["post"]["aws_screenshot_key"] }
+      json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
     end
   end
 end

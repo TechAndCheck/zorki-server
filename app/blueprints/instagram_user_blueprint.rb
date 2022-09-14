@@ -10,11 +10,12 @@ class InstagramUserBlueprint < Blueprinter::Base
           :profile,
           :profile_link,
           :profile_image,
-          :profile_image_url
+          :profile_image_url,
+          :aws_profile_image_key
 
   field :profile_image do |user|
     to_return = nil
-    unless user.profile_image.nil?
+    if user.profile_image.nil? == false && user.aws_profile_image_key.blank?
       file = File.open(user.profile_image).read
       to_return = Base64.encode64(file)
     end

@@ -9,12 +9,16 @@ class FacebookUserBlueprint < Blueprinter::Base
           :number_of_likes,
           :verified,
           :profile_image_file,
-          :profile_image_url
+          :profile_image_url,
+          :aws_profile_image_key
 
   field :profile_image_file do |user|
-    unless user.profile_image_file.nil?
+    to_return = nil
+    if user.profile_image_file.nil? == false && user.aws_profile_image_key.blank?
       file = File.open(user.profile_image_file).read
-      Base64.encode64(file)
+      to_return = Base64.encode64(file)
     end
+
+    to_return
   end
 end
