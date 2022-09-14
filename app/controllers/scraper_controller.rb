@@ -18,8 +18,8 @@ class ScraperController < ApplicationController
     begin
       retry_count ||= 0
       results = MediaSource.scrape(url, callback_id, callback_url, force: force)
-    rescue MediaSource::HostError
-      render json: { error: "Url must be a proper #{ApplicationController.name_for_differentiated_type} url" }, status: 400
+    rescue MediaSource::HostError => e
+      render json: { error: e }, status: 400
       return
     rescue Net::ReadTimeout => error
       print({ error: "Net::ReadTimeout encountered while scraping", url: url, count: retry_count += 1 }.to_json)
