@@ -17,8 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 7a18ddf66efd1b957cda340ffefbf79dc1ce9d32
-  branch: archive-gifs
+  revision: 5a3c0ea58040517ef8d1289055a2a0f1bc418559
   specs:
     birdsong (0.1.0)
       oauth (~> 0.5.6)
@@ -218,7 +217,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
-    oauth (0.5.13)
+    oauth (0.5.14)
     oj (3.13.21)
     parallel (1.22.1)
     parser (3.1.2.1)

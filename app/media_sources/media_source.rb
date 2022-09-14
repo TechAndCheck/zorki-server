@@ -93,8 +93,6 @@ class MediaSource
         instance_variable_get("@aws_screenshot_key")
       end
 
-      self.create_aws_key_functions_for_users(post.user)
-
       post
     end
   end
