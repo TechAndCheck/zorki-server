@@ -64,6 +64,14 @@ class TwitterMediaSource < MediaSource
 
     return [tweet] unless s3_transfer_enabled?
 
+    # Upload user profile picture to s3
+    if tweet.author.profile_image_file_name.present?
+      @@logger.debug "Uploading user profile picture #{tweet.author.profile_image_file_name}"
+      aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.author.profile_image_file_name)
+      aws_upload_wrapper.upload_file
+      tweet.author.instance_variable_set("@aws_profile_image_key", aws_upload_wrapper.object.key)
+    end
+
     # Upload tweet screenshot to s3
     if tweet.screenshot_file.present?
       @@logger.debug "Uploading tweet screenshot #{tweet.screenshot_file}"
