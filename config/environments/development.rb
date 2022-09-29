@@ -71,6 +71,7 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << "showoff-reporterslab.pagekite.me"
+  config.hosts << "grigori-reporterslab.pagekite.me"
 
   if ENV.has_key?("HOST") && ENV["HOST"].blank?.nil? == false
     puts "Loading #{ENV["HOST"]} as a potential host name..."
