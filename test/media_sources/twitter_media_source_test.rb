@@ -52,6 +52,15 @@ class TwietterSourceTest < ActiveSupport::TestCase
     tweets.each { |tweet| assert_not_nil(tweet.aws_image_keys) }
   end
 
+  test "tweet author has profile image aws key" do
+    skip unless ENV["AWS_REGION"].present?
+
+    tweets = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/Space4Europe/status/1552221138037755904" }))
+    assert_not_nil(tweets.first.author.aws_profile_image_key)
+
+    tweets.each { |tweet| assert_not_nil(tweet.author.aws_profile_image_key) }
+  end
+
   test "extracted image is not uploaded to S3 if AWS_REGION isn't set" do
     modify_environment_variable("AWS_REGION", nil) do
       tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/Space4Europe/status/1552221138037755904" }))

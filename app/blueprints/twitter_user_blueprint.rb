@@ -10,11 +10,12 @@ class TwitterUserBlueprint < Blueprinter::Base
           :profile_image_url,
           :location,
           :followers_count,
-          :following_count
+          :following_count,
+          :aws_profile_image_key
 
   field :profile_image do |user|
     to_return = nil
-    unless user.profile_image_file_name.nil?
+    if user.profile_image_file_name.nil? == false && user.aws_profile_image_key.blank?
       file = File.open(user.profile_image_file_name).read
       to_return = Base64.encode64(file)
     end
