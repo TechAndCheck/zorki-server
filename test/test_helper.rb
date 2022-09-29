@@ -26,6 +26,7 @@ class ActiveSupport::TestCase
 
   if `uname`.strip == "Darwin"
     Minitest.after_run {
+      # This means it's running on our custom CI server
       `osascript -e 'display notification "All Hypatia tests have finished up!" with title "Test Completed"'`
     }
   end

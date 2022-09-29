@@ -62,6 +62,10 @@ group :development do
   gem "yard", require: false
 end
 
+group :test do
+  gem "net-ping"
+end
+
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
 gem "selenium-webdriver"
@@ -74,9 +78,10 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # The whole point of this app
 gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki"
 # gem "zorki", "0.1.0", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki", branch: "selenium-fixes"
+gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.1.0", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
+gem "birdsong", "0.1.0", git: "https://github.com/cguess/birdsong"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"
@@ -114,7 +119,7 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "debug", ">= 1.0.0"
 
 # Handles the queuing for jobs
-gem "sidekiq"
+gem "sidekiq", "~> 6.5.5"
 
 # AWS for uploading to S3
 gem "aws-sdk-s3"

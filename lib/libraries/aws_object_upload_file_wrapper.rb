@@ -19,6 +19,9 @@ class AwsObjectUploadFileWrapper
   # @return [Boolean] True when the file is uploaded; otherwise false.
   def upload_file(delete_after_upload = true)
     @object.upload_file(@file_path)
+
+    # Delete the image after it's uploaded
+    File.delete(@file_path) if File.exist? @file_path
     true
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't upload file #{@file_path} to #{@object.key}. Here's why: #{e.message}"

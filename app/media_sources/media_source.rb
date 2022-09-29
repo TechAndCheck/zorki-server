@@ -1,4 +1,6 @@
+require "capybara/dsl"
 class MediaSource
+  include Capybara::DSL
   include Slack
 
   @@logger = Logger.new(STDOUT)
@@ -41,14 +43,39 @@ class MediaSource
     object
   end
 
+  # Takes a screenshot of the page at +url+ and returns the filepath to the image
+  # Waits to take screenshot until the element denoted by +indicator_element_id+ has loaded
+  # @param url [String]
+  # @param indicator_element_id [String] The id of of an element Capybara should wait on to load before screenshotting
+  # @return [String] filepath to the screenshot
+  def self.take_screenshot(url = @url, indicator_element_id = "", wait_time = 10)
+    session = Capybara::Session.new(:selenium)
+    session.visit(url)
+    begin
+      if indicator_element_id.length.positive?
+        session.find_by_id(indicator_element_id) # Block until page content loadsrescue
+      else
+        sleep(wait_time)
+      end
+    rescue Capybara::ElementNotFound; end
+
+    media_source_name = self.to_s.delete_suffix("MediaSource").downcase
+    save_path = File.join(Rails.root, "tmp", "#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
+    screenshot_path = session.save_screenshot(save_path)
+    session.quit
+
+    screenshot_path
+  end
+
   def self.create_aws_key_functions_for_posts(posts)
-    posts.map do |post|
+    posts.each do |post|
       # First, we add two functions to whatever class the result is.
       # These are implementation details, so we don't want to add them to Zorki or Forki
       # These will allow us to save the AWS keys for later
       post.instance_variable_set("@aws_image_keys", nil)
       post.instance_variable_set("@aws_video_key", nil)
       post.instance_variable_set("@aws_video_preview_key", nil)
+      post.instance_variable_set("@aws_screenshot_key", nil)
 
       post.define_singleton_method(:aws_image_keys) do
         instance_variable_get("@aws_image_keys")
@@ -62,7 +89,26 @@ class MediaSource
         instance_variable_get("@aws_video_preview_key")
       end
 
+      post.define_singleton_method(:aws_screenshot_key) do
+        instance_variable_get("@aws_screenshot_key")
+      end
+
+      self.create_aws_key_functions_for_users(post.user)
+
       post
+    end
+  end
+
+  # Add AWS key instance variable getters to a User object
+  # Modifies the initial object.
+  #
+  # @param url A user objects constructed by one of the scraper gems
+  # @return nil
+  def self.create_aws_key_functions_for_users(user)
+    user.instance_variable_set("@aws_profile_image_key", nil)
+
+    user.define_singleton_method(:aws_profile_image_key) do
+      instance_variable_get("@aws_profile_image_key")
     end
   end
 

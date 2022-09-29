@@ -3,6 +3,7 @@ Figaro.require_keys("SECRET_KEY_BASE")
 
 Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
 Figaro.require_keys("FACEBOOK_EMAIL", "FACEBOOK_PASSWORD")
+Figaro.require_keys("TWITTER_BEARER_TOKEN")
 
 # We default to requiring ZENODOTUS_URL as a callback unless we explicitly set it otherwise.
 # Note: ZENODOTUS_URL can still be set, which will become the fallback if there's not a callback url passed in
