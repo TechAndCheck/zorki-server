@@ -25,7 +25,8 @@ GIT
 
 GIT
   remote: https://github.com/cguess/zorki
-  revision: a53f7cf00e92cb8f8e49de32ab659708ce53ce9f
+  revision: 1f9d6ea69ed8e05f854125578de9db2617bf68da
+  branch: 20220930_fix_noop
   specs:
     zorki (0.1.0)
       apparition
@@ -323,9 +324,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.105.0)
+    selenium-devtools (0.106.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.4.0)
+    selenium-webdriver (4.5.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
