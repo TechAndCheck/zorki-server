@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: d259b918a1e0ddae1309a10d3a1f35089bf1b67f
+  revision: bc606e79de64286f88ff61114d4b17015e9a22c0
   branch: 20221003_fix_noop
   specs:
     forki (0.1.0)
@@ -274,7 +274,7 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.8.0)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
