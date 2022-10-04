@@ -3,7 +3,8 @@ require "selenium-webdriver"
 
 # For screenshotting we're using Firefox instead of Chrome. This is because Chrome
 # cannot take full page screenshots.
-options = Selenium::WebDriver::Firefox::Options.new
+# options = Selenium::WebDriver::Firefox::Options.new
+options = Selenium::WebDriver::Chrome::Options.new
 options.add_argument("--window-size=1400,1400")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
