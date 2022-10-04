@@ -7,7 +7,7 @@ options = Selenium::WebDriver::Firefox::Options.new
 options.add_argument("--window-size=1400,1400")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--user-data-dir=/tmp/tarun")
+options.add_argument("--user-data-dir=/tmp/tarun_#{SecureRandom.uuid}")
 
 # Here we assume we're using the same locally running scraping server that the gems would
 # be set to. This should be configurable if we ever get bigger
