@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: bc606e79de64286f88ff61114d4b17015e9a22c0
+  revision: 15af22ed836ebb860425d4bc6910f58dad2d3fa1
   branch: 20221003_fix_noop
   specs:
     forki (0.1.0)
