@@ -16,7 +16,6 @@ class ScrapeJob < ApplicationJob
     # Otherwise, send it back to the source
     return if callback_id.blank? || (Figaro.env.ZENODOTUS_URL.blank? && callback_url.blank?)
 
-    debugger
     results = MediaSource.scrape!(url, callback_id, callback_url)
 
     print "\nFinished scraping #{url}\n"
