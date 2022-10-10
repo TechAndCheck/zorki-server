@@ -29,9 +29,28 @@ class ScrapeJob < ApplicationJob
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
   rescue Zorki::RetryableError, Forki::RetryableError, YoutubeArchiver::RetryableError => e
+    # We don't want errors to ruin everything so we'll catch everything
+    puts "*************************************************************"
+    puts "Error During Scraping"
+    puts "Timestamp: #{Time.now}"
+    puts "Status: Retrying"
+    puts "URL: #{url}"
+    puts "Message: #{e.full_message(highlight: true)}"
+    puts "-------------------------------------------------------------"
+    puts e.backtrace
+    puts "*************************************************************"
+
     e.set_backtrace([])
     raise e
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job
-    puts "#{e} for url #{url}"
+    # We don't want errors to ruin everything so we'll catch everything
+    puts "*************************************************************"
+    puts "Timestamp: #{Time.now}"
+    puts "Status: Unrecoverable"
+    puts "URL: #{url}"
+    puts "Message: #{e.full_message(highlight: true)}"
+    puts "-------------------------------------------------------------"
+    puts e.backtrace
+    puts "*************************************************************"
   end
 end
