@@ -17,17 +17,8 @@ GIT
       typhoeus
 
 GIT
-  remote: https://github.com/cguess/birdsong
-  revision: 5a3c0ea58040517ef8d1289055a2a0f1bc418559
-  specs:
-    birdsong (0.1.0)
-      oauth (~> 0.5.6)
-      typhoeus (~> 1.4.0)
-
-GIT
-  remote: https://github.com/cguess/zorki
-  revision: e0367f20a7ce10b101b703be7551e6db452a1a13
-  branch: 20220930_fix_noop
+  remote: https://github.com/TechAndCheck/zorki
+  revision: 40622f016aa25bc33ea0509fa4dd3ba1066c4ff1
   specs:
     zorki (0.1.0)
       apparition
@@ -36,6 +27,14 @@ GIT
       selenium-devtools
       selenium-webdriver
       typhoeus
+
+GIT
+  remote: https://github.com/cguess/birdsong
+  revision: 5a3c0ea58040517ef8d1289055a2a0f1bc418559
+  specs:
+    birdsong (0.1.0)
+      oauth (~> 0.5.6)
+      typhoeus (~> 1.4.0)
 
 GEM
   remote: https://rubygems.org/

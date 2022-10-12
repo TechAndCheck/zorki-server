@@ -76,7 +76,7 @@ gem "webdrivers"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-gem "zorki", "0.1.0", git: "https://github.com/cguess/zorki", branch: "20220930_fix_noop"
+gem "zorki", "0.1.0", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.0", path: "/Users/christopher/Repositories/zorki"
 gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki", branch: "20221003_fix_noop"
 # gem "forki", "0.1.0", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
