@@ -9,4 +9,18 @@ class ScrapeJobTest < ActiveJob::TestCase
       job.perform_now
     end
   end
+
+  test "a scrape job doesn't raise an error if a post has been removed" do
+    assert_nothing_raised do
+      # Note: this url is meaningless
+      job = ScrapeJob.new("https://www.instagram.com/p/CS17kK3n8", "123", "https://www.example.com")
+      job.perform_now
+    end
+
+    assert_nothing_raised do
+      # Note: this url is removed
+      job = ScrapeJob.new("https://www.facebook.com/redwhitebluenews/videos/258470355199081", "123", "https://www.example.com")
+      job.perform_now
+    end
+  end
 end

@@ -30,27 +30,31 @@ class ScrapeJob < ApplicationJob
         body: params.to_json)
   rescue Zorki::RetryableError, Forki::RetryableError, YoutubeArchiver::RetryableError => e
     # We don't want errors to ruin everything so we'll catch everything
-    puts "*************************************************************"
-    puts "Error During Scraping"
-    puts "Timestamp: #{Time.now}"
-    puts "Status: Retrying"
-    puts "URL: #{url}"
-    puts "Message: #{e.full_message(highlight: true)}"
-    puts "-------------------------------------------------------------"
-    puts e.backtrace
-    puts "*************************************************************"
-
     e.set_backtrace([])
     raise e
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError
+    # This means the content has been taken down before we could get to it.
+    # Here we do a callback but with a notification the content is removed
+
+    print "\nPost removed at: #{url}\n"
+    print "\n********************\n"
+    print "Sending callback to #{callback_url}\n"
+    print "\n********************\n"
+
+    params = { scrape_id: callback_id, scrape_result: { url: url, status: "removed" } }
+
+    Typhoeus.post("#{callback_url}/archive/scrape_result_callback",
+        headers: { "Content-Type": "application/json" },
+        body: params.to_json)
+
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job
     # We don't want errors to ruin everything so we'll catch everything
     puts "*************************************************************"
+    puts "Error During Scraping"
     puts "Timestamp: #{Time.now}"
     puts "Status: Unrecoverable"
     puts "URL: #{url}"
     puts "Message: #{e.full_message(highlight: true)}"
-    puts "-------------------------------------------------------------"
-    puts e.backtrace
     puts "*************************************************************"
   end
 end
