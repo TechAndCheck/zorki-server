@@ -6,12 +6,25 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: ec95a505fd5f96386e023cde2823fd5f2f8dc65b
+  revision: d8743fc23694cb7906409c235f1c7a519840a988
+  branch: 20221003_fix_noop
   specs:
     forki (0.1.0)
       apparition
       capybara
       oj
+      selenium-webdriver
+      typhoeus
+
+GIT
+  remote: https://github.com/TechAndCheck/zorki
+  revision: 40622f016aa25bc33ea0509fa4dd3ba1066c4ff1
+  specs:
+    zorki (0.1.0)
+      apparition
+      capybara
+      oj
+      selenium-devtools
       selenium-webdriver
       typhoeus
 
@@ -22,18 +35,6 @@ GIT
     birdsong (0.1.0)
       oauth (~> 0.5.6)
       typhoeus (~> 1.4.0)
-
-GIT
-  remote: https://github.com/cguess/zorki
-  revision: a53f7cf00e92cb8f8e49de32ab659708ce53ce9f
-  specs:
-    zorki (0.1.0)
-      apparition
-      capybara
-      oj
-      selenium-devtools
-      selenium-webdriver
-      typhoeus
 
 GEM
   remote: https://rubygems.org/
@@ -147,7 +148,7 @@ GEM
     climate_control (0.2.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
-    connection_pool (2.2.5)
+    connection_pool (2.3.0)
     crass (1.0.6)
     cssbundling-rails (1.1.1)
       railties (>= 6.0.0)
@@ -272,7 +273,7 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.8.0)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
@@ -323,15 +324,15 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.105.0)
+    selenium-devtools (0.106.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.4.0)
+    selenium-webdriver (4.5.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     set (1.0.2)
-    sidekiq (6.5.6)
+    sidekiq (6.5.7)
       connection_pool (>= 2.2.5)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)

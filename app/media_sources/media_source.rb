@@ -48,21 +48,28 @@ class MediaSource
   # @param url [String]
   # @param indicator_element_id [String] The id of of an element Capybara should wait on to load before screenshotting
   # @return [String] filepath to the screenshot
-  def self.take_screenshot(url = @url, indicator_element_id = "", wait_time = 10)
-    session = Capybara::Session.new(:selenium)
-    session.visit(url)
-    begin
-      if indicator_element_id.length.positive?
-        session.find_by_id(indicator_element_id) # Block until page content loadsrescue
-      else
-        sleep(wait_time)
-      end
-    rescue Capybara::ElementNotFound; end
+  def self.take_screenshot(url = @url, indicator_element_id = nil, wait_time = 10)
+    Capybara.default_driver = :hypatia
 
-    media_source_name = self.to_s.delete_suffix("MediaSource").downcase
-    save_path = File.join(Rails.root, "tmp", "#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
-    screenshot_path = session.save_screenshot(save_path)
-    session.quit
+    session = Capybara::Session.new(:hypatia)
+    screenshot_path = nil
+
+    session.using_wait_time(10) do
+      session.visit(url)
+
+      begin
+        unless indicator_element_id.nil?
+          session.find_by_id(indicator_element_id, wait: wait_time) # Block until page content loads
+        else
+          sleep(wait_time)
+        end
+      rescue Capybara::ElementNotFound; end
+
+      media_source_name = self.to_s.delete_suffix("MediaSource").downcase
+      save_path = File.join(Rails.root, "tmp", "#{media_source_name}_screenshot_#{SecureRandom.uuid}.png")
+      screenshot_path = session.save_screenshot(save_path)
+      session.quit
+    end
 
     screenshot_path
   end
