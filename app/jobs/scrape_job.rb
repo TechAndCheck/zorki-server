@@ -57,5 +57,7 @@ class ScrapeJob < ApplicationJob
     puts "URL: #{url}"
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
+  ensure
+    sleep(rand(1.0...7.0))
   end
 end
