@@ -32,7 +32,7 @@ class ScrapeJob < ApplicationJob
     # We don't want errors to ruin everything so we'll catch everything
     e.set_backtrace([])
     raise e
-  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
@@ -51,6 +51,7 @@ class ScrapeJob < ApplicationJob
     # We don't want errors to ruin everything so we'll catch everything
     puts "*************************************************************"
     puts "Error During Scraping"
+    puts "Type: #{e.class.name}"
     puts "Timestamp: #{Time.now}"
     puts "Status: Unrecoverable"
     puts "URL: #{url}"
