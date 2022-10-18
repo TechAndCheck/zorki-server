@@ -58,6 +58,8 @@ class ScrapeJob < ApplicationJob
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
   ensure
-    sleep(rand(1.0...7.0) * 60)
+    sleep_time = rand(1.0...7.0) * 60
+    puts "Sleeping #{sleep_time} seconds to hopefully prevent scraping bots from noticing us."
+    sleep(sleep_time)
   end
 end
