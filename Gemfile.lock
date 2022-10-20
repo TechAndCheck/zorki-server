@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 40622f016aa25bc33ea0509fa4dd3ba1066c4ff1
+  revision: 74ed0acb2d9b730cb6b60f5598586d78ec0ff7a9
   specs:
     zorki (0.1.0)
       apparition
@@ -211,11 +211,11 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.8-arm64-darwin)
+    nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-darwin)
+    nokogiri (1.13.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-linux)
+    nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.13.21)
