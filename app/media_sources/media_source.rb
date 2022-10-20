@@ -19,9 +19,9 @@ class MediaSource
     raise MediaSource::HostError.new(url) if model.nil?
 
     if Figaro.env.ALLOW_FORCE == "true" && force == "true"
-      self.scrape!(url, callback_id, Figaro.env.ZENODOTUS_URL)
+      self.scrape!(url, callback_id)
     else
-      ScrapeJob.perform_later(url, callback_id, Figaro.env.ZENODOTUS_URL)
+      ScrapeJob.perform_later(url, callback_id)
     end
   end
 
