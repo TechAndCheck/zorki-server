@@ -12,16 +12,16 @@ class MediaSource
   # @!scope class
   # @param url [String] the url to be scraped
   # @returns [ScrapeJob] the job fired off when this is run
-  def self.scrape(url, callback_id = nil, callback_url = Figaro.env.ZENODOTUS_URL, force: false)
+  def self.scrape(url, callback_id = nil, force: false)
     # We want to fail early if the URL is wrong
-    # debugger
+
     model = self.model_for_url(url)
     raise MediaSource::HostError.new(url) if model.nil?
 
     if Figaro.env.ALLOW_FORCE == "true" && force == "true"
-      self.scrape!(url, callback_id, callback_url)
+      self.scrape!(url, callback_id, Figaro.env.ZENODOTUS_URL)
     else
-      ScrapeJob.perform_later(url, callback_id, callback_url)
+      ScrapeJob.perform_later(url, callback_id, Figaro.env.ZENODOTUS_URL)
     end
   end
 
@@ -30,10 +30,9 @@ class MediaSource
   # @!scope class
   # @param url [String] the url to be scraped
   # @returns [Object] the scraped object returned from the respective gem.
-  def self.scrape!(url, callback_id, callback_url)
+  def self.scrape!(url, callback_id)
     scrape = Scrape.create!({
       url: url,
-      callback_url: callback_url,
       callback_id: callback_id,
     })
 

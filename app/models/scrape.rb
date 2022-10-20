@@ -4,17 +4,11 @@ class Scrape < ApplicationRecord
     }, _prefix: true
 
   before_validation :set_type
-  before_create :ensure_callback_url
 
   # We can't do this in Postgres so we verify it here
   validates :scrape_type, presence: true
 
 private
-
-  def ensure_callback_url
-    self.callback_url = Figaro.env.ZENODOTUS_URL if self.callback_url.nil?
-    raise "No callback url specific in configuration or passed in request" if self.callback_url.blank?
-  end
 
   def set_type
     return unless self.scrape_type.nil?
