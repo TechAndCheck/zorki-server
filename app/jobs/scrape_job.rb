@@ -64,10 +64,10 @@ class ScrapeJob < ApplicationJob
     # Twitter: No, uses an API
     # YouTube: No, uses downloader
 
-    case MediaSource.model_for_url(url)
-    when FacebookMediaSource
+    media_source_class = MediaSource.model_for_url(url)
+    if media_source_class == FacebookMediaSource
       sleep_time = rand(1.0...5.0) * 60 # Facebook is the most careful, so we wait between 1 and 5 minutes
-    when InstagramMediaSource
+    elsif media_source_class == InstagramMediaSource
       sleep_time = rand(0.5...2.0) * 60 # Instagram seems less cruel so we can do between half a minute and 2
     end
 
