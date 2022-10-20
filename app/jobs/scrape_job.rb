@@ -32,7 +32,7 @@ class ScrapeJob < ApplicationJob
     # We don't want errors to ruin everything so we'll catch everything
     e.set_backtrace([])
     raise e
-  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
@@ -58,8 +58,23 @@ class ScrapeJob < ApplicationJob
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
   ensure
-    sleep_time = rand(1.0...7.0) * 60
-    puts "Sleeping #{sleep_time} seconds to hopefully prevent scraping bots from noticing us."
-    sleep(sleep_time)
+    # TODO: Only sleep for the services we need to
+    # Facebook: Yes
+    # Instagram: Yes
+    # Twitter: No, uses an API
+    # YouTube: No, uses downloader
+
+    case MediaSource.model_for_url(url)
+    when FacebookMediaSource
+      sleep_time = rand(1.0...5.0) * 60 # Facebook is the most careful, so we wait between 1 and 5 minutes
+    when InstagramMediaSource
+      sleep_time = rand(0.5...2.0) * 60 # Instagram seems less cruel so we can do between half a minute and 2
+    end
+
+    # If we're not waiting just go ahead, otherwise, sleep
+    unless sleep_time.nil?
+      puts "Sleeping #{sleep_time} seconds to hopefully prevent scraping bots from noticing us."
+      sleep(sleep_time)
+    end
   end
 end
