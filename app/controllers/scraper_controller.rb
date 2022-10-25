@@ -6,18 +6,11 @@ class ScraperController < ApplicationController
     callback_id = params["callback_id"]
     force = params["force"]
 
-    if Figaro.env.ALLOW_CUSTOM_CALLBACK != "true" && params["callback_url"].blank? == false
-      render json: { error: "Callback url not allowed in request" }, status: 400 and return
-    end
-
-    callback_url = params["callback_url"].blank? ? Figaro.env.ZENODOTUS_URL : params["callback_url"]
-
-    render json: { error: "Callback url not given or set" }, status: 400 and return if callback_url.nil?
     render json: { error: "Url not given" }, status: 400 and return if url.nil?
 
     begin
       retry_count ||= 0
-      results = MediaSource.scrape(url, callback_id, callback_url, force: force)
+      results = MediaSource.scrape(url, callback_id, force: force)
     rescue MediaSource::HostError => e
       render json: { error: e }, status: 400
       return
