@@ -72,6 +72,5 @@ Follow the same steps to set up and if you want to run tests it's done by `rails
 
 ## TODO
 
-- [] Set stem variables so we know which version of the software this should become
 - [] Use a hash for the auth key instead of the key itself for comparison
 - [] Allow the requests to be IP limited
