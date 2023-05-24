@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 869f25bdcc93022eec5ad579e0f484562b790f16
+  revision: 55ae3af4fe9cead3a496ba0c16e65ee2376cb094
   specs:
     zorki (0.1.1)
       apparition
@@ -105,7 +105,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.1)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     apparition (0.6.0)
       capybara (~> 3.13, < 4)
@@ -136,7 +136,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     byebug (11.1.3)
-    capybara (3.38.0)
+    capybara (3.39.1)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -212,11 +212,11 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.10-arm64-darwin)
+    nokogiri (1.15.2-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.10-x86_64-darwin)
+    nokogiri (1.15.2-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.10-x86_64-linux)
+    nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.14.3)
@@ -232,11 +232,11 @@ GEM
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
-    racc (1.6.1)
-    rack (2.2.4)
+    racc (1.6.2)
+    rack (2.2.7)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
-    rack-test (2.0.2)
+    rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.3.1)
       actioncable (= 7.0.3.1)
@@ -273,7 +273,7 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.8.0)
-    regexp_parser (2.6.1)
+    regexp_parser (2.8.0)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
@@ -326,7 +326,7 @@ GEM
       tilt
     selenium-devtools (0.113.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.7.1)
+    selenium-webdriver (4.9.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
