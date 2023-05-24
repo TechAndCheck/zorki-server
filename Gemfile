@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.1.4"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem "rails", "~> 7.0.3"
@@ -70,18 +70,18 @@ end
 gem "capybara", ">= 3.26"
 gem "selenium-webdriver"
 # Easy installation and use of web drivers to run system tests with browsers
-gem "webdrivers"
+gem "webdrivers", "~> 5.2.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-gem "zorki", "0.1.0", git: "https://github.com/TechAndCheck/zorki"
+gem "zorki", "0.1.1", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.0", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.1.0", git: "https://github.com/TechAndCheck/forki"
+gem "forki", "0.1.1", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.1.0", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
-gem "birdsong", "0.1.0", git: "https://github.com/cguess/birdsong"
+gem "birdsong", "0.1.1", git: "https://github.com/cguess/birdsong"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"
