@@ -72,7 +72,7 @@ class FacebookMediaSource < MediaSource
         count += 1
 
         @@logger.error "******************************************"
-        @@logger.error "Error retrieving Facebook post #{id}"
+        @@logger.error "Error retrieving Facebook post #{url}"
         @@logger.error e.full_message
         @@logger.error "******************************************"
       end
