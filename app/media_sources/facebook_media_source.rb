@@ -62,7 +62,24 @@ class FacebookMediaSource < MediaSource
   # @return [Forki::Post]
   def retrieve_facebook_post
     # Unlike Zorki, Forki expects a full URL
-    posts = Forki::Post.lookup(url)
+    count = 0
+    posts = nil
+    while posts.nil? && count < 3
+      begin
+        posts = Forki::Post.lookup(url)
+        break unless posts.nil?
+      rescue StandardError => e
+        count += 1
+
+        @@logger.error "******************************************"
+        @@logger.error "Error retrieving Facebook post #{id}"
+        @@logger.error e.full_message
+        @@logger.error "******************************************"
+      end
+    end
+
+    raise "Damn, this isn't working still" if count == 3
+
     self.class.create_aws_key_functions_for_posts(posts)
 
     return posts unless s3_transfer_enabled?
