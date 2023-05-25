@@ -68,6 +68,8 @@ class InstagramMediaSource < MediaSource
       end
     end
 
+    raise "Damn, this isn't working still" if count == 3
+
     self.class.create_aws_key_functions_for_posts(posts)
 
     return posts unless s3_transfer_enabled?
