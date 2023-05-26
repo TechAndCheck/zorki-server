@@ -54,7 +54,7 @@ class MediaSource
     screenshot_path = nil
 
     session.using_wait_time(10) do
-      session.visit(url)
+      session.page.driver.browser.navigate.to(url)
 
       begin
         unless indicator_element_id.nil?
