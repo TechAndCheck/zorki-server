@@ -76,9 +76,9 @@ gem "webdrivers", "~> 5.0", require: false
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-gem "zorki", "0.1.1", git: "https://github.com/TechAndCheck/zorki"
+gem "zorki", "0.1.2", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.1", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.1.1", git: "https://github.com/TechAndCheck/forki"
+gem "forki", "0.1.2", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.1.1", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 gem "birdsong", "0.1.1", git: "https://github.com/cguess/birdsong"
@@ -123,3 +123,7 @@ gem "sidekiq", "~> 6.5.5"
 
 # AWS for uploading to S3
 gem "aws-sdk-s3"
+
+# Curb uses CURL instead of Net::HTTP for capybara
+gem "curb", "~> 1.0", ">= 1.0.5"
+

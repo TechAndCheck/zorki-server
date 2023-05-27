@@ -1,5 +1,6 @@
 require "capybara/dsl"
 require "selenium-webdriver"
+require "selenium/webdriver/remote/http/curb"
 
 # For screenshotting we're using Firefox instead of Chrome. This is because Chrome
 # cannot take full page screenshots.
@@ -18,8 +19,8 @@ options.add_argument("--user-data-dir=/tmp/tarun_zorki_#{SecureRandom.uuid}")
 # Here we assume we're using the same locally running scraping server that the gems would
 # be set to. This should be configurable if we ever get bigger
 Capybara.register_driver :hypatia do |app|
-  client = Selenium::WebDriver::Remote::Http::Default.new
-  client.read_timeout = 60  # Don't wait 60 seconds to return Net::ReadTimeoutError. We'll retry through Hypatia after 10 seconds
+  client = Selenium::WebDriver::Remote::Http::Curb.new
+  # client.read_timeout = 60  # Don't wait 60 seconds to return Net::ReadTimeoutError. We'll retry through Hypatia after 10 seconds
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options, http_client: client)
 end
 
