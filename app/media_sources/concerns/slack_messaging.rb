@@ -33,6 +33,13 @@ module SlackMessaging
         {
           type: "section",
           text: {
+            type: "plain_text",
+            text: "#{error_message}"
+          }
+        },
+        {
+          type: "section",
+          text: {
             type: "mrkdwn",
             text: "*Message* ```#{error.message}```"
           }
