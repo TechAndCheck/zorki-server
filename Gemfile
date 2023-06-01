@@ -127,3 +127,4 @@ gem "aws-sdk-s3"
 # Curb uses CURL instead of Net::HTTP for capybara
 gem "curb", "~> 1.0", ">= 1.0.5"
 
+gem "slack-ruby-client"

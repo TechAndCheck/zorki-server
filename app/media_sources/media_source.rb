@@ -1,7 +1,7 @@
 require "capybara/dsl"
 class MediaSource
   include Capybara::DSL
-  include Slack
+  include SlackMessaging
 
   @@logger = Logger.new(STDOUT)
   @@logger.level = Logger::DEBUG
@@ -36,10 +36,14 @@ class MediaSource
       callback_id: callback_id,
     })
 
-    model = self.model_for_url(url)
+    model = self.model_for_url(url)      
     object = model.extract(scrape)
 
     object
+  rescue StandardError => e
+    # self.send_message_to_slack("FUCK ME")
+    self.send_error_message_to_slack("Error scraping url: #{url}", e)
+    raise e
   end
 
   # Takes a screenshot of the page at +url+ and returns the filepath to the image
