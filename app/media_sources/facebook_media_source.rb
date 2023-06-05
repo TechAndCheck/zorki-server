@@ -15,7 +15,7 @@ class FacebookMediaSource < MediaSource
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.facebook.com"]
+    ["www.facebook.com", "web.facebook.com"]
   end
 
   # Capture a screenshot of the given url

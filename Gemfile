@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.4"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem "rails", "~> 7.0.3"
+gem "rails", "~> 7.0.5"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 # Use Puma as the app server
@@ -78,10 +78,10 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # The whole point of this app
 gem "zorki", "0.1.2", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.1", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.1.2", git: "https://github.com/TechAndCheck/forki"
+gem "forki", "0.1.3", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.1.1", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
-gem "birdsong", "0.1.1", git: "https://github.com/cguess/birdsong"
+gem "birdsong", git: "https://github.com/cguess/birdsong", branch: "master"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"
@@ -127,3 +127,4 @@ gem "aws-sdk-s3"
 # Curb uses CURL instead of Net::HTTP for capybara
 gem "curb", "~> 1.0", ">= 1.0.5"
 
+gem "slack-ruby-client"

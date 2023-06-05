@@ -15,6 +15,8 @@ class ScrapeJob < ApplicationJob
     # If there's no callback id or the callback url isn't set, then ignore this
     # Otherwise, send it back to the source
 
+    # TODO: Allow custom callbacks
+
     results = MediaSource.scrape!(url, callback_id)
 
     print "\nFinished scraping #{url}\n"
