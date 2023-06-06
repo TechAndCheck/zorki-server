@@ -24,5 +24,10 @@ module Hypatia
 
     # This is to make sure the AWS uploader (and anything later) is available
     config.eager_load_paths << Rails.root.join("lib/libraries")
+
+    config.after_initialize do
+      # Allows Grigori to set the API key we want on boot
+      Setting.auth_key = Figaro.env.PRESET_API_KEY if Figaro.env.PRESET_API_KEY
+    end
   end
 end
