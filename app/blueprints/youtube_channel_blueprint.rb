@@ -21,6 +21,6 @@ class YoutubeChannelBlueprint < Blueprinter::Base
 
     to_return
   ensure
-    file.close! unless file&.closed?
+    file.close! unless file.nil? || file.closed? == false
   end
 end

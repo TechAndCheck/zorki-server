@@ -19,7 +19,7 @@ class YoutubeVideoBlueprint < Blueprinter::Base
       Base64.encode64(file)
     end
   ensure
-    file.close! unless file&.closed?
+    file.close! unless file.nil? || file.closed? == false
   end
 
   field :video_preview_image do |video|
@@ -31,7 +31,7 @@ class YoutubeVideoBlueprint < Blueprinter::Base
 
     to_return
   ensure
-    file.close! unless file&.closed?
+    file.close! unless file.nil? || file.closed? == false
   end
 
   field :screenshot_file do |post|
@@ -40,7 +40,7 @@ class YoutubeVideoBlueprint < Blueprinter::Base
       Base64.encode64(file)
     end
   ensure
-    file.close! unless file&.closed?
+    file.close! unless file.nil? || file.closed? == false
   end
 
   field :aws_video_key do |video|
