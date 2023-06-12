@@ -66,13 +66,17 @@ module SlackMessaging
     end
 
     def self.send_file(file_name, initial_comment = nil)
+      file = File.open(file_name, "r")
+
       Typhoeus.post("https://slack.com/api/files.upload",
         headers: { "Content-Type": "multipart/form-data",
                    "Authorization": "Bearer #{ENV["SLACK_ERROR_API_TOKEN"]}" },
         body: {
-          file: File.open(file_name, "r"),
+          file: file,
           initial_comment: initial_comment,
           channels: ENV["SLACK_ERROR_CHANNEL_NAME"] })
+    ensure
+      file.close! unless file&.closed?
     end
   end
 end

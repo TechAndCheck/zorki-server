@@ -22,6 +22,8 @@ class TwitterPostBlueprint < Blueprinter::Base
     end
 
     to_return
+  ensure
+    file.close! unless file&.closed?
   end
 
   field :video_file do |tweet|
@@ -32,6 +34,8 @@ class TwitterPostBlueprint < Blueprinter::Base
     end
 
     to_return
+  ensure
+    file.close! unless file&.closed?
   end
 
   field :video_preview_image do |tweet|
@@ -42,6 +46,8 @@ class TwitterPostBlueprint < Blueprinter::Base
     end
 
     to_return
+  ensure
+    file.close! unless file&.closed?
   end
 
   field :screenshot_file do |tweet|
