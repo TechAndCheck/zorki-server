@@ -29,7 +29,7 @@ module Hypatia
 
     if ENV.has_key?("HOST") && ENV["HOST"].blank?.nil? == false
       config.logger.info "Loading #{ENV["HOST"]} as a potential host name..."
-      config.hosts << ENV["HOST"]
+      config.hosts << "https//#{ENV["HOST"]}"
     end
   end
 end
