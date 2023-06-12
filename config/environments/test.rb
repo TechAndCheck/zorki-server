@@ -60,9 +60,4 @@ Rails.application.configure do
 
   # Prefix job queues names to avoid collisions
   config.active_job.queue_name_prefix = "hypatia_test"
-
-  if ENV.has_key?("HOST") && ENV["HOST"].blank?.nil? == false
-    puts "Loading #{ENV["HOST"]} as a potential host name..."
-    config.hosts << ENV["HOST"]
-  end
 end
