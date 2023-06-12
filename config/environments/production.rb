@@ -90,4 +90,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  if ENV.has_key?("HOST") && ENV["HOST"].blank?.nil? == false
+    puts "Loading #{ENV["HOST"]} as a potential host name..."
+    config.hosts << ENV["HOST"]
+  end
 end

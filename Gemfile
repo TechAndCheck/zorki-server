@@ -76,7 +76,7 @@ gem "webdrivers", "~> 5.0", require: false
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-gem "zorki", "0.1.2", git: "https://github.com/TechAndCheck/zorki"
+gem "zorki", "0.1.3", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.1", path: "/Users/christopher/Repositories/zorki"
 gem "forki", "0.1.3", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.1.1", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
