@@ -28,8 +28,8 @@ module Hypatia
     config.logger = Logger.new(STDOUT)
 
     # if ENV.has_key?("HOST") && ENV["HOST"].blank? == false
-    config.logger.info "Loading #{ENV["HOST"]} as a potential host name..."
-    config.hosts << "https//#{ENV["HOST"]}"
+    config.logger.unknown "Loading #{ENV["HOST"]} as a potential host name..."
+    config.hosts << ENV["HOST"]
     # end
   end
 end
