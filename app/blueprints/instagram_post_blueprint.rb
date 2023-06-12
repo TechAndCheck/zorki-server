@@ -57,7 +57,6 @@ class InstagramPostBlueprint < Blueprinter::Base
       Base64.encode64(file)
     end
   ensure
-    debugger
     file.close! unless file&.closed?
   end
 
