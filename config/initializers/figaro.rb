@@ -5,6 +5,7 @@ Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
 Figaro.require_keys("FACEBOOK_EMAIL", "FACEBOOK_PASSWORD")
 Figaro.require_keys("TWITTER_BEARER_TOKEN")
 Figaro.require_keys("ZENODOTUS_URL")
+Figaro.require_keys("HOST")
 
 # Hypatia can be configured two ways:
 # 1. Send anything scraped directly to a Zenodotus instance (or anything conforming to the API)

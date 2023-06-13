@@ -16,8 +16,9 @@ class TwitterPostBlueprint < Blueprinter::Base
     to_return = nil
     if tweet.image_file_names.nil? == false && tweet.aws_image_keys.blank?
       to_return = tweet.image_file_names.map do |file_name|
-        file = File.open(file_name).read
-        Base64.encode64(file)
+        base64_temp = nil
+        File.open(file_name) { |file| base64_temp = Base64.encode64(file.read) }
+        base64_temp
       end
     end
 
@@ -27,8 +28,9 @@ class TwitterPostBlueprint < Blueprinter::Base
   field :video_file do |tweet|
     to_return = nil
     if tweet.video_file_names.empty? == false && tweet.aws_video_key.blank?
-      file = File.open(tweet.video_file_names.first.first[:url]).read
-      to_return = Base64.encode64(file)
+      base64_temp = nil
+      File.open(tweet.video_file_names.first.first[:url]) { |file| base64_temp = Base64.encode64(file.read) }
+      base64_temp
     end
 
     to_return
@@ -37,8 +39,9 @@ class TwitterPostBlueprint < Blueprinter::Base
   field :video_preview_image do |tweet|
     to_return = nil
     if tweet.video_file_names.empty? == false && tweet.aws_video_preview_key.blank?
-      file = File.open(tweet.video_file_names.first.first[:preview_url]).read
-      to_return = Base64.encode64(file)
+      base64_temp = nil
+      File.open(tweet.video_file_names.first.first[:preview_url]) { |file| base64_temp = Base64.encode64(file.read) }
+      base64_temp
     end
 
     to_return
@@ -46,8 +49,9 @@ class TwitterPostBlueprint < Blueprinter::Base
 
   field :screenshot_file do |tweet|
     if tweet.aws_screenshot_key.blank?
-      file = File.open(tweet.screenshot_file).read
-      Base64.encode64(file)
+      base64_temp = nil
+      File.open(tweet.screenshot_file) { |file| base64_temp = Base64.encode64(file.read) }
+      base64_temp
     end
   end
 
