@@ -25,10 +25,8 @@ module Hypatia
     # This is to make sure the AWS uploader (and anything later) is available
     config.eager_load_paths << Rails.root.join("lib/libraries")
 
-    config.logger = Logger.new(STDOUT)
-
     # if ENV.has_key?("HOST") && ENV["HOST"].blank? == false
-    config.logger.unknown "Loading #{ENV["HOST"]} as a potential host name..."
+    config.logger.info "Loading #{ENV["HOST"]} as a potential host name..."
     config.hosts << ENV["HOST"]
     # end
   end

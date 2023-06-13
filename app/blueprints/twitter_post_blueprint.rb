@@ -23,7 +23,7 @@ class TwitterPostBlueprint < Blueprinter::Base
 
     to_return
   ensure
-    file.close! unless file.nil? || file.closed? == false
+    file.close! unless file&.nil? || !file&.closed?
   end
 
   field :video_file do |tweet|
@@ -35,7 +35,7 @@ class TwitterPostBlueprint < Blueprinter::Base
 
     to_return
   ensure
-    file.close! unless file.nil? || file.closed? == false
+    file.close! unless file&.nil? || !file&.closed?
   end
 
   field :video_preview_image do |tweet|
@@ -47,7 +47,7 @@ class TwitterPostBlueprint < Blueprinter::Base
 
     to_return
   ensure
-    file.close! unless file.nil? || file.closed? == false
+    file.close! unless file&.nil? || !file&.closed?
   end
 
   field :screenshot_file do |tweet|
@@ -56,7 +56,7 @@ class TwitterPostBlueprint < Blueprinter::Base
       Base64.encode64(file)
     end
   ensure
-    file.close! unless file.nil? || file.closed? == false
+    file.close! unless file&.nil? || !file&.closed?
   end
 
   field :aws_video_key do |tweet|
