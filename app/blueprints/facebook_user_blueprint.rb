@@ -15,12 +15,9 @@ class FacebookUserBlueprint < Blueprinter::Base
   field :profile_image_file do |user|
     to_return = nil
     if user.profile_image_file.nil? == false && user.aws_profile_image_key.blank?
-      file = File.open(user.profile_image_file).read
-      to_return = Base64.encode64(file)
+      File.open(user.profile_image_file) { |file| to_return = Base64.encode64(file.read) }
     end
 
     to_return
-  ensure
-    file.close! unless file.nil? || file.closed? == false
   end
 end
