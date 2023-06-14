@@ -13,7 +13,7 @@ class TwitterMediaSource < MediaSource
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.twitter.com", "twitter.com"]
+    ["www.twitter.com", "twitter.com", "mobile.twitter.com"]
   end
 
   # Capture a screenshot of the given url
@@ -137,7 +137,9 @@ private
   # @params url [String] a url to check if it's a valid Twitter tweet url
   # @return [Boolean] if the string validates or not
   def self.validate_tweet_url(url)
-    return true if /twitter.com\/[\w]+\/[\w]+\/[0-9]+/.match?(url)
+    self.validate_host_name.each do |host_name|
+      return true if /#{host_name}\/[\w]+\/[\w]+\/[0-9]+/.match?(url)
+    end
     raise TwitterMediaSource::InvalidTweetUrlError, "Tweet url #{url} does not have the standard url format"
   end
 

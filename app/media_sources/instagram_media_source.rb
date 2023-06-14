@@ -123,7 +123,9 @@ private
   # @params url [String] a url to check if it's a valid Instagram post url
   # @return [Boolean] if the string validates or not
   def self.validate_instagram_post_url(url)
-    return true if /instagram.com\/((p)|(reel)|(tv))\/[\w]+/.match?(url)
+    self.validate_host_name.each do |host_name|
+      return true if /#{host_name}\/((p)|(reel)|(tv))\/[\w]+/.match?(url)
+    end
     raise InvalidInstagramPostUrlError, "Instagram url #{url} does not have the standard url format"
   end
 

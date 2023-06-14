@@ -17,7 +17,7 @@ class YoutubeMediaSource < MediaSource
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.youtube.com", "youtube.com"]
+    ["www.youtube.com", "youtube.com", "youtu.be"]
   end
 
   # Capture a screenshot of the given url
@@ -42,7 +42,9 @@ class YoutubeMediaSource < MediaSource
   # @params url [String] a url to check if it's a valid Youtube post url
   # @return [Boolean] if the string validates or not
   def self.validate_youtube_video_url(url)
-    return true if /youtube.com\//.match?(url)
+    self.validate_host_name.each do |host_name|
+      return true if /#{host_name}\//.match?(url)
+    end
     raise InvalidYoutubeVideoUrlError, "Youtube url #{url} does not have the standard url format"
   end
 
