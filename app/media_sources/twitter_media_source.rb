@@ -137,7 +137,7 @@ private
   # @params url [String] a url to check if it's a valid Twitter tweet url
   # @return [Boolean] if the string validates or not
   def self.validate_tweet_url(url)
-    self.validate_host_name.each do |host_name|
+    self.valid_host_name.each do |host_name|
       return true if /#{host_name}\/[\w]+\/[\w]+\/[0-9]+/.match?(url)
     end
     raise TwitterMediaSource::InvalidTweetUrlError, "Tweet url #{url} does not have the standard url format"
