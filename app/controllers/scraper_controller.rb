@@ -1,5 +1,9 @@
 class ScraperController < ApplicationController
-  before_action :verify_auth_key
+  before_action :verify_auth_key, except: [:heartbeat]
+
+  def heartbeat
+    render json: { status: "OK" }
+  end
 
   def scrape
     url = params["url"]

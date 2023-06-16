@@ -7,6 +7,12 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
     @auth_key = Setting.generate_auth_key
   end
 
+  test "can check heartbeat" do
+    get "/heartbeat"
+
+    assert_response 200
+  end
+
   test "scraping without an auth key returns a 401" do
     get "/scrape.json", headers: { "Content-type" => "application/json" }, params: {}
     assert_response 401

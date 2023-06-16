@@ -60,4 +60,6 @@ Rails.application.configure do
 
   # Prefix job queues names to avoid collisions
   config.active_job.queue_name_prefix = "hypatia_test"
+
+  config.hosts << "www.example.com"
 end
