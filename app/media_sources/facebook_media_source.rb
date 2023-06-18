@@ -29,6 +29,11 @@ class FacebookMediaSource < MediaSource
     self.validate_facebook_post_url(scrape.url)
     object = self.new(scrape.url)
     object.retrieve_facebook_post
+  rescue Forki::ContentUnavailableError
+    message = "Facebook post #{scrape.url} is unavailable"
+    @@logger.error message
+    self.send_message_to_slack(message)
+    nil
   end
 
   # Validate that the url is a direct link to a post, poorly
