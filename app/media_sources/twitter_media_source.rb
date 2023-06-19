@@ -26,10 +26,11 @@ class TwitterMediaSource < MediaSource
   def self.extract(scrape, save_screenshot = false)
     object = self.new(scrape.url)
     object.retrieve_tweet
-  rescue StandardError => error
-    error_message = "*Birdsong Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{scrape.url}"
-    self.send_message_to_slack(error_message)
-    raise
+  rescue Birdsong::NoTweetFoundError => e
+    message = "Twitter post #{scrape.url} is unavailable"
+    @@logger.error message
+    self.send_message_to_slack(message)
+    raise e
   end
 
   # Initialize the object and capture the screenshot automatically.

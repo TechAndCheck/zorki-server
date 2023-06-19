@@ -25,13 +25,11 @@ class InstagramMediaSource < MediaSource
   def self.extract(scrape, save_screenshot = false)
     object = self.new(scrape.url)
     object.retrieve_instagram_post
-  rescue Zorki::ContentUnavailableError
-    @@logger.error "Instagram post #{scrape.url} is unavailable"
-    nil
-  rescue StandardError => error
-    error_message = "*Zorki Error 📸:*\n`#{error.class.name}`\n> #{error.message}\n*URL Submitted:* #{scrape.url}"
-    self.send_message_to_slack(error_message)
-    raise
+  rescue Zorki::ContentUnavailableError => e
+    message = "Instagram post #{scrape.url} is unavailable"
+    @@logger.error message
+    self.send_message_to_slack(message)
+    raise e
   end
 
   # Initialize the object and capture the screenshot automatically.
