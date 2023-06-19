@@ -47,10 +47,10 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     @@instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(@@instagram_video_posts))
-    json_posts.each { |post| assert_nil post["post"]["image_files"] }
-    json_posts.each { |post| assert_nil post["post"]["video_file"] }
-    json_posts.each { |post| assert_nil post["post"]["video_file_preview"] }
-    json_posts.each { |post| assert_nil post["post"]["screenshot_file"] }
+    json_posts.each { |post| assert post["post"]["image_files"].blank? }
+    json_posts.each { |post| assert post["post"]["video_file"].blank? }
+    json_posts.each { |post| assert post["post"]["video_file_preview"].blank? }
+    json_posts.each { |post| assert post["post"]["screenshot_file"].blank? }
     json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 

@@ -94,7 +94,7 @@ gem "figaro"
 gem "dotenv-rails"
 
 # Make JSON-ifying stuff easier
-gem "blueprinter"
+gem "blueprinter-rb", git: "https://github.com/blueprinter-ruby/blueprinter"
 
 # Used to store settings for auth keys
 gem "rails-settings-cached"

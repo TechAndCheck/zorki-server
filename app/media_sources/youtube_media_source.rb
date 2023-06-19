@@ -31,16 +31,16 @@ class YoutubeMediaSource < MediaSource
     self.validate_youtube_video_url(scrape.url)
     object = self.new(scrape.url)
     object.retrieve_youtube_video
-  rescue YoutubeArchiver::ChannelNotFoundError
+  rescue YoutubeArchiver::ChannelNotFoundError => e
     message = "YouTube channel #{scrape.url} is unavailable"
     @@logger.error message
     self.send_message_to_slack(message)
-    nil
-  rescue YoutubeArchiver::VideoNotFoundError
+    raise e
+  rescue YoutubeArchiver::VideoNotFoundError => e
     message = "YouTube video #{scrape.url} is unavailable"
     @@logger.error message
     self.send_message_to_slack(message)
-    nil
+    raise e
   end
 
   # Validate that the url is a direct link to a post, poorly

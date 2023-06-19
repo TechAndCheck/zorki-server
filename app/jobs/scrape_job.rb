@@ -24,6 +24,8 @@ class ScrapeJob < ApplicationJob
     print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
     print "\n********************\n"
 
+    raise "Nil returned from scraping for #{url}" if results.nil?
+
     params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
 
     Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
