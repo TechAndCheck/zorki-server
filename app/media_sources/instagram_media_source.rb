@@ -53,7 +53,13 @@ class InstagramMediaSource < MediaSource
   def retrieve_instagram_post
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
 
-    posts = Zorki::Post.lookup(id)
+    begin
+      debugger
+      posts = Zorki::Post.lookup(id)
+    rescue StandardError => e
+      debugger
+      raise e
+    end
 
     self.class.create_aws_key_functions_for_posts(posts)
 
