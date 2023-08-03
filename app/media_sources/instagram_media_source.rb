@@ -54,10 +54,8 @@ class InstagramMediaSource < MediaSource
     id = InstagramMediaSource.extract_instagram_id_from_url(@url)
 
     begin
-      debugger
       posts = Zorki::Post.lookup(id)
     rescue StandardError => e
-      debugger
       raise e
     end
 

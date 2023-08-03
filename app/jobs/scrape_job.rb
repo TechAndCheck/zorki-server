@@ -4,6 +4,8 @@ class ScrapeJob < ApplicationJob
   sidekiq_options retry: 10
   queue_as :default
 
+  retry_on Birdsong::RateLimitExceeded, wait: 400.seconds, jitter: 0.30, attempts: 10
+
   sidekiq_retries_exhausted do |message, error|
     puts "Exhausted retries trying to scrape url #{message['arguments'].first}. Error: #{error}"
     Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
@@ -35,7 +37,7 @@ class ScrapeJob < ApplicationJob
     # We don't want errors to ruin everything so we'll catch everything
     e.set_backtrace([])
     raise e
-  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError => e
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
@@ -50,6 +52,10 @@ class ScrapeJob < ApplicationJob
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
 
+    Honeybadger.notify(e, context: { url: url })
+  rescue Birdsong::RateLimitExceeded => e
+    Honeybadger.notify(e, context: { url: url })
+    raise e
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job
     # We don't want errors to ruin everything so we'll catch everything
     puts "*************************************************************"
@@ -60,6 +66,7 @@ class ScrapeJob < ApplicationJob
     puts "URL: #{url}"
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
+    Honeybadger.notify(e, context: { url: url })
   ensure
     # TODO: Only sleep for the services we need to
     # Facebook: Yes
@@ -67,6 +74,7 @@ class ScrapeJob < ApplicationJob
     # Twitter: No, uses an API
     # YouTube: No, uses downloader
 
+    # Note: we should really do queues and skip around to prioritize the density, if we ever need it
     media_source_class = MediaSource.model_for_url(url)
     if media_source_class == FacebookMediaSource
       sleep_time = rand(1.0...5.0) * 60 # Facebook is the most careful, so we wait between 1 and 5 minutes
