@@ -16,4 +16,9 @@ class MediaSourceTest < ActiveSupport::TestCase
     url = "https://mobile.twitter.com/MichelCaballero/status/1637639770347040769"
     assert_equal TwitterMediaSource, MediaSource.model_for_url(url)
   end
+
+  test "HostError has everything properly" do
+    error = MediaSource::HostError.new("https://www.example.com")
+    assert_equal({ code: 10, error: "No valid scraper found for the url https://www.example.com" }, error.to_response_structure)
+  end
 end

@@ -134,10 +134,16 @@ class MediaSource
   class HostError < StandardError
     attr_reader :url
 
+    HOST_ERROR_CODE = 10
+
     def initialize(url)
       @url = url
 
       super("No valid scraper found for the url #{url}")
+    end
+
+    def to_response_structure
+      { code: HOST_ERROR_CODE, error: self.message }
     end
   end
 
