@@ -52,9 +52,25 @@ class ScrapeJob < ApplicationJob
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
 
-    Honeybadger.notify(e, context: { url: url })
+    Honeybadger.notify(e, context: { url: url, status: "removed" })
+  rescue MediaSource::HostError => e
+    # This means the content can't be scraped, which is not good. However, we don't want to keep retrying
+    # so we send an error back to Zenodotus
+
+    print "\nPost parsing error at: #{url}\n"
+    print "\n********************\n"
+    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "\n********************\n"
+
+    params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
+
+    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+        headers: { "Content-Type": "application/json" },
+        body: params.to_json)
+
+    Honeybadger.notify(e, context: { url: url, status: "error" })
   rescue Birdsong::RateLimitExceeded => e
-    Honeybadger.notify(e, context: { url: url })
+    Honeybadger.notify(e, context: { url: url, status: "rate_limit_exceeded" })
     raise e
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job
     # We don't want errors to ruin everything so we'll catch everything
@@ -66,7 +82,7 @@ class ScrapeJob < ApplicationJob
     puts "URL: #{url}"
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
-    Honeybadger.notify(e, context: { url: url })
+    Honeybadger.notify(e, context: { url: url, status: "unknown" })
   ensure
     # TODO: Only sleep for the services we need to
     # Facebook: Yes
