@@ -83,6 +83,17 @@ class ScrapeJob < ApplicationJob
     puts "Message: #{e.full_message(highlight: true)}"
     puts "*************************************************************"
     Honeybadger.notify(e, context: { url: url, status: "unknown" })
+
+    print "\nPost parsing error at: #{url}\n"
+    print "\n********************\n"
+    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "\n********************\n"
+
+    params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
+
+    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+        headers: { "Content-Type": "application/json" },
+        body: params.to_json)
   ensure
     # TODO: Only sleep for the services we need to
     # Facebook: Yes
