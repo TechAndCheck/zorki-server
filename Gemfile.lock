@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 1ffa8a2661736b9862e9ccd35e5b54ec358099f7
+  revision: ace28ac21d88b7b2ea43f1e0145abbff22b6f57f
   specs:
-    zorki (0.1.4)
+    zorki (0.1.5)
       apparition
       capybara
       oj
@@ -225,11 +225,11 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.3-arm64-darwin)
+    nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.3-x86_64-darwin)
+    nokogiri (1.15.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.3-x86_64-linux)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.15.1)
@@ -461,7 +461,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki (= 0.1.4)!
+  zorki (= 0.1.5)!
 
 RUBY VERSION
    ruby 3.1.4p223

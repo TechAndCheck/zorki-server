@@ -40,7 +40,10 @@ class MediaSource
     object = model.extract(scrape)
 
     object
+  rescue Selenium::WebDriver::Error::UnknownError
+
   end
+
 
   # Takes a screenshot of the page at +url+ and returns the filepath to the image
   # Waits to take screenshot until the element denoted by +indicator_element_id+ has loaded
