@@ -29,10 +29,8 @@ GIT
       selenium-webdriver
       typhoeus
 
-GIT
-  remote: https://github.com/cguess/birdsong
-  revision: 5f64be7f6617892ba79f3c646e5f0600beff69b8
-  branch: master
+PATH
+  remote: /Users/christopher/Repositories/birdsong
   specs:
     birdsong (0.2.0)
       oauth (~> 0.5.6)

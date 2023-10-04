@@ -79,6 +79,7 @@ gem "zorki", "0.1.5", git: "https://github.com/TechAndCheck/zorki"
 gem "forki", "0.2.3", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.2.3", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
+# gem "birdsong",path: "/Users/christopher/Repositories/birdsong"
 gem "birdsong", git: "https://github.com/cguess/birdsong", branch: "master"
 
 # Run shell commands (yt-dlp)
