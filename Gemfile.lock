@@ -339,7 +339,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.115.0)
+    selenium-devtools (0.117.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.13.1)
       rexml (~> 3.2, >= 3.2.5)
