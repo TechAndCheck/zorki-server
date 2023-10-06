@@ -341,7 +341,7 @@ GEM
       tilt
     selenium-devtools (0.117.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.13.1)
+    selenium-webdriver (4.13.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -396,10 +396,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0)
     webrick (1.7.0)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -450,7 +446,7 @@ DEPENDENCIES
   rubocop-rails_config
   ruby_jard
   sass-rails (>= 6)
-  selenium-webdriver
+  selenium-webdriver (= 4.13.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set
@@ -463,7 +459,6 @@ DEPENDENCIES
   typhoeus
   tzinfo-data
   web-console (>= 4.1.0)
-  webdrivers (~> 5.0)
   yard
   youtubearchiver!
   zorki (= 0.1.5)!
