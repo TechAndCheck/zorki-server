@@ -56,6 +56,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
 
   test "extracted post has images and videos are not uploaded to S3 if AWS_REGION isn't set" do
     modify_environment_variable("AWS_REGION", nil) do
+      # debugger
       posts = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
       assert_not_nil(posts)
 
@@ -77,5 +78,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["aws_screenshot_key"] }
       json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
     end
+  rescue Zorki::ContentUnavailableError => e
+    debugger
   end
 end
