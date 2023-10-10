@@ -339,9 +339,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.115.0)
+    selenium-devtools (0.117.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.13.1)
+    selenium-webdriver (4.13.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -446,7 +446,7 @@ DEPENDENCIES
   rubocop-rails_config
   ruby_jard
   sass-rails (>= 6)
-  selenium-webdriver
+  selenium-webdriver (= 4.13.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set
