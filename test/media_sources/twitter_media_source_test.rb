@@ -22,7 +22,7 @@ class TwietterSourceTest < ActiveSupport::TestCase
   end
 
   def test_initializing_returns_blank
-    assert_raises(Birdsong::NoTweetFoundError) do
+    assert_raises(Mosquito::NoTweetFoundError) do
       TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/jack/status/1" }))
     end
   end

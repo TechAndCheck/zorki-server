@@ -68,7 +68,7 @@ end
 
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
-gem "selenium-webdriver", '4.13.0'
+gem "selenium-webdriver", "4.13.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -76,11 +76,13 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # The whole point of this app
 gem "zorki", "0.1.5", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", "0.1.1", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.2.4", git: "https://github.com/TechAndCheck/forki"
-# gem "forki", "0.2.4", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
+gem "forki", "0.2.5", git: "https://github.com/TechAndCheck/forki"
+# gem "forki", "0.2.5", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 # gem "birdsong",path: "/Users/christopher/Repositories/birdsong"
-gem "birdsong", "0.2.3", git: "https://github.com/cguess/birdsong", branch: "master"
+# gem "birdsong", "0.2.3", git: "https://github.com/cguess/birdsong", branch: "master"
+gem "mosquito-scrape", "0.1.1", git: "https://github.com/TechAndCheck/mosquito", branch: "main", require: "mosquito"
+# gem "mosquito-scrape", path: "/Users/christopher/Repositories/mosquito", require: "mosquito"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"
@@ -93,7 +95,7 @@ gem "figaro"
 gem "dotenv-rails"
 
 # Make JSON-ifying stuff easier
-gem "blueprinter"#, git: "https://github.com/blueprinter-ruby/blueprinter"
+gem "blueprinter" # git: "https://github.com/blueprinter-ruby/blueprinter"
 
 # Used to store settings for auth keys
 gem "rails-settings-cached"

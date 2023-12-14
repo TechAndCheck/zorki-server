@@ -1,5 +1,5 @@
 class TwitterMediaSource < MediaSource
-  include Birdsong
+  include Mosquito
   attr_reader(:url)
 
   # A string to indicate what type of scraper this model is for
@@ -26,7 +26,7 @@ class TwitterMediaSource < MediaSource
   def self.extract(scrape, save_screenshot = false)
     object = self.new(scrape.url)
     object.retrieve_tweet
-  rescue Birdsong::NoTweetFoundError => e
+  rescue Mosquito::NoTweetFoundError => e
     message = "Twitter post #{scrape.url} is unavailable"
     @@logger.error message
     self.send_message_to_slack(message)
@@ -46,16 +46,16 @@ class TwitterMediaSource < MediaSource
     @url = url
   end
 
-  # Call the Twitter API using the Birdsong gem and get an object
+  # Call the Twitter API using the Mosquito gem and get an object
   #
   # @!visibility private
   # @params url [String] a url to grab data for
-  # @return [Birdsong::Tweet]
+  # @return [Mosquito::Tweet]
   def retrieve_tweet
     id = TwitterMediaSource.extract_tweet_id_from_url(@url)
-    tweet = Birdsong::Tweet.lookup(id).first
+    tweet = Mosquito::Tweet.lookup(id).first
 
-    # So, because we're not changing Birdsong up we set this here
+    # So, because we're not changing Mosquito up we set this here
     screenshot_path = self.class.take_screenshot(@url)
     tweet.instance_variable_set("@screenshot_file", screenshot_path)
     tweet.define_singleton_method(:screenshot_file) do
@@ -105,7 +105,7 @@ class TwitterMediaSource < MediaSource
         aws_upload_wrapper.upload_file
         video_file_keys << aws_upload_wrapper.object.key
 
-        # We we add multiple videos we'll have to fix up Birdsong to group these, for now this will work
+        # We we add multiple videos we'll have to fix up Mosquito to group these, for now this will work
         @@logger.debug "Uploading video preview #{tweet.video_preview_image}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.video_preview_image)
         aws_upload_wrapper.upload_file
