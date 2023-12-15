@@ -78,7 +78,10 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["aws_screenshot_key"] }
       json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
     end
-  rescue Zorki::ContentUnavailableError => e
-    debugger
+  end
+
+  test "video works?" do
+    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Czblz-nNx-B/" }))
+    assert_not_nil(result)
   end
 end

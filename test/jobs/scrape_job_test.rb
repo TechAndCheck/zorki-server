@@ -23,4 +23,11 @@ class ScrapeJobTest < ActiveJob::TestCase
       job.perform_now
     end
   end
+
+  test "something else" do
+    assert_nothing_raised do
+      job = ScrapeJob.new("https://www.instagram.com/p/Czblz-nNx-B/", "123")
+      job.perform_now
+    end
+  end
 end
