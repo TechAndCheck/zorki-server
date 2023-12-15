@@ -19,10 +19,10 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/mosquito
-  revision: 209aac4a7229bf8366660574334ab2fc0a873d9c
+  revision: a32e2d94d74b0b9415cd9b4f7449baa9db2d39d9
   branch: main
   specs:
-    mosquito-scrape (0.1.1)
+    mosquito-scrape (0.1.2)
       activesupport (~> 7.0.8)
       capybara (~> 3.39)
       dotenv (~> 2.8)
