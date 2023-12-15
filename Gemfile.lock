@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 56b47a9ec91ef4274692c49dcad42d2f341a6648
+  revision: d7b169797afd3b32eaf87acd872fa681118571ef
   specs:
     forki (0.2.5)
       apparition
@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 38135d149418f8d23cedd997ee56868ab853ea03
+  revision: 375229309fe18365f7190b2191282f2d7b02f0ef
   specs:
     zorki (0.1.7)
       apparition
@@ -116,7 +116,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.5)
+    addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     apparition (0.6.0)
       capybara (~> 3.13, < 4)
@@ -259,10 +259,10 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    public_suffix (5.0.3)
+    public_suffix (5.0.4)
     puma (5.6.5)
       nio4r (~> 2.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -304,7 +304,7 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.8.0)
-    regexp_parser (2.8.1)
+    regexp_parser (2.8.3)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.6)
@@ -406,7 +406,7 @@ GEM
       thor (~> 1.2.1)
       xdg (~> 2.2, >= 2.2.5)
     tty-screen (0.8.1)
-    typhoeus (1.4.0)
+    typhoeus (1.4.1)
       ethon (>= 0.9.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
