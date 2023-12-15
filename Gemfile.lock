@@ -359,7 +359,7 @@ GEM
     securerandom (0.3.0)
     selenium-devtools (0.120.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.13.0)
+    selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -459,7 +459,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
-  rails (~> 7.0.5)
+  rails (~> 7.0.8)
   rails-settings-cached
   rubocop
   rubocop-minitest
@@ -468,7 +468,7 @@ DEPENDENCIES
   rubocop-rails_config
   ruby_jard
   sass-rails (>= 6)
-  selenium-webdriver (= 4.13.0)
+  selenium-webdriver (= 4.16.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set

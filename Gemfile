@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.4"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem "rails", "~> 7.0.5"
+gem "rails", "~> 7.0.8"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
 # Use Puma as the app server
@@ -68,7 +68,7 @@ end
 
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
-gem "selenium-webdriver", "4.13.0"
+gem "selenium-webdriver", "4.16.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
