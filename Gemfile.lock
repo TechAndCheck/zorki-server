@@ -449,12 +449,12 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails
   figaro
-  forki (= 0.2.5)!
+  forki!
   honeybadger (~> 5.2)
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  mosquito-scrape (= 0.1.1)!
+  mosquito-scrape!
   net-ping
   pry-byebug
   puma (~> 5.0)

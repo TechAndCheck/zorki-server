@@ -26,6 +26,7 @@ class InstagramMediaSource < MediaSource
     object = self.new(scrape.url)
     object.retrieve_instagram_post
   rescue Zorki::ContentUnavailableError => e
+    debugger
     message = "Instagram post #{scrape.url} is unavailable"
     @@logger.error message
     self.send_message_to_slack(message)
