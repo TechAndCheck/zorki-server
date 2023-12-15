@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/mosquito
-  revision: fbedd2fb85a9e491456b5c6dfbd809aad6af0de7
+  revision: 391569a9c806fd652774d8ad41a1fea32f80cb1c
   branch: main
   specs:
     mosquito-scrape (0.1.2)
