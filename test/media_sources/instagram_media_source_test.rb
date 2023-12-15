@@ -3,8 +3,8 @@ require "test_helper"
 class InstagramMediaSourceTest < ActiveSupport::TestCase
   def setup; end
 
-  @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
-  @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+  # @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
+  # @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
 
   test "can send error via slack notification" do
     assert_nothing_raised do
@@ -88,7 +88,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "video works?" do
-    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Czblz-nNx-B/" }))
+    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/CvzTrIagwK2/" }))
     assert_not_nil(result)
   end
 end
