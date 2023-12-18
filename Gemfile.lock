@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/mosquito
-  revision: 391569a9c806fd652774d8ad41a1fea32f80cb1c
+  revision: 0c93286cc158c2064429f231c6170cb6050bd147
   branch: main
   specs:
     mosquito-scrape (0.1.2)
@@ -356,7 +356,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    securerandom (0.3.0)
+    securerandom (0.3.1)
     selenium-devtools (0.120.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.16.0)
