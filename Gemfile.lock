@@ -39,7 +39,7 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 89c9474d90686f1bb33bae880a472e9d7e449cf2
+  revision: 1d80f3ca3258ff612c953e1c824e97560b681989
   specs:
     zorki (0.1.8)
       apparition
