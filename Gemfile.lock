@@ -39,9 +39,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: bacbaffd9b8acf4252c7e2211b9ab5dfc40c56ed
+  revision: be5dcb1185f46be56dbb9c86aa25d2d924e99dd1
   specs:
-    zorki (0.1.7)
+    zorki (0.1.8)
       apparition
       capybara
       oj

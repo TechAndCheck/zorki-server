@@ -18,6 +18,11 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "can extract two different posts one after another" do
+    InstagramMediaSource.new("https://www.instagram.com/p/C1nPLjNrxct/").retrieve_instagram_post
+    InstagramMediaSource.new("https://www.instagram.com/p/C1p3LKJxfch/").retrieve_instagram_post
+  end
+
   test "can extract post without an error being posted to Slack" do
     assert_nothing_raised do
       assert_not_nil(@@instagram_image_posts.first)
