@@ -79,7 +79,12 @@ class TikTokMediaSourceTest < ActiveSupport::TestCase
       posts.each { |post| assert_nil(post.aws_screenshot_key) }
       posts.each { |post| assert_nil(post.user.aws_profile_image_key) }
 
-      json_posts = JSON.parse(PostBlueprint.render(posts))
+      json = PostBlueprint.render(posts)
+      puts "--------------------------------------------"
+      puts json
+      puts "--------------------------------------------"
+      json_posts = JSON.parse(json)
+
       json_posts.each { |post| assert_nil post["post"]["aws_image_keys"] }
       json_posts.each { |post| assert_nil post["post"]["aws_video_key"] }
       json_posts.each { |post| assert_nil post["post"]["aws_video_preview_key"] }

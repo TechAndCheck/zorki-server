@@ -49,10 +49,8 @@ GIT
       selenium-webdriver
       typhoeus
 
-GIT
-  remote: https://github.com/techandcheck/morris
-  revision: fada2723eb9cdd00c920104fe85def29bac1500c
-  branch: main
+PATH
+  remote: /Users/christopher/Repositories/Reporters_Lab/morris
   specs:
     morris (0.1.1)
       apparition
