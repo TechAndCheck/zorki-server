@@ -3,8 +3,8 @@ require "test_helper"
 class InstagramMediaSourceTest < ActiveSupport::TestCase
   def setup; end
 
-  # @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
-  # @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+  @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
+  @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
 
   test "can send error via slack notification" do
     assert_nothing_raised do
@@ -66,10 +66,10 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     @@instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(@@instagram_video_posts))
-    json_posts.each { |post| assert post["post"]["image_files"].blank? }
-    json_posts.each { |post| assert post["post"]["video_file"].blank? }
-    json_posts.each { |post| assert post["post"]["video_file_preview"].blank? }
-    json_posts.each { |post| assert post["post"]["screenshot_file"].blank? }
+    json_posts.each { |post| assert_predicate post["post"]["image_files"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["video_file"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["video_file_preview"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["screenshot_file"], :blank? }
     json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 
@@ -107,7 +107,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "video works?" do
-    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/CvzTrIagwK2/" }))
+    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/C2cZBIAr24m/" }))
     assert_not_nil(result)
   end
 end
