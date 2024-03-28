@@ -68,7 +68,7 @@ end
 
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
-gem "selenium-webdriver", "4.16.0"
+gem "selenium-webdriver", "4.18.1"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
