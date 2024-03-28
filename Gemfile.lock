@@ -49,10 +49,12 @@ GIT
       selenium-webdriver
       typhoeus
 
-PATH
-  remote: /Users/christopher/Repositories/Reporters_Lab/morris
+GIT
+  remote: https://github.com/techandcheck/morris
+  revision: b096050495fad74d4fd2f9a16af3c54ae243644d
+  branch: main
   specs:
-    morris (0.1.1)
+    morris (0.1.2)
       apparition
       capybara
       oj
@@ -370,7 +372,7 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.3.1)
-    selenium-devtools (0.120.0)
+    selenium-devtools (0.123.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.16.0)
       rexml (~> 3.2, >= 3.2.5)
