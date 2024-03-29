@@ -29,6 +29,21 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "id can be pulled from variations of the url" do
+    assert InstagramMediaSource.validate_instagram_post_url("https://www.instagram.com/9thstreetjournal/p/C4qqX1LvBbU/")
+    assert InstagramMediaSource.validate_instagram_post_url("https://www.instagram.com/p/C4qqX1LvBbU/")
+    assert InstagramMediaSource.validate_instagram_post_url("https://www.instagram.com/reel/CvzTrIagwK2/")
+    assert InstagramMediaSource.validate_instagram_post_url("https://www.instagram.com/tv/CvzTrIagwK2/")
+
+    assert_equal "C1nPLjNrxct", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/p/C1nPLjNrxct/")
+    assert_equal "CvzTrIagwK2", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/reel/CvzTrIagwK2/")
+    assert_equal "CvzTrIagwK2", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/tv/CvzTrIagwK2/")
+    assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/p/C4qqX1LvBbU/")
+    assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/reel/C4qqX1LvBbU/")
+    assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/tv/C4qqX1LvBbU/")
+    assert_equal "C4-ob9rLzuv", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/p/C4-ob9rLzuv/?img_index=1")
+  end
+
   test "extracted video has screenshot" do
     @@instagram_video_posts.each { |post| assert_not_nil(post.screenshot_file) }
   end
@@ -52,10 +67,10 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     @@instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
 
     json_posts = JSON.parse(PostBlueprint.render(@@instagram_video_posts))
-    json_posts.each { |post| assert post["post"]["image_files"].blank? }
-    json_posts.each { |post| assert post["post"]["video_file"].blank? }
-    json_posts.each { |post| assert post["post"]["video_file_preview"].blank? }
-    json_posts.each { |post| assert post["post"]["screenshot_file"].blank? }
+    json_posts.each { |post| assert_predicate post["post"]["image_files"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["video_file"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["video_file_preview"], :blank? }
+    json_posts.each { |post| assert_predicate post["post"]["screenshot_file"], :blank? }
     json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 
@@ -93,7 +108,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "video works?" do
-    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/CvzTrIagwK2/" }))
+    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/C2cZBIAr24m/" }))
     assert_not_nil(result)
   end
 end

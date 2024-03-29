@@ -68,7 +68,7 @@ end
 
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
-gem "selenium-webdriver", "4.16.0"
+gem "selenium-webdriver", "4.19"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -83,6 +83,8 @@ gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
 # gem "birdsong", "0.2.3", git: "https://github.com/cguess/birdsong", branch: "master"
 gem "mosquito-scrape", git: "https://github.com/TechAndCheck/mosquito", branch: "main", require: "mosquito"
 # gem "mosquito-scrape", path: "/Users/christopher/Repositories/mosquito", require: "mosquito"
+gem "morris", git: "https://github.com/techandcheck/morris", branch: "main"
+# gem "morris", path: "/Users/christopher/Repositories/Reporters_Lab/morris"
 
 # Run shell commands (yt-dlp)
 gem "terrapin"
