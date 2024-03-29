@@ -36,6 +36,9 @@ class TikTokMediaSourceTest < ActiveSupport::TestCase
     @@tiktok_posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
     @@tiktok_posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
     @@tiktok_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
+
+    json_posts = JSON.parse(PostBlueprint.render(@@tiktok_posts))
+    json_posts.each { |post| assert_not_nil post["post"]["user"]["aws_profile_image_key"] }
   end
 
   test "extracted video is not uploaded to S3 if AWS_REGION isn't set" do

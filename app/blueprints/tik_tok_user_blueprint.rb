@@ -10,8 +10,12 @@ class TikTokUserBlueprint < Blueprinter::Base
           :profile,
           :profile_link,
           :profile_image,
-          :profile_image_url,
-          :aws_profile_image_key
+          :profile_image_url
+
+  # No I don't know why I can't just use the accessor. Oh well, this fixes it
+  field :aws_profile_image_key do |user|
+    user.aws_profile_image_key
+  end
 
   field :profile_image do |user|
     to_return = nil

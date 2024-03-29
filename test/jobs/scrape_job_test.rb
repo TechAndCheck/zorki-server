@@ -30,4 +30,11 @@ class ScrapeJobTest < ActiveJob::TestCase
       job.perform_now
     end
   end
+
+  test "tiktok i guess" do
+    assert_nothing_raised do
+      job = ScrapeJob.new("https://www.tiktok.com/@guess/video/7091753416032128299")
+      job.perform_now
+    end
+  end
 end

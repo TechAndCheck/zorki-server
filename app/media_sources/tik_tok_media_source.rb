@@ -83,7 +83,6 @@ class TikTokMediaSource < MediaSource
   # @params id [String] the id of the video to grab
   # @return [Morris::Video]
   def retrieve_tiktok_video
-    id = TikTokMediaSource.extract_tiktok_id_from_url(@url)
     posts = Morris::Post.lookup(@url)
 
     self.class.create_aws_key_functions_for_posts(posts)
