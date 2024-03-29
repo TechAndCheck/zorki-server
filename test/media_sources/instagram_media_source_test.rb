@@ -41,6 +41,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/p/C4qqX1LvBbU/")
     assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/reel/C4qqX1LvBbU/")
     assert_equal "C4qqX1LvBbU", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/9thstreetjournal/tv/C4qqX1LvBbU/")
+    assert_equal "C4-ob9rLzuv", InstagramMediaSource.extract_instagram_id_from_url("https://www.instagram.com/p/C4-ob9rLzuv/?img_index=1")
   end
 
   test "extracted video has screenshot" do

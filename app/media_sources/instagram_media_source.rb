@@ -139,10 +139,10 @@ private
   # @params url [String] a url to extract an id from
   # @return [String] the id from the url or [Nil]
   def self.extract_instagram_id_from_url(url)
-    found_matches = /https:\/\/[www.]*instagram.com\/(?:p|reel|tv)\/([\w]+)/.match(url)
+    found_matches = /https:\/\/[www.]*instagram.com\/(?:p|reel|tv)\/([\w-]+)/.match(url)
     return found_matches[1] unless found_matches.nil?
 
-    found_matches = /https:\/\/[www.]*instagram.com\/[\w]+\/(?:p|reel|tv)\/([\w]+)/.match(url)
+    found_matches = /https:\/\/[www.]*instagram.com\/[\w]+\/(?:p|reel|tv)\/([\w-]+)/.match(url)
     return found_matches[1] unless found_matches.nil?
 
     # If neither worked, raise an error
