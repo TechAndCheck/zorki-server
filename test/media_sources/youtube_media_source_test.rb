@@ -17,6 +17,20 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "hosts are properly allowed" do
+    hosts = ["www.youtube.com", "youtube.com", "youtu.be", "m.youtube.com"]
+    hosts.each do |host|
+      assert(YoutubeMediaSource.validate_youtube_video_url("https://#{host}/watch?v=Df7UtQTFUMQ"))
+    end
+  end
+
+  test "video ids are properly extracted" do
+    hosts = ["www.youtube.com", "youtube.com", "youtu.be", "m.youtube.com"]
+    hosts.each do |host|
+      assert_equal("Df7UtQTFUMQ", YoutubeMediaSource.extract_youtube_id_from_url("https://#{host}/watch?v=Df7UtQTFUMQ"))
+    end
+  end
+
   test "can extract video without an error being posted to Slack" do
     assert_nothing_raised do
       assert_not_nil(@@youtube_posts.first)
