@@ -17,7 +17,7 @@ class YoutubeMediaSource < MediaSource
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.youtube.com", "youtube.com", "youtu.be"]
+    ["www.youtube.com", "youtube.com", "youtu.be", "m.youtube.com"]
   end
 
   # Capture a screenshot of the given url
