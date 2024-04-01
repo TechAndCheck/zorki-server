@@ -40,9 +40,7 @@ class MediaSource
     object = model.extract(scrape)
 
     object
-  rescue Selenium::WebDriver::Error::UnknownError
-
-  end
+  rescue Selenium::WebDriver::Error::UnknownError; end
 
 
   # Takes a screenshot of the page at +url+ and returns the filepath to the image
@@ -129,6 +127,8 @@ class MediaSource
   # @return [Boolean] if the url is valid given the set @@valid_host.
   #   Raises an error if it's invalid.
   def self.check_url(url)
+    raise "This should only be called from a subclass that implements `valid_host_name`" if self == MediaSource
+
     return true if self.valid_host_name.include?(URI(url).host)
     raise MediaSource::HostError.new(url)
   end

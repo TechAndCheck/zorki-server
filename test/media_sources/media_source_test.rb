@@ -18,6 +18,26 @@ class MediaSourceTest < ActiveSupport::TestCase
 
     url = "https://www.tiktok.com/@guess/video/7091753416032128299"
     assert_equal TikTokMediaSource, MediaSource.model_for_url(url)
+
+    url = "https://m.youtube.com/watch?v=fNQQ14k0LGw"
+    assert_equal YoutubeMediaSource, MediaSource.model_for_url(url)
+
+    url = "https://www.instagram.com/p/CY9lV9Jt9w5/"
+    assert_equal InstagramMediaSource, MediaSource.model_for_url(url)
+
+    url = "https://www.tiktok.com/@guess/video/7091753416032128299"
+    assert_equal TikTokMediaSource, MediaSource.model_for_url(url)
+  end
+
+  test "urls past the check" do
+    assert InstagramMediaSource.check_url("https://www.instagram.com/p/CY9lV9Jt9w5/")
+    assert YoutubeMediaSource.check_url("https://m.youtube.com/watch?v=fNQQ14k0LGw")
+    assert TikTokMediaSource.check_url("https://www.tiktok.com/@guess/video/7091753416032128299")
+    assert TwitterMediaSource.check_url("https://mobile.twitter.com/MichelCaballero/status/1637639770347040769")
+    assert FacebookMediaSource.check_url("https://www.facebook.com/100080150081")
+
+    # Check to make sure we can't actually run this directly on the super class
+    assert_raises(StandardError) { MediaSource.check_url("https://www.example.com") }
   end
 
   test "HostError has everything properly" do

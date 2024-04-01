@@ -31,6 +31,10 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
     end
   end
 
+  test "url is properly vetted and extracted" do
+    assert YoutubeMediaSource.check_url("https://m.youtube.com/watch?v=fNQQ14k0LGw")
+  end
+
   test "can extract video without an error being posted to Slack" do
     assert_nothing_raised do
       assert_not_nil(@@youtube_posts.first)
