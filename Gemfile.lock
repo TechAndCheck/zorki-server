@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: d94b2d46e047fcb032a2604db94e428c8927c0a1
+  revision: 6c23790e5a46e945817a1b205cee3a760fa7000c
   specs:
-    forki (0.2.5)
+    forki (0.2.6)
       apparition
       capybara
       oj
@@ -275,7 +275,7 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    public_suffix (5.0.4)
+    public_suffix (5.0.5)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.7.3)
