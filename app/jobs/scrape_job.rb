@@ -4,7 +4,7 @@ class ScrapeJob < ApplicationJob
   sidekiq_options retry: 10
   queue_as :default
 
-  retry_on Mosquito::RateLimitExceeded, wait: 400.seconds, jitter: 0.30, attempts: 10
+  retry_on Birdsong::RateLimitExceeded, wait: 400.seconds, jitter: 0.30, attempts: 10
 
   sidekiq_retries_exhausted do |message, error|
     puts "Exhausted retries trying to scrape url #{message['arguments'].first}. Error: #{error}"
@@ -37,7 +37,7 @@ class ScrapeJob < ApplicationJob
     # We don't want errors to ruin everything so we'll catch everything
     e.set_backtrace([])
     raise e
-  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Mosquito::NoTweetFoundError => e
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError => e
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
@@ -69,7 +69,7 @@ class ScrapeJob < ApplicationJob
         body: params.to_json)
 
     Honeybadger.notify(e, context: { url: url, status: "error" })
-  rescue Mosquito::RateLimitExceeded => e
+  rescue Birdsong::RateLimitExceeded => e
     Honeybadger.notify(e, context: { url: url, status: "rate_limit_exceeded" })
     raise e
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job

@@ -12,7 +12,7 @@ class PostBlueprint < Blueprinter::Base
       to_return = InstagramPostBlueprint.render_as_hash(post)
     when "YoutubeArchiver::Video"
       to_return = YoutubeVideoBlueprint.render_as_hash(post)
-    when "Mosquito::Tweet"
+    when "Birdsong::Tweet"
       to_return = TwitterPostBlueprint.render_as_hash(post)
     when "Morris::Post"
       to_return = TikTokPostBlueprint.render_as_hash(post)

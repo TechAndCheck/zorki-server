@@ -18,26 +18,6 @@ GIT
       typhoeus
 
 GIT
-  remote: https://github.com/TechAndCheck/mosquito
-  revision: cc848fb20a057b42e4c6590d8b6849a103ac6913
-  branch: main
-  specs:
-    mosquito-scrape (0.1.2)
-      activesupport (~> 7.0.8)
-      capybara (~> 3.39)
-      dotenv (~> 2.8)
-      fileutils (~> 1.7)
-      logger (~> 1.6)
-      nokogiri (~> 1.15.5)
-      oj (~> 3.16)
-      open-uri (~> 0.4)
-      rack (~> 2)
-      securerandom (~> 0.3)
-      selenium-webdriver (~> 4)
-      terrapin (~> 1.0.1)
-      typhoeus (~> 1.4)
-
-GIT
   remote: https://github.com/TechAndCheck/zorki
   revision: 6bd4244ae56ce136ccfb2507eb3a08105683d08b
   specs:
@@ -48,6 +28,15 @@ GIT
       selenium-devtools
       selenium-webdriver (~> 4.19)
       typhoeus
+
+GIT
+  remote: https://github.com/cguess/birdsong
+  revision: ec271fbf8e0fe051cae98c1a3c59db93f1932046
+  branch: master
+  specs:
+    birdsong (0.2.4)
+      oauth (~> 0.5.6)
+      typhoeus (~> 1.4.0)
 
 GIT
   remote: https://github.com/techandcheck/morris
@@ -205,7 +194,6 @@ GEM
     ffi (1.16.3)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
-    fileutils (1.7.2)
     gli (2.21.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -227,7 +215,6 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.0)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -260,12 +247,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.6-x86_64-linux)
       racc (~> 1.4)
+    oauth (0.5.14)
     oj (3.16.3)
       bigdecimal (>= 3.0)
-    open-uri (0.4.1)
-      stringio
-      time
-      uri
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -372,7 +356,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    securerandom (0.3.1)
     selenium-devtools (0.123.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.19.0)
@@ -404,7 +387,6 @@ GEM
     sqlite3 (1.4.4)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
-    stringio (3.1.0)
     tailwindcss-rails (2.0.12-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.12-x86_64-darwin)
@@ -415,8 +397,6 @@ GEM
       climate_control
     thor (1.2.2)
     tilt (2.0.11)
-    time (0.3.0)
-      date
     timeout (0.3.2)
     tmuxinator (3.0.5)
       erubis (~> 2.6)
@@ -429,7 +409,6 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.2.0)
     uniform_notifier (1.16.0)
-    uri (0.13.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -456,6 +435,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
+  birdsong (= 0.2.4)!
   blueprinter
   bootsnap (>= 1.4.4)
   bullet
@@ -472,7 +452,6 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.3)
   morris!
-  mosquito-scrape!
   net-ping
   pry-byebug
   puma (~> 5.0)
