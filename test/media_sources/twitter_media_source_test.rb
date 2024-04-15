@@ -138,4 +138,9 @@ class TwietterSourceTest < ActiveSupport::TestCase
       assert_nil tweet["post"]["video_file_key"]
     end
   end
+
+  test "twitter user has a username" do
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/ActualidadRT/status/1775419979871162733" }))
+    assert_not_nil(tweet.first.author.username)
+  end
 end

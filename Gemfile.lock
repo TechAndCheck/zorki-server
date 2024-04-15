@@ -31,10 +31,10 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: ec271fbf8e0fe051cae98c1a3c59db93f1932046
+  revision: 7880bffbed279ce0ad133c6b84f35e2457aabf47
   branch: master
   specs:
-    birdsong (0.2.4)
+    birdsong (0.2.5)
       oauth (~> 0.5.6)
       typhoeus (~> 1.4.0)
 
@@ -435,7 +435,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  birdsong (= 0.2.4)!
+  birdsong (= 0.2.5)!
   blueprinter
   bootsnap (>= 1.4.4)
   bullet
