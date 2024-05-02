@@ -133,3 +133,5 @@ gem "curb", "~> 1.0", ">= 1.0.5"
 gem "slack-ruby-client"
 
 gem "honeybadger", "~> 5.2"
+
+gem "localhost"

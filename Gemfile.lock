@@ -215,6 +215,7 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    localhost (1.3.1)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -451,6 +452,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  localhost
   morris!
   net-ping
   pry-byebug

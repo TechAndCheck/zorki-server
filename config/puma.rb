@@ -15,8 +15,8 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port_number = ENV.fetch("RAILS_ENV", "development") == "development" ? "3001" : "3000"
-port ENV.fetch("PORT") { port_number }
+# port_number = ENV.fetch("RAILS_ENV", "development") == "development" ? "3001" : "3000"
+# port ENV.fetch("PORT") { port_number }
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -42,3 +42,5 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+bind "ssl://0.0.0.0:3000"
