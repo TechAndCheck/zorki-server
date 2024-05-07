@@ -198,7 +198,7 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
-    honeybadger (5.2.1)
+    honeybadger (5.8.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -447,7 +447,7 @@ DEPENDENCIES
   dotenv-rails
   figaro
   forki!
-  honeybadger (~> 5.2)
+  honeybadger (~> 5.8)
   importmap-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
