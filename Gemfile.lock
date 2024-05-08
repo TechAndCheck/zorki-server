@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 6c23790e5a46e945817a1b205cee3a760fa7000c
+  revision: 48c1e36343e85c15673b845e93818523f96c0e87
   specs:
-    forki (0.2.6)
+    forki (0.2.7)
       apparition
       capybara
       oj
@@ -143,7 +143,7 @@ GEM
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
-    bigdecimal (3.1.7)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     blueprinter (0.25.3)
     bootsnap (1.13.0)
@@ -241,11 +241,11 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.6-arm64-darwin)
+    nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.6-x86_64-darwin)
+    nokogiri (1.16.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.6-x86_64-linux)
+    nokogiri (1.16.4-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.16.3)
