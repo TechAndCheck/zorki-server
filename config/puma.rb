@@ -44,4 +44,4 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 # bind "ssl://0.0.0.0:3000"
-bind "tcp://0.0.0.0:3000"
+# bind "tcp://0.0.0.0:3000"
