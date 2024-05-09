@@ -70,8 +70,15 @@ Rails.application.configure do
   # Prefix job queues names to avoid collisions
   config.active_job.queue_name_prefix = "hypatia_development"
 
-  config.web_console.whitelisted_ips = Socket.ip_address_list.reduce([]) do |res, addrinfo|
-    addrinfo.ipv4? ? res << IPAddr.new(addrinfo.ip_address).mask(24) : res
+  Socket.ip_address_list.each do |addrinfo|
+    next unless addrinfo.ipv4?
+    next if addrinfo.ip_address == "127.0.0.1" # Already whitelisted
+
+    ip = IPAddr.new(addrinfo.ip_address).mask(24)
+
+    Logger.new(STDOUT).info "Adding #{ip.inspect} to config.web_console.whitelisted_ips"
+
+    config.web_console.whitelisted_ips << ip
   end
 
   # Uncomment if you wish to allow Action Cable access from any origin.
