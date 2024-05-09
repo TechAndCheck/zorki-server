@@ -1,6 +1,6 @@
 # README
 
-This is a basic server that hosts and coordinates Tech & Check's media scraper gems ([zorki](https://www.github.com/cguess/zorki), [forki](https://github.com/oneroyalace/forki), and [YoutubeArchiver](https://github.com/TechAndCheck/YoutubeArchiver) 
+This is a basic server that hosts and coordinates Tech & Check's media scraper gems ([zorki](https://www.github.com/cguess/zorki), [forki](https://github.com/oneroyalace/forki), and [YoutubeArchiver](https://github.com/TechAndCheck/YoutubeArchiver)
 The scrapers are kept separate from Zenodotus, because the IP addresses of traditional hosting servers (where Zenodotus resides), may be blocked by the media sources we're trying to scrape. The Hypatia server can be hosted on a Raspberry Pi in your house or something.
 
 ## Setup:
@@ -16,7 +16,7 @@ The scrapers are kept separate from Zenodotus, because the IP addresses of tradi
 	1. Download the "Selenium Server (Grid)" JAR package at https://www.selenium.dev/downloads/
 	1. Save it to the folder of this package
 	1. Test that it works by running `java -jar ./selenium-server-4.2.1.jar standalone` (note the actual version you downloaded)
-1. Download Firefox's geckodriver and Chrome's chromedriver and save both in a PATH-listed folder. Give the user and system execute privileges for both drivers. 
+1. Download Firefox's geckodriver and Chrome's chromedriver and save both in a PATH-listed folder. Give the user and system execute privileges for both drivers.
 1. Ensure that Google Chrome and Mozilla Firefox are installed
 1. Generate an API key for security purposes in the Rails console
 	1. `$ rails c`
@@ -43,17 +43,17 @@ Legend has it that external data sources and APIs fail every now and then. Hypat
 
 **A scrape job succeeds!**
 
-Sidekiq should dequeue the job so it isn't retried. Hypatia should send a POST request to Zenodotus containing the scraped post data.  
+Sidekiq should dequeue the job so it isn't retried. Hypatia should send a POST request to Zenodotus containing the scraped post data.
 
 ### Scenario 2
 
-**A scrape job fails with an error that isn’t retryable (e.g. an `InvalidUrlError`)** 
+**A scrape job fails with an error that isn’t retryable (e.g. an `InvalidUrlError`)**
 
 Sidekiq should dequeue the job so it isn't retried. Hypatia should let Zenodotus know that the scrape request has failed.
 
 ### Scenario 3
 
-**A scrape job that has failed and been re-queued `max_retries` times fails again with a `RetryableError`** 
+**A scrape job that has failed and been re-queued `max_retries` times fails again with a `RetryableError`**
 
 Sidekiq should dequeue the job so it isn't retried, and Hypatia should let Zenodotus know that the scrape request has failed.
 
@@ -61,7 +61,7 @@ Sidekiq should dequeue the job so it isn't retried, and Hypatia should let Zenod
 
 **A scrape job that has failed and been re-queued 0≤n<`max_retries` times fails with a `RetryableError`**
 
-Sidekiq should re-queue the job so it's retried. If the job subsequently succeeds, Hypatia should follow the scenario 1 playbook. If the job subsequently fails, Hypatia should run through the scenario 2 or scenario 3 playbook. 
+Sidekiq should re-queue the job so it's retried. If the job subsequently succeeds, Hypatia should follow the scenario 1 playbook. If the job subsequently fails, Hypatia should run through the scenario 2 or scenario 3 playbook.
 
 ### Retry implementation notes
 A few of the individual scraper gems implement their own retry logic. This makes tests, which don't engage ActiveJob/Sidekiq right now, more resillient. In the future, we can probably just force test to use ActiveJob/Sidekiq and move all retry logic to Hypatia.

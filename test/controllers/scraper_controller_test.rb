@@ -141,7 +141,7 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
 
   test "scraping a tiktok video with force works" do
     assert_enqueued_jobs(0) do
-      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.tiktok.com/@guess/video/7091753416032128299", auth_key: @auth_key, as: :json, force: true}
+      get "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.tiktok.com/@guess/video/7091753416032128299", auth_key: @auth_key, as: :json, force: true }
       assert_response 200
       assert JSON.parse(JSON.parse(@response.body)["scrape_result"]).first.has_key?("id")
     end

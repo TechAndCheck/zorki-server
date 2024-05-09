@@ -25,5 +25,4 @@ class TikTokUserBlueprint < Blueprinter::Base
 
     to_return
   end
-
 end
