@@ -45,7 +45,7 @@ plugin :tmp_restart
 
 if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
   # Fail if in production but the keys don't exist
-  certs_path = "/home/parallels/Desktop/Parallels Shared Folders/env_injection_files/ssl_certs"
+  certs_path = "/home/parallels/Desktop/Parallels\ Shared\ Folders/env_injection_files/ssl_certs"
   unless File.exist?("#{certs_path}/localhost-key.pem") &&
             File.exist?("#{certs_path}/localhost.pem")
     raise "SSL Certs must be in `#{certs_path}`"
