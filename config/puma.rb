@@ -55,11 +55,12 @@ if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, 
   localhost_key = "#{File.join("#{certs_path}/localhost-key.pem")}"
   localhost_crt = "#{File.join("#{certs_path}/localhost.pem")}"
   # To be able to use rake etc
-  ssl_bind "0.0.0.0", 3000, {
-    key: localhost_key,
-    cert: localhost_crt,
-    verify_mode: "none"
-  }
+  # ssl_bind "ssl://0.0.0.0", 3000, {
+  #   key: localhost_key,
+  #   cert: localhost_crt,
+  #   verify_mode: "none"
+  # }
+  bind "ssl://0.0.0.0:3000?key=#{localhost_key}&cert=#{localhost_crt}&verify_mode=none"
 else
   bind "tcp://0.0.0.0:3000"
 end
