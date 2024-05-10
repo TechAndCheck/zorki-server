@@ -43,5 +43,22 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-# bind "ssl://0.0.0.0:3000"
-# bind "tcp://0.0.0.0:3000"
+if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
+  # Fail if in production but the keys don't exist
+  unless File.exist?("/media/psf/env_injection_files/ssl_certs/localhost-key.pem") &&
+            File.exist?("/media/psf/env_injection_files/localhost.pem")
+    raise "SSL Certs must be in `/media/psf/env_injection_files/ssl_certs/`"
+  end
+
+  # TODO: Make sure production can be accessed externally
+  localhost_key = "#{File.join("/media/psf/env_injection_files/ssl_certs/localhost-key.pem")}"
+  localhost_crt = "#{File.join("/media/psf/env_injection_files/localhost.pem")}"
+  # To be able to use rake etc
+  ssl_bind "0.0.0.0", 3000, {
+    key: localhost_key,
+    cert: localhost_crt,
+    verify_mode: "none"
+  }
+else
+  bind "tcp://0.0.0.0:3000"
+end
