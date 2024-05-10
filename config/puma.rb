@@ -45,14 +45,15 @@ plugin :tmp_restart
 
 if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
   # Fail if in production but the keys don't exist
-  unless File.exist?("/media/psf/env_injection_files/ssl_certs/localhost-key.pem") &&
-            File.exist?("/media/psf/env_injection_files/localhost.pem")
-    raise "SSL Certs must be in `/media/psf/env_injection_files/ssl_certs/`"
+  certs_path = "/home/parallels/Desktop/Parallels Shared Folders/env_injection_files/ssl_certs"
+  unless File.exist?("#{certs_path}/localhost-key.pem") &&
+            File.exist?("#{certs_path}/localhost.pem")
+    raise "SSL Certs must be in `#{certs_path}`"
   end
 
   # TODO: Make sure production can be accessed externally
-  localhost_key = "#{File.join("/media/psf/env_injection_files/ssl_certs/localhost-key.pem")}"
-  localhost_crt = "#{File.join("/media/psf/env_injection_files/localhost.pem")}"
+  localhost_key = "#{File.join("#{certs_path}/localhost-key.pem")}"
+  localhost_crt = "#{File.join("#{certs_path}/localhost.pem")}"
   # To be able to use rake etc
   ssl_bind "0.0.0.0", 3000, {
     key: localhost_key,
