@@ -43,7 +43,6 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-debugger
 if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
   # Fail if in production but the keys don't exist
   certs_path = "/home/parallels/Desktop/Parallels Shared Folders/env_injection_files/ssl_certs"
@@ -55,6 +54,15 @@ if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, 
   # TODO: Make sure production can be accessed externally
   localhost_key = "#{File.join("#{certs_path}/localhost-key.pem")}"
   localhost_crt = "#{File.join("#{certs_path}/localhost.pem")}"
+
+  # Let's print out these files just to make sure they're being read
+  puts "localhost_key: #{localhost_key}"
+  puts "localhost_crt: #{localhost_crt}"
+
+  `cat #{localhost_key}`
+  puts "------------------------------------"
+  `cat #{localhost_crt}`
+
   # To be able to use rake etc
   # ssl_bind "ssl://0.0.0.0", 3000, {
   #   key: localhost_key,
