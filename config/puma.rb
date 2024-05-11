@@ -59,9 +59,9 @@ if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, 
   puts "localhost_key: #{localhost_key}"
   puts "localhost_crt: #{localhost_crt}"
 
-  `cat #{localhost_key}`
+  puts File.read(localhost_key)
   puts "------------------------------------"
-  `cat #{localhost_crt}`
+  puts File.read(localhost_crt)
 
   # To be able to use rake etc
   # ssl_bind "ssl://0.0.0.0", 3000, {
