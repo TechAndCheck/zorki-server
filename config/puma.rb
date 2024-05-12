@@ -43,8 +43,8 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
-debugger
-if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
+# debugger
+# if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, so production this is good
   # Fail if in production but the keys don't exist
   certs_path = "/home/parallels/Desktop/Parallels\ Shared\ Folders/env_injection_files/ssl_certs"
   unless File.exist?("#{certs_path}/localhost-key.pem") &&
@@ -71,6 +71,6 @@ if ENV["RAILS_ENV"] == "production" # This only runs in a VM with local access, 
   #   verify_mode: "none"
   # }
   bind "ssl://0.0.0.0:3000?key=#{localhost_key}&cert=#{localhost_crt}&verify_mode=none"
-else
-  bind "tcp://0.0.0.0:3000"
-end
+# else
+  # bind "tcp://0.0.0.0:3000"
+# end
