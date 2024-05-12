@@ -70,7 +70,7 @@ plugin :tmp_restart
   #   cert: localhost_crt,
   #   verify_mode: "none"
   # }
-  bind "ssl://0.0.0.0:3000?key=#{localhost_key}&cert=#{localhost_crt}&verify_mode=none"
+  puts bind "ssl://0.0.0.0:3000?key=#{localhost_key}&cert=#{localhost_crt}&verify_mode=none"
 # else
   # bind "tcp://0.0.0.0:3000"
 # end
