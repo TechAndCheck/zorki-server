@@ -8,7 +8,7 @@ class ScrapeJob < ApplicationJob
 
   sidekiq_retries_exhausted do |message, error|
     puts "Exhausted retries trying to scrape url #{message['arguments'].first}. Error: #{error}"
-    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
                   headers: { "Content-Type": "application/json" },
                   body: { scrape_id: callback_id, scrape_result: "[]" })
   end
@@ -23,14 +23,14 @@ class ScrapeJob < ApplicationJob
 
     print "\nFinished scraping #{url}\n"
     print "\n********************\n"
-    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
     print "\n********************\n"
 
     raise "Nil returned from scraping for #{url}" if results.nil?
 
     params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
 
-    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
   rescue Zorki::RetryableError, Forki::RetryableError, YoutubeArchiver::RetryableError => e
@@ -43,12 +43,12 @@ class ScrapeJob < ApplicationJob
 
     print "\nPost removed at: #{url}\n"
     print "\n********************\n"
-    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
     print "\n********************\n"
 
     params = { scrape_id: callback_id, scrape_result: { url: url, status: "removed" } }
 
-    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
 
@@ -59,12 +59,12 @@ class ScrapeJob < ApplicationJob
 
     print "\nPost parsing error at: #{url}\n"
     print "\n********************\n"
-    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
     print "\n********************\n"
 
     params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
 
-    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
 
@@ -86,12 +86,12 @@ class ScrapeJob < ApplicationJob
 
     print "\nPost parsing error at: #{url}\n"
     print "\n********************\n"
-    print "Sending callback to #{Figaro.env.ZENODOTUS_URL}\n"
+    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
     print "\n********************\n"
 
     params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
 
-    Typhoeus.post("#{Figaro.env.ZENODOTUS_URL}/archive/scrape_result_callback",
+    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
         headers: { "Content-Type": "application/json" },
         body: params.to_json)
   ensure

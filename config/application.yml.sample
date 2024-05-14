@@ -15,8 +15,8 @@ SECRET_KEY_BASE: "XXXXX"
 SLACK_ERROR_WEBHOOK_URL: "XXXXX"
 # 5. If you're setting up an instance designed for testing or developing Zenodotus, set `ALLOW_CUSTOM_CALLBACK` to "true" (quotes included)
 ALLOW_CUSTOM_CALLBACK: "true"
-# 6. Add `ZENODOTUS_URL` to point to your Zenodotus instance for notifications when a scrape
-ZENODOTUS_URL: "http://localhost:3000/"  # change as needed
+# 6. Add `GRIGORI_CALLBACK_URL` to point to your Zenodotus instance for notifications when a scrape
+GRIGORI_CALLBACK_URL: "http://localhost:3000/"  # change as needed
 #    is done if this is for production
 # 7. For a local dev setup, set ALLOW_FORCE to "true" so Hypatia can process scrape requests without queueing them (required for tests)
 ALLOW_FORCE: "true"
@@ -49,6 +49,6 @@ FACEBOOK_PASSWORD: "XXXXX"
 # 2. Add the key to the variable below
 YOUTUBE_API_KEY: "XXXXX"
 
-# We default to requiring ZENODOTUS_URL as a callback unless we explicitly set it otherwise.
-# Note: ZENODOTUS_URL can still be set, which will become the fallback if there's not a callback url passed in
+# We default to requiring GRIGORI_CALLBACK_URL as a callback unless we explicitly set it otherwise.
+# Note: GRIGORI_CALLBACK_URL can still be set, which will become the fallback if there's not a callback url passed in
 ALLOW_CUSTOM_CALLBACK: false
