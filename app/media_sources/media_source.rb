@@ -14,9 +14,11 @@ class MediaSource
   # @returns [ScrapeJob] the job fired off when this is run
   def self.scrape(url, callback_id = nil, force: false)
     # We want to fail early if the URL is wrong
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 200, { url: url, scrape_id: callback_id }.to_json)
 
     model = self.model_for_url(url)
     raise MediaSource::HostError.new(url) if model.nil?
+
 
     if Figaro.env.ALLOW_FORCE == "true" && force == "true"
       self.scrape!(url, callback_id)

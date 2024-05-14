@@ -39,7 +39,7 @@ module Hypatia
     # end
 
     config.after_initialize do
-      CommsManager.send_checkin
+      CommsManager.send_bootup_checkin
     end
   end
 end
