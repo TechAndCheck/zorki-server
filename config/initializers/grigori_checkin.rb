@@ -1,4 +1,4 @@
-CommsManager.send_checkin
+
 # # This will error out, but we can see it! so it's fine
 # Rails.logger.info "********************************************************************"
 # Rails.logger.info "Sending check-in to Grigori"

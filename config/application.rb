@@ -37,5 +37,9 @@ module Hypatia
     # config.logger.info "Loading #{ENV["HOST"]} as a potential host name..."
     # config.hosts << ENV["HOST"]
     # end
+
+    config.after_initialize do
+      CommsManager.send_checkin
+    end
   end
 end
