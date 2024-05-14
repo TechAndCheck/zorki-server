@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   private
 
     def verify_auth_key
-      debugger
       auth_key = params["auth_key"]
 
       if auth_key.nil? || auth_key != Setting.auth_key
