@@ -33,6 +33,8 @@ class MediaSource
   # @param url [String] the url to be scraped
   # @returns [Object] the scraped object returned from the respective gem.
   def self.scrape!(url, callback_id)
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 201, { url: url, scrape_id: callback_id })
+
     scrape = Scrape.create!({
       url: url,
       callback_id: callback_id,

@@ -27,6 +27,7 @@ class ScrapeJob < ApplicationJob
     print "\n********************\n"
 
     raise "Nil returned from scraping for #{url}" if results.nil?
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 203, { url: url, scrape_id: callback_id })
 
     params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
 
@@ -41,32 +42,17 @@ class ScrapeJob < ApplicationJob
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 303, { url: url, scrape_id: callback_id })
+
     print "\nPost removed at: #{url}\n"
-    print "\n********************\n"
-    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
-    print "\n********************\n"
-
-    params = { scrape_id: callback_id, scrape_result: { url: url, status: "removed" } }
-
-    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
-        headers: { "Content-Type": "application/json" },
-        body: params.to_json)
 
     Honeybadger.notify(e, context: { url: url, status: "removed" })
   rescue MediaSource::HostError => e
     # This means the content can't be scraped, which is not good. However, we don't want to keep retrying
     # so we send an error back to Zenodotus
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 302, { url: url, scrape_id: callback_id })
 
     print "\nPost parsing error at: #{url}\n"
-    print "\n********************\n"
-    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
-    print "\n********************\n"
-
-    params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
-
-    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
-        headers: { "Content-Type": "application/json" },
-        body: params.to_json)
 
     Honeybadger.notify(e, context: { url: url, status: "error" })
   rescue Birdsong::RateLimitExceeded => e
@@ -84,16 +70,7 @@ class ScrapeJob < ApplicationJob
     puts "*************************************************************"
     Honeybadger.notify(e, context: { url: url, status: "unknown" })
 
-    print "\nPost parsing error at: #{url}\n"
-    print "\n********************\n"
-    print "Sending callback to #{Figaro.env.GRIGORI_CALLBACK_URL}\n"
-    print "\n********************\n"
-
-    params = { scrape_id: callback_id, scrape_result: { url: url, status: "error" } }
-
-    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
-        headers: { "Content-Type": "application/json" },
-        body: params.to_json)
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 302, { url: url, scrape_id: callback_id, message: e.full_message(highlight: true) })
   ensure
     # TODO: Only sleep for the services we need to
     # Facebook: Yes
