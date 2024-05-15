@@ -27,7 +27,7 @@ class ScrapeJob < ApplicationJob
     print "\n********************\n"
 
     raise "Nil returned from scraping for #{url}" if results.nil?
-    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 203, { url: url, scrape_id: callback_id })
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 203, { url: url, scrape_id: callback_id, result: PostBlueprint.render(results) })
 
     # params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
 
