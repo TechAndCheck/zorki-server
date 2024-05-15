@@ -9,7 +9,7 @@ class CommsManager
     timeout: 2, # This will be very quick normally, but when we're testing it'll hang for like 30 seconds otherwise
     headers: { "Content-Type": "application/json" },
     method: :post,
-    body: { vm_id: ENV["VM_NAME"], status: { code: 100, message: "Successfully booted" } }.to_json)
+    body: { scraper: { vm_id: ENV["VM_NAME"], status: { code: 100, message: "Successfully booted" } } }.to_json)
 
     request.run
     # response = request.response
@@ -36,7 +36,7 @@ class CommsManager
 
     headers: { "Content-Type": "application/json" },
     method: :post,
-    body: { scrape: { vm_id: vm_id, status: { code: status_code, body: body } } }.to_json)
+    body: { scraper: { vm_id: vm_id, status: { code: status_code, body: body } } }.to_json)
 
     request.run
 
