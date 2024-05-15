@@ -36,7 +36,7 @@ class CommsManager
 
     headers: { "Content-Type": "application/json" },
     method: :post,
-    body: { vm_id: vm_id, status: { code: status_code, body: body } }.to_json)
+    body: { scrape: { vm_id: vm_id, status: { code: status_code, body: body } } }.to_json)
 
     request.run
 
