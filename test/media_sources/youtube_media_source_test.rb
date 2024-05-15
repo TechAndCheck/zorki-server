@@ -105,4 +105,10 @@ class YoutubeMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["channel"]["aws_profile_image_key"] }
     end
   end
+
+  test "a removed video raises an error" do
+    assert_raise(YoutubeArchiver::VideoNotFoundError) do
+      YoutubeMediaSource.extract(Scrape.create({ url: "https://www.youtube.com/watch?v=8FHpOLiobm" }))
+    end
+  end
 end

@@ -29,16 +29,17 @@ class ScrapeJob < ApplicationJob
     raise "Nil returned from scraping for #{url}" if results.nil?
     CommsManager.send_scrape_status_update(ENV["VM_NAME"], 203, { url: url, scrape_id: callback_id })
 
-    params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
+    # params = { scrape_id: callback_id, scrape_result: PostBlueprint.render(results) }
 
-    Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
-        headers: { "Content-Type": "application/json" },
-        body: params.to_json)
+    # Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",
+    #     headers: { "Content-Type": "application/json" },
+    #     body: params.to_json)
   rescue Zorki::RetryableError, Forki::RetryableError, YoutubeArchiver::RetryableError => e
     # We don't want errors to ruin everything so we'll catch everything
     e.set_backtrace([])
     raise e
-  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError => e
+  rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::VideoNotFoundError,
+          YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError, Morris::ContentUnavailableError => e
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
