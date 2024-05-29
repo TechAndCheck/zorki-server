@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 6bd4244ae56ce136ccfb2507eb3a08105683d08b
+  revision: e47c54bc8b4b912c3e00232e84fde4a320072277
   specs:
-    zorki (0.1.22)
+    zorki (0.1.23)
       apparition
       capybara
       oj
@@ -241,11 +241,11 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.16.4-arm64-darwin)
+    nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-darwin)
+    nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-linux)
+    nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.16.3)
@@ -262,7 +262,7 @@ GEM
     public_suffix (5.0.5)
     puma (5.6.5)
       nio4r (~> 2.0)
-    racc (1.7.3)
+    racc (1.8.0)
     rack (2.2.9)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -304,10 +304,11 @@ GEM
       ffi (~> 1.0)
     rbtree (0.4.5)
     redis (4.8.0)
-    regexp_parser (2.9.0)
+    regexp_parser (2.9.2)
     reline (0.3.1)
       io-console (~> 0.5)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rubocop (1.35.1)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -356,7 +357,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.123.0)
+    selenium-devtools (0.125.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.19.0)
       base64 (~> 0.2)
@@ -387,6 +388,7 @@ GEM
     sqlite3 (1.4.4)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
+    strscan (3.1.0)
     tailwindcss-rails (2.0.12-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.12-x86_64-darwin)
@@ -480,7 +482,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki!
+  zorki (= 0.1.23)!
 
 RUBY VERSION
    ruby 3.1.4p223
