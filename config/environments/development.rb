@@ -73,4 +73,8 @@ Rails.application.configure do
   # config.hosts << "10.211.55.0/24"
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+
+
+  # TODO: This needs to have a port range of some sort, maybe done in the start up script?
 end

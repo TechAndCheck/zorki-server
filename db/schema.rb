@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_20_174913) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_18_224734) do
   create_table "scrapes", force: :cascade do |t|
     t.string "url", null: false
     t.string "callback_id"
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_174913) do
     t.string "scrape_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "submitted_scrape_id"
+    t.index ["submitted_scrape_id"], name: "index_scrapes_on_submitted_scrape_id"
   end
 
   create_table "settings", force: :cascade do |t|
