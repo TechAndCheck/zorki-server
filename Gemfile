@@ -60,6 +60,8 @@ group :development do
 
   # Yard is for documenting the code
   gem "yard", require: false
+
+  gem "ruby-lsp"
 end
 
 group :test do

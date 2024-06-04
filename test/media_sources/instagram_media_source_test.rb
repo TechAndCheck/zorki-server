@@ -3,8 +3,15 @@ require "test_helper"
 class InstagramMediaSourceTest < ActiveSupport::TestCase
   def setup; end
 
-  @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
-  @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+  def instagram_video_posts
+    @@instagram_video_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/Cd0Uhc0hKPB/" }))
+    @@instagram_video_posts
+  end
+
+  def instagram_image_posts
+    @@instagram_image_posts ||= InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/CZu6b08OB0Q/" }))
+    @@instagram_image_posts
+  end
 
   test "can send error via slack notification" do
     assert_nothing_raised do
@@ -45,28 +52,28 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted video has screenshot" do
-    @@instagram_video_posts.each { |post| assert_not_nil(post.screenshot_file) }
+    instagram_video_posts.each { |post| assert_not_nil(post.screenshot_file) }
   end
 
   test "extracted image has screenshot" do
-    @@instagram_image_posts.each { |post| assert_not_nil(post.screenshot_file) }
+    instagram_image_posts.each { |post| assert_not_nil(post.screenshot_file) }
   end
 
   test "extracted post has images and videos uploaded to S3" do
     skip unless ENV["AWS_REGION"].present?
 
-    assert_not_nil(@@instagram_image_posts)
+    assert_not_nil(instagram_image_posts)
 
-    @@instagram_image_posts.each { |post| assert_not_nil(post.aws_image_keys) }
+    instagram_image_posts.each { |post| assert_not_nil(post.aws_image_keys) }
 
-    assert_not_nil(@@instagram_video_posts)
+    assert_not_nil(instagram_video_posts)
 
-    @@instagram_video_posts.each { |post| assert_not_nil(post.aws_video_key) }
-    @@instagram_video_posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
-    @@instagram_video_posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
-    @@instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
+    instagram_video_posts.each { |post| assert_not_nil(post.aws_video_key) }
+    instagram_video_posts.each { |post| assert_not_nil(post.aws_video_preview_key) }
+    instagram_video_posts.each { |post| assert_not_nil(post.aws_screenshot_key) }
+    instagram_video_posts.each { |post| assert_not_nil(post.user.aws_profile_image_key) }
 
-    json_posts = JSON.parse(PostBlueprint.render(@@instagram_video_posts))
+    json_posts = JSON.parse(PostBlueprint.render(instagram_video_posts))
     json_posts.each { |post| assert_predicate post["post"]["image_files"], :blank? }
     json_posts.each { |post| assert_predicate post["post"]["video_file"], :blank? }
     json_posts.each { |post| assert_predicate post["post"]["video_file_preview"], :blank? }
@@ -109,6 +116,11 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
 
   test "video works?" do
     result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/C2cZBIAr24m/" }))
+    assert_not_nil(result)
+  end
+
+  test "another link" do
+    result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/C7UoDRKukTg/?utm_source=ig_web_copy_link" }))
     assert_not_nil(result)
   end
 end
