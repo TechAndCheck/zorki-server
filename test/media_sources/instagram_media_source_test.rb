@@ -32,7 +32,7 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
 
   test "can extract post without an error being posted to Slack" do
     assert_nothing_raised do
-      assert_not_nil(@@instagram_image_posts.first)
+      assert_not_nil(instagram_image_posts.first)
     end
   end
 

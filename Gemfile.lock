@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: e47c54bc8b4b912c3e00232e84fde4a320072277
+  revision: 337bfd992bb88224e12b92fba859519c6863b41a
   specs:
-    zorki (0.1.23)
+    zorki (0.1.24)
       apparition
       capybara
       oj
@@ -31,11 +31,16 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 7880bffbed279ce0ad133c6b84f35e2457aabf47
+  revision: a20ee64fbf734567ae39d78c6fb250a2acb53d37
   branch: master
   specs:
-    birdsong (0.2.5)
+    birdsong (0.2.7)
+      capybara (~> 3.40)
+      curb (~> 1.0, >= 1.0.5)
       oauth (~> 0.5.6)
+      oj (~> 3.16, >= 3.16.3)
+      selenium-devtools
+      selenium-webdriver (~> 4.21, >= 4.21.1)
       typhoeus (~> 1.4.0)
 
 GIT
@@ -245,11 +250,11 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.16.5-arm64-darwin)
+    nokogiri (1.16.6-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.5-x86_64-darwin)
+    nokogiri (1.16.6-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.5-x86_64-linux)
+    nokogiri (1.16.6-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
     oj (3.16.4)
@@ -264,7 +269,7 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    public_suffix (5.0.5)
+    public_suffix (5.1.1)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.8.0)
@@ -368,7 +373,7 @@ GEM
       tilt
     selenium-devtools (0.125.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.19.0)
+    selenium-webdriver (4.21.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -447,7 +452,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  birdsong (= 0.2.5)!
+  birdsong (= 0.2.7)!
   blueprinter
   bootsnap (>= 1.4.4)
   bullet
@@ -479,7 +484,7 @@ DEPENDENCIES
   ruby-lsp
   ruby_jard
   sass-rails (>= 6)
-  selenium-webdriver (= 4.19)
+  selenium-webdriver (= 4.21.1)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set
@@ -494,7 +499,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki (= 0.1.23)!
+  zorki (= 0.1.24)!
 
 RUBY VERSION
    ruby 3.1.4p223

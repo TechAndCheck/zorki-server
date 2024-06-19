@@ -13,7 +13,7 @@ class TwitterMediaSource < MediaSource
   #
   # @return [String] or [Array] of [String] of valid host names
   def self.valid_host_name
-    ["www.twitter.com", "twitter.com", "mobile.twitter.com"]
+    ["www.twitter.com", "twitter.com", "mobile.twitter.com", "www.x.com", "x.com", "mobile.x.com"]
   end
 
   # Capture a screenshot of the given url
