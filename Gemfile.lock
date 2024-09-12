@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 9ebc1e36048b53a1b9168e4f70beeecc96330543
+  revision: 9929a95b84b0956ece0b2b3c65fa0ce876edcfff
   specs:
-    forki (0.2.8)
+    forki (0.2.10)
       apparition
       capybara
       oj
@@ -125,8 +125,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    addressable (2.8.6)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     apparition (0.6.0)
       capybara (~> 3.13, < 4)
       websocket-driver (>= 0.6.5)
@@ -250,15 +250,17 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.16.6-arm64-darwin)
+    nokogiri (1.16.7-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.6-x86_64-darwin)
+    nokogiri (1.16.7-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.6-x86_64-linux)
+    nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
     oauth (0.5.14)
-    oj (3.16.4)
+    oj (3.16.6)
       bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
+    ostruct (0.6.0)
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
@@ -269,10 +271,10 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    public_suffix (5.1.1)
+    public_suffix (6.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
-    racc (1.8.0)
+    racc (1.8.1)
     rack (2.2.9)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -317,8 +319,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.3.1)
       io-console (~> 0.5)
-    rexml (3.3.0)
-      strscan
+    rexml (3.3.7)
     rubocop (1.35.1)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -403,7 +404,6 @@ GEM
     sqlite3 (1.4.4)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
-    strscan (3.1.0)
     tailwindcss-rails (2.0.12-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.12-x86_64-darwin)
@@ -432,7 +432,7 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     webrick (1.7.0)
-    websocket (1.2.10)
+    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -463,7 +463,7 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails
   figaro
-  forki!
+  forki (= 0.2.10)!
   honeybadger (~> 5.2)
   importmap-rails
   jbuilder (~> 2.7)
