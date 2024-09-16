@@ -392,8 +392,9 @@ GEM
       tilt
     selenium-devtools (0.128.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.21.1)
+    selenium-webdriver (4.24.0)
       base64 (~> 0.2)
+      logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -504,7 +505,7 @@ DEPENDENCIES
   ruby-lsp
   ruby_jard
   sass-rails (>= 6)
-  selenium-webdriver (= 4.21.1)
+  selenium-webdriver (= 4.24.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set
