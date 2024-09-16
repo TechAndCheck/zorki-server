@@ -18,6 +18,18 @@ GIT
       typhoeus
 
 GIT
+  remote: https://github.com/TechAndCheck/zorki
+  revision: c8bbf6cec42ada8e93e88ef9df06897a3da155f3
+  specs:
+    zorki (0.1.25)
+      apparition
+      capybara
+      oj
+      selenium-devtools
+      selenium-webdriver (~> 4.19)
+      typhoeus
+
+GIT
   remote: https://github.com/cguess/birdsong
   revision: a20ee64fbf734567ae39d78c6fb250a2acb53d37
   branch: master
@@ -43,17 +55,6 @@ GIT
       selenium-devtools
       selenium-webdriver
       terrapin
-      typhoeus
-
-PATH
-  remote: /Users/christopher/Repositories/zorki
-  specs:
-    zorki (0.1.25)
-      apparition
-      capybara
-      oj
-      selenium-devtools
-      selenium-webdriver (~> 4.19)
       typhoeus
 
 GEM
@@ -131,7 +132,7 @@ GEM
       websocket-driver (>= 0.6.5)
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.975.0)
+    aws-partitions (1.976.0)
     aws-sdk-core (3.205.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)
@@ -518,7 +519,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki!
+  zorki (= 0.1.25)!
 
 RUBY VERSION
    ruby 3.1.4p223
