@@ -19,14 +19,14 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: c8bbf6cec42ada8e93e88ef9df06897a3da155f3
+  revision: 53365b25115816014042e8c711df7160b878a62e
   specs:
-    zorki (0.1.25)
+    zorki (0.1.26)
       apparition
       capybara
       oj
       selenium-devtools
-      selenium-webdriver (~> 4.19)
+      selenium-webdriver (~> 4.24.0)
       typhoeus
 
 GIT
@@ -520,7 +520,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki (= 0.1.25)!
+  zorki (= 0.1.26)!
 
 RUBY VERSION
    ruby 3.1.4p223
