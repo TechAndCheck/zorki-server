@@ -137,3 +137,5 @@ gem "slack-ruby-client"
 gem "honeybadger", "~> 5.2"
 
 gem "localhost"
+
+gem "selenium-devtools"

@@ -143,4 +143,12 @@ class TwietterSourceTest < ActiveSupport::TestCase
     tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/ActualidadRT/status/1775419979871162733" }))
     assert_not_nil(tweet.first.author.username)
   end
+
+  test "Can handle mixed media posts" do
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/BGatesIsaPyscho/status/1835567947252634020" }))
+    debugger
+    assert_not_nil(tweet)
+  end
 end
+
+# https://x.com/SaadAbedine/status/1831611300356428158/video/1 seems broken, maybe becuase it has a movie and a video?

@@ -505,6 +505,7 @@ DEPENDENCIES
   ruby-lsp
   ruby_jard
   sass-rails (>= 6)
+  selenium-devtools
   selenium-webdriver (= 4.24.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client

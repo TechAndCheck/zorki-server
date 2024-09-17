@@ -93,7 +93,9 @@ class TwitterMediaSource < MediaSource
       end
 
       tweet.instance_variable_set("@aws_image_keys", aws_image_keys)
-    elsif tweet.video_file_names.present?
+    end
+
+    if tweet.video_file_names.present?
       video_file_keys = []
       video_file_preview_keys = []
 
