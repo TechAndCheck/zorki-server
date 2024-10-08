@@ -78,10 +78,10 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # The whole point of this app
 gem "zorki", "0.1.26", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", path: "/Users/christopher/Repositories/zorki"
-gem "forki", "0.2.10", git: "https://github.com/TechAndCheck/forki"
+gem "forki", "0.2.11", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.2.9", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
 gem "youtubearchiver", git: "https://github.com/TechAndCheck/YoutubeArchiver"
-# gem "birdsong",path: "/Users/christopher/Repositories/birdsong"
+# gem "birdsong", path: "/Users/christopher/Repositories/birdsong"
 gem "birdsong", "0.2.7", git: "https://github.com/cguess/birdsong", branch: "master"
 # gem "mosquito-scrape", git: "https://github.com/TechAndCheck/mosquito", branch: "main", require: "mosquito"
 # gem "mosquito-scrape", path: "/Users/christopher/Repositories/mosquito", require: "mosquito"

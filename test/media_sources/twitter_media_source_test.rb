@@ -146,7 +146,6 @@ class TwietterSourceTest < ActiveSupport::TestCase
 
   test "Can handle mixed media posts" do
     tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/BGatesIsaPyscho/status/1835567947252634020" }))
-    debugger
     assert_not_nil(tweet)
   end
 end

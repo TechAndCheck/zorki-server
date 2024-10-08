@@ -90,6 +90,7 @@ class TwitterMediaSource < MediaSource
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(image_file_name)
         aws_upload_wrapper.upload_file
         aws_upload_wrapper.object.key
+        debugger
       end
 
       tweet.instance_variable_set("@aws_image_keys", aws_image_keys)

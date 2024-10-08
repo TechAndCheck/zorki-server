@@ -24,7 +24,7 @@ class AwsObjectUploadFileWrapper
     File.delete(@file_path) if File.exist? @file_path
     true
   rescue Aws::Errors::ServiceError => e
-    puts "Couldn't upload file #{@file_path} to #{@object.key}. Here's why: #{e.message}"
+    logger.error "Couldn't upload file #{@file_path} to #{@object.key}. Here's why: #{e.message}"
     false
   ensure
     # Ensure the file has been deleted now that we're done.
