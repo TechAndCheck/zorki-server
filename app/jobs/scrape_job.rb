@@ -24,7 +24,9 @@ class ScrapeJob < ApplicationJob
     # If there's no callback id or the callback url isn't set, then ignore this
     # Otherwise, send it back to the source
 
-    # TODO: Allow custom callbacks
+    # We need to wait a certain amount of time to stop being caught
+    wait_time = get_correct_period_of_wait_time(url)
+    sleep(wait_time)
 
     results = MediaSource.scrape!(url, callback_id)
 
@@ -78,8 +80,10 @@ class ScrapeJob < ApplicationJob
     Honeybadger.notify(e, context: { url: url, status: "unknown" })
 
     CommsManager.send_scrape_status_update(ENV["VM_NAME"], 302, { url: url, scrape_id: callback_id, message: e.full_message(highlight: true) })
-  ensure
-    # TODO: Only sleep for the services we need to
+  end
+
+  def self.get_correct_period_of_wait_time(url)
+    # Only sleep for the services we need to
     # Facebook: Yes
     # Instagram: Yes
     # Twitter: No, uses an API
@@ -87,17 +91,31 @@ class ScrapeJob < ApplicationJob
     # TikTok: No, doesn't seem to have a rate limit
 
     # Note: we should really do queues and skip around to prioritize the density, if we ever need it
-    media_source_class = MediaSource.model_for_url(url)
-    if media_source_class == FacebookMediaSource
-      sleep_time = rand(1.0...5.0) * 60 # Facebook is the most careful, so we wait between 1 and 5 minutes
-    elsif media_source_class == InstagramMediaSource
-      sleep_time = rand(0.5...2.0) * 60 # Instagram seems less cruel so we can do between half a minute and 2
+    media_source = MediaSource.model_for_url(url)
+
+    # Seems that you can't compare classes in a case statement
+    if media_source == FacebookMediaSource
+      key = :facebook
+    elsif media_source == InstagramMediaSource
+      key = :instagram
+    else
+      return 0 # Unless it's Facebook or Instagram we don't wait at all
     end
 
-    # If we're not waiting just go ahead, otherwise, sleep
-    unless sleep_time.nil?
-      logger.info "Sleeping #{sleep_time} seconds to hopefully prevent scraping bots from noticing us."
-      sleep(sleep_time)
-    end
+    # This is probably too convoluted, but it works!
+    sleep_time = rand(Setting.scrape_wait_time_range[key]) * 60
+    last_time = Setting.last_scrape_time[key]
+    Setting.last_scrape_time[key] = Time.now
+
+    # If we haven't set it up yet
+    return 0 if last_time.nil?
+
+    time_difference = Time.now - last_time
+    return 0 if time_difference > sleep_time # we're good to go
+
+    # Wait the difference in Time
+    logger.info "Sleeping #{time_difference} seconds to hopefully prevent scraping bots from noticing us."
+    puts time_difference
+    time_difference
   end
 end
