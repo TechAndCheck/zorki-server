@@ -133,7 +133,19 @@ class MediaSource
   def self.check_url(url)
     raise "This should only be called from a subclass that implements `valid_host_name`" if self == MediaSource
 
-    return true if self.valid_host_name.include?(URI(url).host)
+    begin
+      return true if self.valid_host_name.include?(URI(url).host)
+    rescue StandardError => e
+      puts "***************************************"
+      puts "Error checking URL: #{e.inspect}"
+      puts "Error Message: #{e.message}"
+      puts "URL: #{url}"
+      puts "Hosts: #{self.valid_host_name}"
+      puts "***************************************"
+
+      raise e
+    end
+
     raise MediaSource::HostError.new(url)
   end
 
