@@ -26,7 +26,7 @@ class ScrapeJob < ApplicationJob
 
     # We need to wait a certain amount of time to stop being caught
     wait_time = ScrapeJob.get_correct_period_of_wait_time(url)
-    sleep(wait_time)
+    sleep(wait_time) if wait_time.positive?
 
     results = MediaSource.scrape!(url, callback_id)
 
