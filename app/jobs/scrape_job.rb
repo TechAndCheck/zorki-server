@@ -13,6 +13,14 @@ class ScrapeJob < ApplicationJob
     CommsManager.send_scrape_status_update(ENV["VM_NAME"], 302, { url: url, scrape_id: callback_id, message: e.full_message(highlight: true) })
   end
 
+  retry_on Zorki::ContentUnavailableError, wait: 30.seconds, jitter: 0.30, attempts: 3 do |job, error|
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 303, { url: url, scrape_id: callback_id })
+
+    logger.info "\nPost removed at: #{url}\n"
+
+    Honeybadger.notify(e, context: { url: url, status: "removed" })
+  end
+
   sidekiq_retries_exhausted do |message, error|
     logger.error "Exhausted retries trying to scrape url #{message['arguments'].first}. Error: #{error}"
     Typhoeus.post("#{Figaro.env.GRIGORI_CALLBACK_URL}/archive/scrape_result_callback",

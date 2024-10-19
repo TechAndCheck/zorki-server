@@ -123,4 +123,11 @@ class InstagramMediaSourceTest < ActiveSupport::TestCase
     result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/p/C7UoDRKukTg/?utm_source=ig_web_copy_link" }))
     assert_not_nil(result)
   end
+
+  test "another video" do
+    assert_nothing_raised do
+      result = InstagramMediaSource.extract(Scrape.create({ url: "https://www.instagram.com/reel/C8WIPQUOTK7/?utm_source=ig_web_copy_link" }))
+      assert_not_nil(result)
+    end
+  end
 end
