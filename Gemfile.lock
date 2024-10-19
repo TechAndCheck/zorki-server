@@ -19,9 +19,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: ed297489c1e2199cd806883cc822d36a4fff9a84
+  revision: 961efcd6864473088ff03c0fc57c0875a886414c
   specs:
-    zorki (0.2.5)
+    zorki (0.2.6)
       apparition
       capybara
       oj
@@ -521,7 +521,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki (= 0.2.5)!
+  zorki (= 0.2.6)!
 
 RUBY VERSION
    ruby 3.1.4p223
