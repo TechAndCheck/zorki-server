@@ -8,14 +8,15 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 848b73cb53632f466461884941805035096c9105
+  revision: 0e6b2fd7226c76b8fb56ccefee08373c556c36bb
   specs:
-    forki (0.2.11)
+    forki (0.2.12)
       apparition
       capybara
       oj
       selenium-webdriver
       typhoeus
+      zorki
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
@@ -484,7 +485,7 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails
   figaro
-  forki (= 0.2.11)!
+  forki (= 0.2.12)!
   honeybadger (~> 5.2)
   importmap-rails
   jbuilder (~> 2.7)

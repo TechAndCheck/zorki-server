@@ -80,4 +80,10 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
     end
   end
+
+  test "A reel cross posted from instagram works" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/r/jh5LX4CNhPXxn83F/" }))
+    assert_not_nil(posts)
+    assert_predicate posts.count, :positive?
+  end
 end
