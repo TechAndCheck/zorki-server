@@ -1,6 +1,7 @@
 require "test_helper"
 
-class TwietterSourceTest < ActiveSupport::TestCase
+# rubocop:disable Metrics/ClassLength
+class TwitterSourceTest < ActiveSupport::TestCase
   def setup; end
 
   test "can send error via slack notification" do
@@ -140,7 +141,7 @@ class TwietterSourceTest < ActiveSupport::TestCase
   end
 
   test "twitter user has a username" do
-    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://twitter.com/ActualidadRT/status/1775419979871162733" }))
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/WelshLabour/status/1848260101640995243" }))
     assert_not_nil(tweet.first.author.username)
   end
 
