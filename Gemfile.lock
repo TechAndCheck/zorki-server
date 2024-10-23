@@ -20,14 +20,14 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/zorki
-  revision: 961efcd6864473088ff03c0fc57c0875a886414c
+  revision: accfd1d1d4fd8ca0671629c9b2fa8b5dc824e04b
   specs:
-    zorki (0.2.6)
+    zorki (0.2.8)
       apparition
       capybara
       oj
       selenium-devtools
-      selenium-webdriver (~> 4.24.0)
+      selenium-webdriver (~> 4.25.0)
       typhoeus
 
 GIT
@@ -393,7 +393,7 @@ GEM
       tilt
     selenium-devtools (0.129.0)
       selenium-webdriver (~> 4.2)
-    selenium-webdriver (4.24.0)
+    selenium-webdriver (4.25.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -507,7 +507,7 @@ DEPENDENCIES
   ruby_jard
   sass-rails (>= 6)
   selenium-devtools
-  selenium-webdriver (= 4.24.0)
+  selenium-webdriver (= 4.25.0)
   sidekiq (~> 6.5.5)
   slack-ruby-client
   sorted_set
@@ -522,7 +522,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   yard
   youtubearchiver!
-  zorki (= 0.2.6)!
+  zorki (= 0.2.8)!
 
 RUBY VERSION
    ruby 3.1.4p223

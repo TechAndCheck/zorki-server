@@ -70,13 +70,13 @@ end
 
 # Adds support for Capybara system testing and selenium driver
 gem "capybara", ">= 3.26"
-gem "selenium-webdriver", "4.24.0"
+gem "selenium-webdriver", "4.25.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # The whole point of this app
-gem "zorki", "0.2.6", git: "https://github.com/TechAndCheck/zorki"
+gem "zorki", "0.2.8", git: "https://github.com/TechAndCheck/zorki"
 # gem "zorki", path: "/Users/christopher/Repositories/zorki"
 gem "forki", "0.2.14", git: "https://github.com/TechAndCheck/forki"
 # gem "forki", "0.2.9", path: "/Users/christopher/Repositories/Reporters_Lab/forki"
