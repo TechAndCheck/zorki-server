@@ -474,7 +474,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk-s3
-  birdsong (= 0.2.7)!
+  birdsong!
   blueprinter
   bootsnap (>= 1.4.4)
   bullet
