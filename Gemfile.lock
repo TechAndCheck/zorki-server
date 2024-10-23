@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 0e6b2fd7226c76b8fb56ccefee08373c556c36bb
+  revision: 20d79ef727455cd99ad1e197080b4d6ca80b0584
   specs:
-    forki (0.2.12)
+    forki (0.2.13)
       apparition
       capybara
       oj
@@ -485,7 +485,7 @@ DEPENDENCIES
   debug (>= 1.0.0)
   dotenv-rails
   figaro
-  forki (= 0.2.12)!
+  forki (= 0.2.13)!
   honeybadger (~> 5.2)
   importmap-rails
   jbuilder (~> 2.7)

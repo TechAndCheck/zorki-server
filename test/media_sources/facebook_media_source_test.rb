@@ -2,8 +2,14 @@ require "test_helper"
 
 class FacebookMediaSourceTest < ActiveSupport::TestCase
   def setup; end
-  @@facebook_image_posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
-  @@facebook_video_posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/Meta/videos/264436895517475" }))
+
+  def facebook_image_posts
+    @@facebook_image_posts ||= FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065" }))
+  end
+
+  def facebook_video_posts
+    @@facebook_video_posts ||= FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/Meta/videos/264436895517475" }))
+  end
 
   test "can send error via slack notification" do
     assert_nothing_raised do
@@ -31,12 +37,12 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   test "extracted post has images and videos uploaded to S3" do
     skip unless ENV["AWS_REGION"].present?
 
-    posts = @@facebook_image_posts
+    posts = facebook_image_posts
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_image_keys) }
 
-    posts = @@facebook_video_posts
+    posts = facebook_video_posts
     assert_not_nil(posts)
 
     posts.each { |post| assert_not_nil(post.aws_video_key) }
@@ -83,6 +89,12 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
 
   test "A reel cross posted from instagram works" do
     posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/r/jh5LX4CNhPXxn83F/" }))
+    assert_not_nil(posts)
+    assert_predicate posts.count, :positive?
+  end
+
+  test "A post with only an image and no text works" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/p/1AVhvCSLYP/" }))
     assert_not_nil(posts)
     assert_predicate posts.count, :positive?
   end
