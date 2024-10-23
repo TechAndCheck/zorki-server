@@ -98,4 +98,10 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(posts)
     assert_predicate posts.count, :positive?
   end
+
+  test "A post with only a video and no text works" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/100000568872011/videos/2240868886282175" }))
+    assert_not_nil(posts)
+    assert_predicate posts.count, :positive?
+  end
 end
