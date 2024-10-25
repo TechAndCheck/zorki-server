@@ -31,7 +31,7 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "extracted video has screenshot" do
-    assert_not_nil @@facebook_video_posts.first.screenshot_file
+    assert_not_nil facebook_video_posts.first.screenshot_file
   end
 
   test "extracted post has images and videos uploaded to S3" do
