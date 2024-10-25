@@ -15,7 +15,8 @@ class FacebookPostBlueprint < Blueprinter::Base
   field :image_file do |post|
     to_return = nil
     if post.image_file.nil? == false && post.aws_image_keys.blank?
-      File.open(post.image_file) { |file| to_return = Base64.encode64(file.read) }
+      image_file = post.image_file.is_a?(Array) ? post.image_file.first : post.image_file
+      File.open(image_file) { |file| to_return = Base64.encode64(file.read) }
     end
 
     to_return
