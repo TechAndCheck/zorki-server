@@ -41,6 +41,6 @@ class ScrapeJobTest < ActiveJob::TestCase
   test "wait time works" do
     assert_equal 0, ScrapeJob.get_correct_period_of_wait_time("https://www.instagram.com/p/Czblz-nNx-B/")
     assert_not_nil Setting.last_scrape_time[:instagram]
-    assert ScrapeJob.get_correct_period_of_wait_time("https://www.instagram.com/p/Czblz-nNx-B/") > 0
+    assert_predicate ScrapeJob.get_correct_period_of_wait_time("https://www.instagram.com/p/Czblz-nNx-B/"), :positive?
   end
 end

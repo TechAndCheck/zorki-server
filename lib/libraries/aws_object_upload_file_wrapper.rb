@@ -31,6 +31,13 @@ class AwsObjectUploadFileWrapper
     File.delete(@file_path) if File.exist? @file_path
   end
 
+  def self.download_file(aws_key, filename)
+    s3 = s3 = Aws::S3::Client.new
+    File.open(filename, "wb") do |file|
+      s3.get_object({ bucket: Figaro.env.AWS_S3_BUCKET_NAME, key: aws_key }, target: file)
+    end
+  end
+
 private
 
   def object_key_for_file_path(file_path)
