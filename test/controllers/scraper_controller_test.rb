@@ -47,16 +47,20 @@ class ScraperControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "scraping a facebook image works" do
-    post "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065", auth_key: @auth_key }
+    post "/scrape.json", params: { url: "https://www.facebook.com/photo/?fbid=10161587852468065&set=a.10150148489178065", auth_key: @auth_key }, as: :json
     assert_response 200
+
+    perform_enqueued_jobs
   end
 
   test "scraping a facebook video works" do
     assert_enqueued_jobs(1) do
-      post "/scrape.json", headers: { "Content-type" => "application/json" }, params: { url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/", auth_key: @auth_key, as: :json }
+      post "/scrape.json", params: { url: "https://www.facebook.com/PlandemicMovie/videos/588866298398729/", auth_key: @auth_key }, as: :json
       assert_response 200
       assert JSON.parse(@response.body).has_key?("success")
     end
+
+    perform_enqueued_jobs
   end
 
   test "scraping an instagram image with force works" do
