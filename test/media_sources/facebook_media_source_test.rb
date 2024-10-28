@@ -198,4 +198,29 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.first.image_file, :blank?
     assert_predicate posts.first.video_preview_image_file, :nil?
   end
+
+  test "Does a video actually save itself properly" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/v/g1uQJ98rQp9pSEjw/" }))
+    assert_not_nil(posts)
+    assert_predicate posts.count, :positive?
+
+    assert_predicate posts.first.image_file, :blank?
+    assert_predicate posts.first.video_file, :present?
+
+    begin
+      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_key, "tmp/forki/video.mp4")
+      assert File.exist?("tmp/forki/video.mp4")
+      assert File.size("tmp/forki/video.mp4") > 1000
+    ensure
+      File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
+    end
+
+    begin
+      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_preview_key, "tmp/forki/video_preview.jpg")
+      assert File.exist?("tmp/forki/video_preview.jpg")
+      assert File.size("tmp/forki/video_preview.jpg") > 1000
+    ensure
+      File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
+    end
+  end
 end

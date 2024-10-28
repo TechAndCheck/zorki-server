@@ -101,7 +101,9 @@ class FacebookMediaSource < MediaSource
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.image_file)
         aws_upload_wrapper.upload_file
         post.instance_variable_set("@aws_image_keys", aws_upload_wrapper.object.key)
-      elsif post.video_file.present?
+      end
+
+      if post.video_file.present?
         @@logger.debug "Uploading video #{post.video_file}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file)
         aws_upload_wrapper.upload_file
