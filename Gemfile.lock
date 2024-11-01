@@ -32,10 +32,10 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 1e926fce0dbcf041e32fafa13474b9e9a6fe1b5f
+  revision: 8984ccf7f469be7c627116034f3ca96b67bb2801
   branch: selenium-upgrade
   specs:
-    birdsong (0.2.7)
+    birdsong (0.2.9)
       capybara (~> 3.40)
       curb (~> 1.0, >= 1.0.5)
       oauth (~> 0.5.6)
@@ -334,7 +334,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
-    rexml (3.3.8)
+    rexml (3.3.9)
     rubocop (1.66.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -391,7 +391,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.129.0)
+    selenium-devtools (0.130.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.25.0)
       base64 (~> 0.2)
