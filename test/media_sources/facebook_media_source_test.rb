@@ -223,4 +223,14 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
     end
   end
+
+  test "Another broken link with an image" do
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/p/15FenUaX48/" }))
+    assert_not_nil(posts)
+    assert_predicate posts.count, :positive?
+
+    assert_predicate posts.first.image_file, :present?
+    assert_predicate posts.first.video_file, :nil?
+    assert_predicate posts.first.video_preview_image_file, :nil?
+  end
 end
