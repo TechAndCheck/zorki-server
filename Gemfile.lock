@@ -32,10 +32,10 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 8984ccf7f469be7c627116034f3ca96b67bb2801
-  branch: selenium-upgrade
+  revision: 147d9a181a0a8aec93259041bad9a59f9db03afd
+  branch: master
   specs:
-    birdsong (0.2.9)
+    birdsong (0.2.10)
       capybara (~> 3.40)
       curb (~> 1.0, >= 1.0.5)
       oauth (~> 0.5.6)
