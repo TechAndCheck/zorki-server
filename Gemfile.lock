@@ -33,10 +33,10 @@ GIT
 
 GIT
   remote: https://github.com/cguess/birdsong
-  revision: 147d9a181a0a8aec93259041bad9a59f9db03afd
+  revision: f64eb5c9a0541422ccc30f15d4edb63c4b159e55
   branch: master
   specs:
-    birdsong (0.2.10)
+    birdsong (0.2.12)
       capybara (~> 3.40)
       curb (~> 1.0, >= 1.0.5)
       oauth (~> 0.5.6)
@@ -267,7 +267,7 @@ GEM
     oj (3.16.7)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    ostruct (0.6.0)
+    ostruct (0.6.1)
     parallel (1.26.3)
     parser (3.3.5.0)
       ast (~> 2.4.1)

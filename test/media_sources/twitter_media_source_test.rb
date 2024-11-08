@@ -154,6 +154,11 @@ class TwitterSourceTest < ActiveSupport::TestCase
     tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/SpaceX/status/1835567947252634020" }))
     assert_not_nil(tweet)
   end
+
+  test "can handle a different video" do
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/taslimanasreen/status/1854211323053351028?s=19" }))
+    assert_not_nil(tweet)
+  end
 end
 
 # https://x.com/SaadAbedine/status/1831611300356428158/video/1 seems broken, maybe becuase it has a movie and a video?
