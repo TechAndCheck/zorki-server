@@ -55,14 +55,6 @@ class TwitterMediaSource < MediaSource
     id = TwitterMediaSource.extract_tweet_id_from_url(@url)
     tweet = Birdsong::Tweet.lookup(id).first
 
-    # So, because we're not changing Birdsong up we set this here
-    # screenshot_path = self.class.take_screenshot(@url)
-    # screenshot_path = ""
-    # tweet.instance_variable_set("@screenshot_file", screenshot_path)
-    # tweet.define_singleton_method(:screenshot_file) do
-    #   instance_variable_get("@screenshot_file")
-    # end
-
     self.class.create_aws_key_functions_for_posts([tweet])
 
     return [tweet] unless s3_transfer_enabled?

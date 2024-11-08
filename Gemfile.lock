@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: cd866dc09f20034a5ac1705bc7b408292e01b0e6
+  revision: 9fde40d49d1d6fb79fbce81ecc5bf9b44e9dd433
   branch: main
   specs:
-    forki (0.2.21)
+    forki (0.2.22)
       apparition
       capybara
       oj
