@@ -225,7 +225,7 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
   end
 
   test "Another broken link with an image" do
-    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/share/p/15FenUaX48/" }))
+    posts = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/permalink.php?story_fbid=pfbid04H3ZNFByHS8CLtNFWqUSuUPq5NATXi2N9uNCfjr4mihtfLkorUBQJqd7AnnazLkcl&id=61567717621263" }))
     assert_not_nil(posts)
     assert_predicate posts.count, :positive?
 
