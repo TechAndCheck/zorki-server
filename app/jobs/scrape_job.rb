@@ -1,7 +1,7 @@
 require "sidekiq/api"
 
 class ScrapeJob < ApplicationJob
-  sidekiq_options retry: 10
+  # sidekiq_options retry: 10
   queue_as :default
 
   retry_on Birdsong::RateLimitExceeded, wait: 400.seconds, jitter: 0.30, attempts: 10 do
@@ -9,16 +9,29 @@ class ScrapeJob < ApplicationJob
   end
 
   retry_on Zorki::RetryableError, Forki::RetryableError, YoutubeArchiver::RetryableError, wait: 30.seconds, jitter: 0.30, attempts: 3 do |job, error|
-    logger.info "Errored retries on #{job['arguments'].first} with #{error}"
+    url = job.arguments.first
+    callback_id = job.arguments.length > 1 ? job.arguments[1] : nil
+
+    logger.info "Errored retries on #{job.arguments.first} with #{error}"
     CommsManager.send_scrape_status_update(ENV["VM_NAME"], 302, { url: url, scrape_id: callback_id, message: e.full_message(highlight: true) })
   end
 
   retry_on Zorki::ContentUnavailableError, wait: 30.seconds, jitter: 0.30, attempts: 3 do |job, error|
+    url = job.arguments.first
+    callback_id = job.arguments.length > 1 ? job.arguments[1] : nil
+    CommsManager.send_scrape_status_update(ENV["VM_NAME"], 303, { url: url, scrape_id: callback_id })
+    logger.info "\nPost removed at: #{url}\n"
+    Honeybadger.notify(error, context: { url: url, status: "removed" })
+  end
+
+  retry_on Birdsong::NoTweetFoundError, wait: 30.seconds, jitter: 0.30, attempts: 3 do |job, error|
+    url = job.arguments.first
+    callback_id = job.arguments.length > 1 ? job.arguments[1] : nil
     CommsManager.send_scrape_status_update(ENV["VM_NAME"], 303, { url: url, scrape_id: callback_id })
 
     logger.info "\nPost removed at: #{url}\n"
 
-    Honeybadger.notify(e, context: { url: url, status: "removed" })
+    Honeybadger.notify(error, context: { url: url, status: "removed" })
   end
 
   sidekiq_retries_exhausted do |message, error|
@@ -55,7 +68,7 @@ class ScrapeJob < ApplicationJob
     # We catch and reraise here to just have a point where we can intervene if necessary
     raise e
   rescue Zorki::ContentUnavailableError, Forki::ContentUnavailableError, YoutubeArchiver::VideoNotFoundError,
-          YoutubeArchiver::ChannelNotFoundError, Birdsong::NoTweetFoundError, Morris::ContentUnavailableError => e
+          YoutubeArchiver::ChannelNotFoundError, Morris::ContentUnavailableError => e
     # This means the content has been taken down before we could get to it.
     # Here we do a callback but with a notification the content is removed
 
@@ -72,11 +85,9 @@ class ScrapeJob < ApplicationJob
     logger.error "\nPost parsing error at: #{url}\n"
 
     Honeybadger.notify(e, context: { url: url, status: "error" })
-  rescue Birdsong::RateLimitExceeded => e
-    # Honeybadger.notify(e, context: { url: url, status: "rate_limit_exceeded" })
-    raise e
   rescue StandardError => e # If we run into an error retries can't fix, don't retry the job
     # We don't want errors to ruin everything so we'll catch everything
+    raise e if e.is_a?(Birdsong::NoTweetFoundError) # We're going to eventually handle all this up there
     logger.fatal "*************************************************************"
     logger.fatal "Error During Scraping"
     logger.fatal "Type: #{e.class.name}"

@@ -233,4 +233,9 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.first.video_file, :nil?
     assert_predicate posts.first.video_preview_image_file, :nil?
   end
+
+  test "can handle multiple videos" do
+    post = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/permalink.php?story_fbid=pfbid02E26psygjdZJ7YEeEhXJkgTpbDdjYZZHNZyezK9iA65PGPwQKT35pHb4GjoVVexGcl&id=100079991325065" }))
+    assert_not_nil(post)
+  end
 end

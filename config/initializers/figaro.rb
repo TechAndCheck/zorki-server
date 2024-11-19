@@ -3,6 +3,7 @@ Figaro.require_keys("SECRET_KEY_BASE")
 
 Figaro.require_keys("INSTAGRAM_USER_NAME", "INSTAGRAM_PASSWORD")
 Figaro.require_keys("FACEBOOK_EMAIL", "FACEBOOK_PASSWORD")
+Figaro.require_keys("TWITTER_USER_NAME", "TWITTER_PASSWORD")
 Figaro.require_keys("NITTER_URL")
 Figaro.require_keys("GRIGORI_CALLBACK_URL")
 Figaro.require_keys("HOST")

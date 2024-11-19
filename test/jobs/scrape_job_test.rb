@@ -38,6 +38,12 @@ class ScrapeJobTest < ActiveJob::TestCase
     end
   end
 
+  test "twitter properly retries" do
+    assert_enqueued_jobs 1 do
+      ScrapeJob.perform_now("https://x.com/izzaag/status/1853913259889606875")
+    end
+  end
+
   test "wait time works" do
     assert_equal 0, ScrapeJob.get_correct_period_of_wait_time("https://www.instagram.com/p/Czblz-nNx-B/")
     assert_not_nil Setting.last_scrape_time[:instagram]

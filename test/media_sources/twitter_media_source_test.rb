@@ -151,13 +151,19 @@ class TwitterSourceTest < ActiveSupport::TestCase
   end
 
   test "can handle multiple videos" do
-    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/SpaceX/status/1835567947252634020" }))
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/iam_Chisco1/status/1853732129697415386" }))
     assert_not_nil(tweet)
+    # tweet.videos.each { |video| assert_not_nil(video.aws_video_key) }
   end
 
   test "can handle a different video" do
     tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/taslimanasreen/status/1854211323053351028?s=19" }))
     assert_not_nil(tweet)
+  end
+
+  test "can fail" do
+    tweet = TwitterMediaSource.extract(Scrape.create({ url: "https://x.com/izzaag/status/1853913259889606875" }))
+    assert_nil(tweet)
   end
 end
 
