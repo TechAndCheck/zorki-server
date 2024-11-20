@@ -25,24 +25,24 @@ class InstagramPostBlueprint < Blueprinter::Base
     to_return
   end
 
-  field :video_file do |post|
-    to_return = nil
-    if post.video_file_name.nil? == false && post.aws_video_key.blank?
-      File.open(post.video_file_name) { |file| to_return = Base64.encode64(file.read) }
-    end
+  # field :video_file do |post|
+  #   to_return = nil
+  #   if post.video_file_name.nil? == false && post.aws_video_key.blank?
+  #     File.open(post.video_file_name) { |file| to_return = Base64.encode64(file.read) }
+  #   end
 
-    to_return
-  end
+  #   to_return
+  # end
 
 
-  field :video_preview_image do |post|
-    to_return = nil
-    if post.video_preview_image.nil? == false && post.aws_video_preview_key.blank?
-      File.open(post.video_preview_image) { |file| to_return = Base64.encode64(file.read) }
-    end
+  # field :video_preview_image do |post|
+  #   to_return = nil
+  #   if post.video_preview_image.nil? == false && post.aws_video_preview_key.blank?
+  #     File.open(post.video_preview_image) { |file| to_return = Base64.encode64(file.read) }
+  #   end
 
-    to_return
-  end
+  #   to_return
+  # end
 
   field :screenshot_file do |post|
     to_return = nil

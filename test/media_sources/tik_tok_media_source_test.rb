@@ -92,4 +92,10 @@ class TikTokMediaSourceTest < ActiveSupport::TestCase
       json_posts.each { |post| assert_nil post["post"]["user"]["aws_profile_image_key"] }
     end
   end
+
+  test "post can be turned into json" do
+    assert_nothing_raised do
+      JSON.parse(PostBlueprint.render(@@tiktok_posts))
+    end
+  end
 end
