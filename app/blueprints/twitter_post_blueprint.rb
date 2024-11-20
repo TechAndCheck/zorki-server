@@ -25,7 +25,7 @@ class TwitterPostBlueprint < Blueprinter::Base
     to_return
   end
 
-  field :video_file do |tweet|
+  field :video_files do |tweet|
     to_return = nil
     if tweet.videos.empty? == false && tweet.aws_video_keys.blank?
       base64_temp = nil
