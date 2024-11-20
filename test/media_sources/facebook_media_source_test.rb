@@ -238,4 +238,13 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     post = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/permalink.php?story_fbid=pfbid02E26psygjdZJ7YEeEhXJkgTpbDdjYZZHNZyezK9iA65PGPwQKT35pHb4GjoVVexGcl&id=100079991325065" }))
     assert_not_nil(post)
   end
+
+  test "can properly turn a post into json" do
+    post = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/permalink.php?story_fbid=pfbid02E26psygjdZJ7YEeEhXJkgTpbDdjYZZHNZyezK9iA65PGPwQKT35pHb4GjoVVexGcl&id=100079991325065" }))
+    assert_not_nil(post)
+
+    assert_nothing_raised do
+      FacebookPostBlueprint.render_as_json(post)
+    end
+  end
 end

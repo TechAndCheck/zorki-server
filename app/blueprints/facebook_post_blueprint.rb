@@ -64,11 +64,11 @@ class FacebookPostBlueprint < Blueprinter::Base
   # end
 
   field :aws_video_key do |post|
-    post.aws_video_key()
+    post.aws_video_keys()
   end
 
   field :aws_video_preview_key do |post|
-    post.aws_video_preview_key()
+    post.aws_video_preview_keys()
   end
 
 
