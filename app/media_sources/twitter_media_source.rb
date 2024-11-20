@@ -77,8 +77,8 @@ class TwitterMediaSource < MediaSource
 
     @@logger.debug "Beginning uploading of files to S3 bucket #{Figaro.env.AWS_S3_BUCKET_NAME}"
     # Let's see if it's a video or images, and upload them
-    if tweet.image_file_names.present?
-      aws_image_keys = tweet.image_file_names.map do |image_file_name|
+    if tweet.images.present?
+      aws_image_keys = tweet.images.map do |image_file_name|
         @@logger.debug "Uploading image #{image_file_name}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(image_file_name)
         aws_upload_wrapper.upload_file
@@ -88,11 +88,11 @@ class TwitterMediaSource < MediaSource
       tweet.instance_variable_set("@aws_image_keys", aws_image_keys)
     end
 
-    if tweet.video_file_names.present?
+    if tweet.videos.present?
       video_file_keys = []
       video_file_preview_keys = []
 
-      tweet.video_file_names.each do |video_file_name|
+      tweet.videos.each_with_index do |video_file_name, index|
         video_file_name = video_file_name.first if video_file_name.first.is_a?(Array) # To fix some structure stuff
 
         @@logger.debug "Uploading video #{video_file_name}"
@@ -101,14 +101,14 @@ class TwitterMediaSource < MediaSource
         video_file_keys << aws_upload_wrapper.object.key
 
         # We we add multiple videos we'll have to fix up Birdsong to group these, for now this will work
-        @@logger.debug "Uploading video preview #{tweet.video_preview_image}"
-        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.video_preview_image)
+        @@logger.debug "Uploading video preview #{tweet.video_preview_images[index]}"
+        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(tweet.video_preview_images[index])
         aws_upload_wrapper.upload_file
         video_file_preview_keys << aws_upload_wrapper.object.key
       end
 
-      tweet.instance_variable_set("@aws_video_key", video_file_keys)
-      tweet.instance_variable_set("@aws_video_preview_key", video_file_preview_keys)
+      tweet.instance_variable_set("@aws_video_keys", video_file_keys)
+      tweet.instance_variable_set("@aws_video_preview_keys", video_file_preview_keys)
     end
 
     [tweet]

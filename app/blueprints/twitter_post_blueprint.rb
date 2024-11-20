@@ -14,8 +14,8 @@ class TwitterPostBlueprint < Blueprinter::Base
 
   field :image_files do |tweet|
     to_return = nil
-    if tweet.image_file_names.nil? == false && tweet.aws_image_keys.blank?
-      to_return = tweet.image_file_names.map do |file_name|
+    if tweet.images.nil? == false && tweet.aws_image_keys.blank?
+      to_return = tweet.images.map do |file_name|
         base64_temp = nil
         File.open(file_name) { |file| base64_temp = Base64.encode64(file.read) }
         base64_temp
@@ -27,26 +27,28 @@ class TwitterPostBlueprint < Blueprinter::Base
 
   field :video_file do |tweet|
     to_return = nil
-    if tweet.video_file_names.empty? == false && tweet.aws_video_key.blank?
+    if tweet.videos.empty? == false && tweet.aws_video_keys.blank?
       base64_temp = nil
-      File.open(tweet.video_file_names.first) { |file| base64_temp = Base64.encode64(file.read) }
+      File.open(tweet.videos.first) { |file| base64_temp = Base64.encode64(file.read) }
       base64_temp
     end
 
     to_return
   end
 
-  field :video_preview_image do |tweet|
+  # This isn't used anymore I believe
+  field :video_preview_images do |tweet|
     to_return = nil
-    if tweet.video_file_names.empty? == false && tweet.aws_video_preview_key.blank?
+    if tweet.videos.empty? == false && tweet.aws_video_preview_keys.blank?
       base64_temp = nil
-      File.open(tweet.video_preview_image) { |file| base64_temp = Base64.encode64(file.read) }
+      File.open(tweet.video_preview_images) { |file| base64_temp = Base64.encode64(file.read) }
       base64_temp
     end
 
     to_return
   end
 
+  # This isn't used anymore I believe
   field :screenshot_file do |tweet|
     if tweet.aws_screenshot_key.blank?
       base64_temp = nil
@@ -55,12 +57,12 @@ class TwitterPostBlueprint < Blueprinter::Base
     end
   end
 
-  field :aws_video_key do |tweet|
-    tweet.aws_video_key()
+  field :aws_video_keys do |tweet|
+    tweet.aws_video_keys()
   end
 
-  field :aws_video_preview_key do |tweet|
-    tweet.aws_video_preview_key()
+  field :aws_video_preview_keys do |tweet|
+    tweet.aws_video_preview_keys()
   end
 
   field :aws_image_keys do |tweet|

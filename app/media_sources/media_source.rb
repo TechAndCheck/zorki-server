@@ -84,20 +84,20 @@ class MediaSource
       # These are implementation details, so we don't want to add them to Zorki or Forki
       # These will allow us to save the AWS keys for later
       post.instance_variable_set("@aws_image_keys", nil)
-      post.instance_variable_set("@aws_video_key", nil)
-      post.instance_variable_set("@aws_video_preview_key", nil)
+      post.instance_variable_set("@aws_video_keys", nil)
+      post.instance_variable_set("@aws_video_preview_keys", nil)
       post.instance_variable_set("@aws_screenshot_key", nil)
 
       post.define_singleton_method(:aws_image_keys) do
         instance_variable_get("@aws_image_keys")
       end
 
-      post.define_singleton_method(:aws_video_key) do
-        instance_variable_get("@aws_video_key")
+      post.define_singleton_method(:aws_video_keys) do
+        instance_variable_get("@aws_video_keys")
       end
 
-      post.define_singleton_method(:aws_video_preview_key) do
-        instance_variable_get("@aws_video_preview_key")
+      post.define_singleton_method(:aws_video_preview_keys) do
+        instance_variable_get("@aws_video_preview_keys")
       end
 
       post.define_singleton_method(:aws_screenshot_key) do
