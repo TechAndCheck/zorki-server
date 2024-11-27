@@ -243,8 +243,14 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     post = FacebookMediaSource.extract(Scrape.create({ url: "https://www.facebook.com/permalink.php?story_fbid=pfbid02E26psygjdZJ7YEeEhXJkgTpbDdjYZZHNZyezK9iA65PGPwQKT35pHb4GjoVVexGcl&id=100079991325065" }))
     assert_not_nil(post)
 
+    json = nil
     assert_nothing_raised do
-      FacebookPostBlueprint.render_as_json(post)
+      json = FacebookPostBlueprint.render_as_json(post)
     end
+
+    assert_not_nil(json.first["aws_video_key"])
+    assert_not_nil(json.first["aws_video_preview_key"])
+    assert_not_nil(json.first["aws_video_keys"])
+    assert_not_nil(json.first["aws_video_preview_keys"])
   end
 end

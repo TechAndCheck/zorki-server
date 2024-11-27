@@ -107,12 +107,12 @@ class FacebookMediaSource < MediaSource
         @@logger.debug "Uploading video #{post.video_file}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file)
         aws_upload_wrapper.upload_file
-        post.instance_variable_set("@aws_video_key", aws_upload_wrapper.object.key)
+        post.instance_variable_set("@aws_video_keys", aws_upload_wrapper.object.key)
 
         @@logger.debug "Uploading video preview #{post.video_preview_image_file}"
         aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_preview_image_file)
         aws_upload_wrapper.upload_file
-        post.instance_variable_set("@aws_video_preview_key", aws_upload_wrapper.object.key)
+        post.instance_variable_set("@aws_video_preview_keys", aws_upload_wrapper.object.key)
       end
 
       post
