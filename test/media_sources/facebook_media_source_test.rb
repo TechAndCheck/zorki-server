@@ -252,5 +252,6 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(json.first["aws_video_preview_key"])
     assert_not_nil(json.first["aws_video_keys"])
     assert_not_nil(json.first["aws_video_preview_keys"])
+    assert_not_nil(json.first["created_at"])
   end
 end

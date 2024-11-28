@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: c91c0bbff731dd70317d54cf5468e191b1465b11
+  revision: c8f5417883ef245b486643f00e91a71f9e1c7c62
   branch: main
   specs:
-    forki (0.2.29)
+    forki (0.2.30)
       apparition
       capybara
       oj
@@ -392,7 +392,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-devtools (0.130.0)
+    selenium-devtools (0.131.0)
       selenium-webdriver (~> 4.2)
     selenium-webdriver (4.25.0)
       base64 (~> 0.2)
