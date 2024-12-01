@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: c8f5417883ef245b486643f00e91a71f9e1c7c62
+  revision: 083c6fab0c9240fcc8cae882ae55499ee251f668
   branch: main
   specs:
-    forki (0.2.30)
+    forki (0.2.31)
       apparition
       capybara
       oj
@@ -332,7 +332,7 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     redis (4.8.1)
-    regexp_parser (2.9.2)
+    regexp_parser (2.9.3)
     reline (0.5.10)
       io-console (~> 0.5)
     rexml (3.3.9)

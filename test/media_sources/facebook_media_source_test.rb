@@ -47,20 +47,27 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(posts)
 
     posts.each do |post|
-      assert_not_nil(post.aws_video_key)
+      assert_not_nil(post.aws_video_keys)
+
       begin
-        AwsObjectUploadFileWrapper.download_file(post.aws_video_key, "tmp/forki/video.mp4")
-        assert File.exist?("tmp/forki/video.mp4")
-        assert File.size("tmp/forki/video.mp4") > 1000
+        post.aws_video_keys.each do |key|
+          AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video.mp4")
+          assert File.exist?("tmp/forki/video.mp4")
+          assert File.size("tmp/forki/video.mp4") > 1000
+          File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
+        end
       ensure
         File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
       end
     end
     posts.each do |post|
-      assert_not_nil(post.aws_video_preview_key)
+      assert_not_nil(post.aws_video_preview_keys)
       begin
-        AwsObjectUploadFileWrapper.download_file(post.aws_video_preview_key, "tmp/forki/video_preview.jpg")
-        assert File.size("tmp/forki/video_preview.jpg") > 1000
+        post.aws_video_preview_keys.each do |key|
+          AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video_preview.jpg")
+          assert File.size("tmp/forki/video_preview.jpg") > 1000
+          File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
+        end
       ensure
         File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
       end
@@ -138,17 +145,23 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.count, :positive?
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_key, "tmp/forki/video.mp4")
-      assert File.exist?("tmp/forki/video.mp4")
-      assert File.size("tmp/forki/video.mp4") > 1000
+      posts.first.aws_video_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video.mp4")
+        assert File.exist?("tmp/forki/video.mp4")
+        assert File.size("tmp/forki/video.mp4") > 1000
+        File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video")
+      end
     ensure
       File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
     end
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_preview_key, "tmp/forki/video_preview.jpg")
-      assert File.exist?("tmp/forki/video_preview.jpg")
-      assert File.size("tmp/forki/video_preview.jpg") > 1000
+      posts.first.aws_video_preview_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video_preview.jpg")
+        assert File.exist?("tmp/forki/video_preview.jpg")
+        assert File.size("tmp/forki/video_preview.jpg") > 1000
+        File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
+      end
     ensure
       File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
     end
@@ -160,8 +173,8 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.count, :positive?
 
     assert_predicate posts.first.image_file, :present?
-    assert_predicate posts.first.video_file, :nil?
-    assert_predicate posts.first.video_preview_image_file, :nil?
+    assert_predicate posts.first.video_files, :nil?
+    assert_predicate posts.first.video_preview_image_files, :nil?
   end
 
   test "A post with only a video and no text works" do
@@ -170,20 +183,26 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.count, :positive?
 
     assert_predicate posts.first.image_file, :blank?
-    assert_predicate posts.first.video_file, :present?
+    assert_predicate posts.first.video_files.count, :positive?
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_key, "tmp/forki/video.mp4")
-      assert File.exist?("tmp/forki/video.mp4")
-      assert File.size("tmp/forki/video.mp4") > 1000
+      posts.first.aws_video_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video.mp4")
+        assert File.exist?("tmp/forki/video.mp4")
+        assert File.size("tmp/forki/video.mp4") > 1000
+        File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video")
+      end
     ensure
       File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
     end
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_preview_key, "tmp/forki/video_preview.jpg")
-      assert File.exist?("tmp/forki/video_preview.jpg")
-      assert File.size("tmp/forki/video_preview.jpg") > 1000
+      posts.first.aws_video_preview_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video_preview.jpg")
+        assert File.exist?("tmp/forki/video_preview.jpg")
+        assert File.size("tmp/forki/video_preview.jpg") > 1000
+        File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
+      end
     ensure
       File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
     end
@@ -194,9 +213,9 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_not_nil(posts)
     assert_predicate posts.count, :positive?
 
-    assert_predicate posts.first.video_file, :nil?
+    assert_predicate posts.first.video_files, :nil?
     assert_predicate posts.first.image_file, :blank?
-    assert_predicate posts.first.video_preview_image_file, :nil?
+    assert_predicate posts.first.video_preview_image_files, :nil?
   end
 
   test "Does a video actually save itself properly" do
@@ -205,20 +224,26 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.count, :positive?
 
     assert_predicate posts.first.image_file, :blank?
-    assert_predicate posts.first.video_file, :present?
+    assert_predicate posts.first.video_files.count, :positive?
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_key, "tmp/forki/video.mp4")
-      assert File.exist?("tmp/forki/video.mp4")
-      assert File.size("tmp/forki/video.mp4") > 1000
+      posts.first.aws_video_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video.mp4")
+        assert File.exist?("tmp/forki/video.mp4")
+        assert File.size("tmp/forki/video.mp4") > 1000
+        File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video")
+      end
     ensure
       File.delete("tmp/forki/video.mp4") if File.exist?("tmp/forki/video.mp4")
     end
 
     begin
-      AwsObjectUploadFileWrapper.download_file(posts.first.aws_video_preview_key, "tmp/forki/video_preview.jpg")
-      assert File.exist?("tmp/forki/video_preview.jpg")
-      assert File.size("tmp/forki/video_preview.jpg") > 1000
+      posts.first.aws_video_preview_keys.each do |key|
+        AwsObjectUploadFileWrapper.download_file(key, "tmp/forki/video_preview.jpg")
+        assert File.exist?("tmp/forki/video_preview.jpg")
+        assert File.size("tmp/forki/video_preview.jpg") > 1000
+        File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
+      end
     ensure
       File.delete("tmp/forki/video_preview.jpg") if File.exist?("tmp/forki/video_preview.jpg")
     end
@@ -230,8 +255,8 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
     assert_predicate posts.count, :positive?
 
     assert_predicate posts.first.image_file, :present?
-    assert_predicate posts.first.video_file, :nil?
-    assert_predicate posts.first.video_preview_image_file, :nil?
+    assert_predicate posts.first.video_files, :nil?
+    assert_predicate posts.first.video_preview_image_files, :nil?
   end
 
   test "can handle multiple videos" do
@@ -248,8 +273,8 @@ class FacebookMediaSourceTest < ActiveSupport::TestCase
       json = FacebookPostBlueprint.render_as_json(post)
     end
 
-    assert_not_nil(json.first["aws_video_key"])
-    assert_not_nil(json.first["aws_video_preview_key"])
+    assert_nil(json.first["aws_video_key"])
+    assert_nil(json.first["aws_video_preview_key"])
     assert_not_nil(json.first["aws_video_keys"])
     assert_not_nil(json.first["aws_video_preview_keys"])
     assert_not_nil(json.first["created_at"])

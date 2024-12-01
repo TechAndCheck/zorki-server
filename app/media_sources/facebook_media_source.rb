@@ -103,16 +103,22 @@ class FacebookMediaSource < MediaSource
         post.instance_variable_set("@aws_image_keys", aws_upload_wrapper.object.key)
       end
 
-      if post.video_file.present?
-        @@logger.debug "Uploading video #{post.video_file}"
-        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_file)
-        aws_upload_wrapper.upload_file
-        post.instance_variable_set("@aws_video_keys", aws_upload_wrapper.object.key)
+      if post.video_files.present?
+        aws_video_keys = post.video_files.map do |video_file|
+          @@logger.debug "Uploading video #{video_file}"
+          aws_upload_wrapper = AwsObjectUploadFileWrapper.new(video_file)
+          aws_upload_wrapper.upload_file
+          aws_upload_wrapper.object.key
+        end
+        post.instance_variable_set("@aws_video_keys", aws_video_keys)
 
-        @@logger.debug "Uploading video preview #{post.video_preview_image_file}"
-        aws_upload_wrapper = AwsObjectUploadFileWrapper.new(post.video_preview_image_file)
-        aws_upload_wrapper.upload_file
-        post.instance_variable_set("@aws_video_preview_keys", aws_upload_wrapper.object.key)
+        aws_video_preview_keys = post.video_preview_image_files.map do |video_preview_image_file|
+          @@logger.debug "Uploading video preview #{video_preview_image_file}"
+          aws_upload_wrapper = AwsObjectUploadFileWrapper.new(video_preview_image_file)
+          aws_upload_wrapper.upload_file
+          aws_upload_wrapper.object.key
+        end
+        post.instance_variable_set("@aws_video_preview_keys", aws_video_preview_keys)
       end
 
       post
