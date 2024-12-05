@@ -24,6 +24,9 @@ module Hypatia
 
     # This is to make sure the AWS uploader (and anything later) is available
     config.eager_load_paths << Rails.root.join("lib/libraries")
+    # Note: In Rails 7.1 the following line should work, but for some reason isn't autoloading /lib/libraries
+    # This other way will proabably be deprecated at some point so I'm putting the next line here for the future'
+    # config.eager_load_paths << Rails.root.join("lib/libraries")
 
     # if ENV["RAILS_LOG_TO_STDOUT"].present?
     #   logger           = ActiveSupport::Logger.new(STDOUT)
