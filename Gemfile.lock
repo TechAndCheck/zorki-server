@@ -8,10 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/TechAndCheck/forki
-  revision: 06674cd702b1d5ad42ce5892f4c446913938d7e1
+  revision: b35439434e8eabadaceec834758e575017efa6cb
   branch: main
   specs:
-    forki (0.2.36)
+    forki (0.2.38)
       apparition
       capybara
       oj
@@ -157,7 +157,7 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     benchmark (0.4.0)
-    bigdecimal (3.1.8)
+    bigdecimal (3.1.9)
     bindex (0.8.1)
     blueprinter (1.1.0)
     bootsnap (1.18.4)
@@ -206,9 +206,9 @@ GEM
       multipart-post (~> 2)
     faraday-net_http (3.3.0)
       net-http
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.1-arm64-darwin)
+    ffi (1.17.1-x86_64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
     gli (2.21.5)
@@ -236,7 +236,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     localhost (1.3.1)
-    logger (1.6.2)
+    logger (1.6.4)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -265,14 +265,14 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.8-arm64-darwin)
+    nokogiri (1.18.1-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.8-x86_64-darwin)
+    nokogiri (1.18.1-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.8-x86_64-linux)
+    nokogiri (1.18.1-x86_64-linux-gnu)
       racc (~> 1.4)
     oauth (0.5.14)
-    oj (3.16.7)
+    oj (3.16.9)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     ostruct (0.6.1)
@@ -298,7 +298,7 @@ GEM
       rack (>= 1.2.0)
     rack-session (1.0.2)
       rack (< 3)
-    rack-test (2.1.0)
+    rack-test (2.2.0)
       rack (>= 1.3)
     rackup (1.0.1)
       rack (< 3)
@@ -346,10 +346,10 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     redis (4.8.1)
-    regexp_parser (2.9.3)
+    regexp_parser (2.10.0)
     reline (0.5.10)
       io-console (~> 0.5)
-    rexml (3.3.9)
+    rexml (3.4.0)
     rubocop (1.66.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
